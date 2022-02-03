@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MonitoringApp</string>
+    <string name="button_customer">Paciente</string>
+    <string name="button_doctor">Medico</string>
+    <string name="content_image_doctor">ImageDoctor</string>
+    <string name="text_description_app">Sistema de Monitoreo</string>
+    <string name="text_title_app">AYNI</string>
+    <string name="content_image_logo">ImageLogo</string>
+    <string name="content_image_cardio">ImageCardio</string>
+    <string name="content_image_customer">ImageCustomer</string>
+</resources>
