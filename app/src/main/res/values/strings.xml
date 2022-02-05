@@ -1,11 +1,41 @@
 <resources>
     <string name="app_name">MonitoringApp</string>
-    <string name="button_customer">Paciente</string>
-    <string name="button_doctor">Medico</string>
-    <string name="content_image_doctor">ImageDoctor</string>
     <string name="text_description_app">Sistema de Monitoreo</string>
     <string name="text_title_app">AYNI</string>
+
+    <!--Patient-->
+    <string name="button_customer">Paciente</string>
+
+    <!--Doctor-->
+    <string name="button_doctor">Medico</string>
+    <string name="content_image_doctor">ImageDoctor</string>
     <string name="content_image_logo">ImageLogo</string>
     <string name="content_image_cardio">ImageCardio</string>
     <string name="content_image_customer">ImageCustomer</string>
+
+    <!--Login-->
+    <string name="text_login">Iniciar Sesión</string>
+    <string name="text_dni">DNI</string>
+    <string name="text_password">Contraseña</string>
+    <string name="text_description_login">Ingresa tu cuenta para continuar</string>
+
+    <!--Forgot Password-->
+    <string name="text_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="button_get_into">Ingresar</string>
+    <string name="title_forgot_password">Olvidé contraseña</string>
+    <string name="text_enter_dni">Ingresa Número de DNI</string>
+    <string name="text_date">Fecha de Nacimiento</string>
+    <string name="button_next">Siguiente</string>
+    <string name="button_accept">Aceptar</string>
+    <string name="title_change_password">Cambio de contraseña</string>
+    <string name="text_current_password">Ingresar contraseña actual</string>
+    <string name="text_new_password">Ingresa nueva contraseña</string>
+    <string name="text_new_repassword">Ingresar nueva contraseña nuevamente</string>
+    <string name="text_type">Tipo</string>
+
+
+    <!--Defaults-->
+    <string name="text_default_empty"> </string>
+
+
 </resources>

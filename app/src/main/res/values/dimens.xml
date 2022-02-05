@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_horizontal">24dp</dimen>
+    <dimen name="top_title">65dp</dimen>
+    <dimen name="text_left">24dp</dimen>
+    <dimen name="edit_top">16dp</dimen>
+
+    <dimen name="toolbar_title_size">18sp</dimen>
+</resources>

@@ -11,7 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoringApp">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.patient.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.patient.HomePatientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
