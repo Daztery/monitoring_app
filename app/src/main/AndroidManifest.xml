@@ -11,6 +11,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoringApp">
         <activity
+            android:name=".ui.patient.PrescriptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.patient.AlertsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.patient.DailyReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.patient.MedicalHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.patient.MedicalRecordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.patient.InformationActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.patient.ProfileActivity"
             android:exported="false" />
         <activity

@@ -30,7 +30,6 @@ class StartActivity : AppCompatActivity() {
                 intent.putExtra(Constants.KEY_TYPE, "Paciente")
                 startActivity(intent)
             }
-
         }
 
     }

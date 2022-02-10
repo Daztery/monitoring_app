@@ -3,14 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_alerts.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_change_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_daily_report.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_forgot_password.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_home_patient.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_information.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_medical_history.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_medical_record.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_prescription.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_start.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_home_patient.xml" value="0.35260416666666666" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/header_hamburger.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/toolbar.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/menu/menu_hamburger.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

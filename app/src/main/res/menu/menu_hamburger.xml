@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile_fragment"
+            android:title="Mi perfil" />
+        <item
+            android:id="@+id/nav_history_doctor_fragment"
+            android:title="Historial Médico" />
+        <item
+            android:id="@+id/nav_medica_record_fragment"
+            android:title="Ficha Médica" />
+        <item
+            android:id="@+id/nav_daily_report_fragment"
+            android:title="Reporte diario" />
+        <item
+            android:id="@+id/nav_alerts_fragment"
+            android:title="Alertas" />
+        <item
+            android:id="@+id/nav_prescription_fragment"
+            android:title="Receta Médica" />
+    </group>
+</menu>

@@ -38,4 +38,17 @@
     <string name="text_default_empty"> </string>
 
 
+    <!--NavGraph-->
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_save">Guardar</string>
+    <string name="text_nro_documento">Nro Documento</string>
+    <string name="text_name_lastname">Nombres y Apellidos</string>
+    <string name="text_birthday">Fecha de Nacimiento</string>
+    <string name="text_age">Edad</string>
+    <string name="text_email">Correo electrónico</string>
+    <string name="fullname">Fulano Fulano</string>
+
 </resources>
