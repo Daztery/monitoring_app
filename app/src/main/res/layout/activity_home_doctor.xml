@@ -6,13 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.patient.HomePatientActivity"
+    tools:context=".ui.doctor.HomeDoctorActivity"
     tools:openDrawer="start">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.patient.HomePatientActivity">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -24,7 +23,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -33,10 +32,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemTextColor="@color/white"
         android:background="@color/blue_600"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_hamburger"
-        app:menu="@menu/menu_patient" />
+        app:itemTextColor="@color/white"
+        app:menu="@menu/menu_doctor" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

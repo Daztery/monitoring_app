@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <!--item
+            android:id="@+id/nav_profile_fragment"
+            android:title="Reporte Médico" />
+        <item
+            android:id="@+id/nav_history_doctor_fragment"
+            android:title="Estado de Paciente" />
+        <item
+            android:id="@+id/nav_medica_record_fragment"
+            android:title="Pacientes por prioridad" />
+        <item
+            android:id="@+id/nav_daily_report_fragment"
+            android:title="Pacientes por tipo de emergencia" /-->
+        <item
+            android:id="@+id/nav_reports_fragment"
+            android:title="Reportes" />
+        <item
+            android:id="@+id/nav_alerts_doctor_fragment"
+            android:title="Alertas" />
+        <item
+            android:id="@+id/nav_search_patient_fragment"
+            android:title="Buscar Paciente" />
+        <item
+            android:id="@+id/nav_register_plan_fragment"
+            android:title="Registrar Plan de Monitoreo" />
+        <item
+            android:id="@+id/nav_register_patient_fragment"
+            android:title="Registrar Paciente" />
+    </group>
+</menu>
