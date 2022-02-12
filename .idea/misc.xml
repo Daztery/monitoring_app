@@ -6,6 +6,7 @@
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_alerts.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_change_password.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_daily_report.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_edit_patient.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_forgot_password.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_home_doctor.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_home_patient.xml" value="0.36666666666666664" />
@@ -29,6 +30,7 @@
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_patients_emergency.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_patients_priority.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_register_patient.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_reports.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_search_patient.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/header_hamburger.xml" value="0.36666666666666664" />
