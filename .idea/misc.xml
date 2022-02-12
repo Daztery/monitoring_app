@@ -16,9 +16,12 @@
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_medical_record.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_prescription.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_search_patient.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_start.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_alert_detail.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_alerts_docto.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_alerts_doctor.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_first.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_home_doctor.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_home_patient.xml" value="0.35260416666666666" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_medic_report.xml" value="0.36666666666666664" />

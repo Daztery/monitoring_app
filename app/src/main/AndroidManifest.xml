@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoringApp">
         <activity
+            android:name=".ui.doctor.SearchPatientActivity"
+            android:exported="false"
+            android:label="@string/title_activity_search_patient"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
+        <activity
             android:name=".ui.doctor.HomeDoctorActivity"
             android:exported="false" />
         <activity
