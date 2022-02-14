@@ -62,5 +62,9 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="button_edit">Editar</string>
+    <string name="button_register">Registrar</string>
+    <string name="text_height">Altura (cm)</string>
+    <string name="text_weight">Peso (Kg)</string>
+    <string name="text_blood">Grupo sanguineo</string>
 
 </resources>

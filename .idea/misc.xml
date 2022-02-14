@@ -30,6 +30,8 @@
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_patients_emergency.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_patients_priority.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_register_monitoring_plan.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_register_monitoring_plan_detail.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_register_patient.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_reports.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/fragment_search_patient.xml" value="0.36666666666666664" />
