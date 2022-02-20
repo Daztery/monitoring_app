@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.monitoringapp.databinding.ActivityEditPatientBinding
 import com.example.monitoringapp.util.DataUtil
-import com.example.monitoringapp.util.Formatter.formatLocalDate
+import com.example.monitoringapp.util.Formatter
 import java.util.*
 
 class EditPatientActivity : AppCompatActivity() {
@@ -21,6 +21,12 @@ class EditPatientActivity : AppCompatActivity() {
         binding = ActivityEditPatientBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        binding.run {
+            buttonBirthday.setOnClickListener {
+                showDatePickerDialog()
+            }
+        }
     }
 
     private fun showDatePickerDialog() {
@@ -39,9 +45,9 @@ class EditPatientActivity : AppCompatActivity() {
                 c.set(mYear, mMonth, mDay)
 
                 val date = Date(c.timeInMillis)
-                //val textCalendar = Formatter.formatLocalDate(date)
+                val textCalendar = Formatter.formatLocalDate(date)
                 currentDate = date
-                //binding.buttonCalendar.text = textCalendar
+                binding.buttonBirthday.text = textCalendar
 
                 //userBirthdate = c.timeInMillis / 1000
             }, mYear, mMonth, mDay

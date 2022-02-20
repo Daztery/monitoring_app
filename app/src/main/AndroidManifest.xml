@@ -12,7 +12,15 @@
         android:theme="@style/Theme.MonitoringApp">
         <activity
             android:name=".ui.doctor.EditPatientActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".ui.doctor.SearchPatientActivity"
             android:exported="false"
@@ -40,9 +48,6 @@
             android:name=".ui.patient.InformationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.patient.ProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.patient.HomePatientActivity"
             android:exported="false" />
         <activity
@@ -57,11 +62,6 @@
         <activity
             android:name=".ui.StartActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

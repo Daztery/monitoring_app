@@ -91,15 +91,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_name_lastname" />
 
-        <EditText
-            android:id="@+id/edit_birthday"
+        <Button
+            android:id="@+id/button_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_horizontal"
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
-            android:ems="10"
-            android:inputType="textPersonName"
+            android:text="@string/date_start_year"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -112,7 +111,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:text="@string/text_age"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_birthday" />
+            app:layout_constraintTop_toBottomOf="@+id/button_birthday" />
 
         <EditText
             android:id="@+id/edit_age"
