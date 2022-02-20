@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_gradiente"
     tools:context=".ui.StartActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,14 +13,14 @@
 
         <ImageView
             android:id="@+id/image_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginTop="30dp"
             android:contentDescription="@string/content_image_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background"
+            app:srcCompat="@drawable/cruz"
             tools:ignore="ImageContrastCheck" />
 
         <TextView
@@ -70,15 +71,15 @@
 
         <ImageView
             android:id="@+id/image_patient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginTop="52dp"
             android:contentDescription="@string/content_image_customer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_doctor"
-            app:srcCompat="@drawable/ic_launcher_background"
+            app:srcCompat="@drawable/icon_person"
             tools:ignore="ImageContrastCheck" />
 
         <Button
@@ -94,8 +95,8 @@
 
         <ImageView
             android:id="@+id/image_cardio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="10dp"
             android:contentDescription="@string/content_image_cardio"
@@ -103,7 +104,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_patient"
-            app:srcCompat="@drawable/ic_launcher_background"
+            app:srcCompat="@drawable/signo_vital"
             tools:ignore="ImageContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

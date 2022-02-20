@@ -17,11 +17,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonNext.setOnClickListener {
-            //val intent = Intent(this@ForgotPasswordActivity, ChangePasswordActivity::class.java)
-            //startActivity(intent)
             showAlertDialog()
         }
-
 
     }
 
@@ -29,7 +26,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Se envió una contraseña temporal a su celular registrado")
 
-        builder.setNeutralButton("Ok") { _, _ -> }
+        builder.setNeutralButton("Ok") { _, _ ->
+            val intent = Intent(this@ForgotPasswordActivity, ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
 
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
