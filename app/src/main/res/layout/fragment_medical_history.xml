@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_gradiente"
-    tools:context=".ui.patient.MedicalHistoryActivity">
+    tools:context=".ui.patient.MedicalHistoryFragment">
 
     <TextView
         android:id="@+id/textView"
@@ -37,7 +37,7 @@
         android:layout_marginTop="62dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/icon_calendar" />
 
     <TextView
         android:id="@+id/textView3"

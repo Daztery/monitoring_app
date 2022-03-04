@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.monitoringapp">
+    package="com.example.monitoringapp" >
 
     <application
         android:name=".MVVMApplication"
@@ -9,17 +9,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MonitoringApp">
+        android:theme="@style/Theme.MonitoringApp" >
+        <activity
+            android:name=".ui.doctor.MedicalConsultationDetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_medical_consultation_detail"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
         <activity
             android:name=".ui.doctor.EditPatientActivity"
             android:exported="true" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.doctor.SearchPatientActivity"
@@ -61,7 +64,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.StartActivity"
-            android:exported="true">
+            android:exported="true" >
         </activity>
     </application>
 

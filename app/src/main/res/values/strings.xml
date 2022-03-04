@@ -67,5 +67,7 @@
     <string name="text_weight">Peso (Kg)</string>
     <string name="text_blood">Grupo sanguineo</string>
     <string name="date_start_year">01/01/2022</string>
+    <string name="title_activity_medical_consultation_detail">MedicalConsultationDetailActivity
+    </string>
 
 </resources>

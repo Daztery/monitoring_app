@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_gradiente"
-    tools:context=".ui.patient.DailyReportActivity">
+    tools:context=".ui.patient.DailyReportFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -318,4 +318,5 @@
             app:layout_constraintTop_toBottomOf="@+id/constraint_general_discomfort_below" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
