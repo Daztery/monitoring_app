@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.monitoringapp.databinding.FragmentSearchPatientBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchPatientFragment : Fragment() {
 
     private var _binding: FragmentSearchPatientBinding? = null

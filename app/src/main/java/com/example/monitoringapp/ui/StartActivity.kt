@@ -25,11 +25,11 @@ class StartActivity : AppCompatActivity() {
 
         val intent = Intent(this@StartActivity, LoginActivity::class.java)
 
-        if (PreferencesHelper.type == "Patient") {
+        if (PreferencesHelper.type == Constants.PATIENT) {
             val intentPatient = Intent(this@StartActivity, HomePatientActivity::class.java)
             startActivity(intentPatient)
             finish()
-        } else if (PreferencesHelper.type == "Doctor") {
+        } else if (PreferencesHelper.type ==  Constants.DOCTOR) {
             val intentDoctor = Intent(this@StartActivity, HomeDoctorActivity::class.java)
             startActivity(intentDoctor)
             finish()

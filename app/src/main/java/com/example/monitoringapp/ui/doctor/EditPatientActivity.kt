@@ -6,8 +6,10 @@ import android.os.Bundle
 import com.example.monitoringapp.databinding.ActivityEditPatientBinding
 import com.example.monitoringapp.util.DataUtil
 import com.example.monitoringapp.util.Formatter
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class EditPatientActivity : AppCompatActivity() {
 
     var currentDate: Date = DataUtil.getCurrentDate()

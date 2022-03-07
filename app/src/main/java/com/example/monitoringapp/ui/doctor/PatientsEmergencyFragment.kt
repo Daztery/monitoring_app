@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.FragmentPatientStatusBinding
 import com.example.monitoringapp.databinding.FragmentPatientsEmergencyBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PatientsEmergencyFragment : Fragment() {
 
     private var _binding: FragmentPatientsEmergencyBinding? = null

@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.monitoringapp.databinding.ActivityMedicalConsultationDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MedicalConsultationDetailActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration

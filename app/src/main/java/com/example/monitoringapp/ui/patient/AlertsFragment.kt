@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.monitoringapp.databinding.FragmentAlertsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AlertsFragment : Fragment() {
 
     private var _binding: FragmentAlertsBinding? = null

@@ -9,7 +9,9 @@ import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomeDoctorBinding
 import com.example.monitoringapp.databinding.ActivityHomePatientBinding
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeDoctorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityHomeDoctorBinding

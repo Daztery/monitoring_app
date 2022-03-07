@@ -70,5 +70,6 @@
     <string name="date_start_year">01/01/2022</string>
     <string name="title_activity_medical_consultation_detail">MedicalConsultationDetailActivity
     </string>
+    <string name="textview">Textview</string>
 
 </resources>

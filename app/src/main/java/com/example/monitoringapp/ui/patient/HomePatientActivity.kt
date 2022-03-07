@@ -1,7 +1,6 @@
 package com.example.monitoringapp.ui.patient
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +8,10 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomePatientBinding
-import com.example.monitoringapp.util.toast
-import com.google.android.material.navigation.NavigationView
+import com.example.monitoringapp.ui.patient.profile.ProfileFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomePatientActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityHomePatientBinding
@@ -34,8 +34,8 @@ class HomePatientActivity : AppCompatActivity(){
             )
 
             drawerLayout.addDrawerListener(actionBarDrawerToggle)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             actionBarDrawerToggle.syncState()
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
 
 

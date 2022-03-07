@@ -3,7 +3,7 @@ package com.example.monitoringapp.data.network.service
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.api.AuthenticationApiClient
 import com.example.monitoringapp.data.network.request.SignInRequest
-import com.example.monitoringapp.data.network.response.ErrorResponse
+import com.example.monitoringapp.data.network.response.GenericErrorResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.DataUtil
@@ -21,10 +21,10 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
                     val data = it.body()
                     OperationResult.Success(data)
                 } else {
-                    val type = object : TypeToken<ErrorResponse>() {}.type
+                    val type = object : TypeToken<GenericErrorResponse>() {}.type
                     val errorData = response.errorBody()!!.charStream()
-                    val errorResponse: ErrorResponse? = DataUtil.getFromJson(errorData, type)
-                    OperationResult.Error(errorResponse?.message ?: Constants.DEFAULT_ERROR)
+                    val errorResponse: GenericErrorResponse? = DataUtil.getFromJson(errorData, type)
+                    OperationResult.Error(errorResponse?.error?.message ?: Constants.DEFAULT_ERROR)
                 }
             }
         } catch (e: Exception) {
@@ -40,10 +40,10 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
                     val data = it.body()
                     OperationResult.Success(data)
                 } else {
-                    val type = object : TypeToken<ErrorResponse>() {}.type
+                    val type = object : TypeToken<GenericErrorResponse>() {}.type
                     val errorData = response.errorBody()!!.charStream()
-                    val errorResponse: ErrorResponse? = DataUtil.getFromJson(errorData, type)
-                    OperationResult.Error(errorResponse?.message ?: Constants.DEFAULT_ERROR)
+                    val errorResponse: GenericErrorResponse? = DataUtil.getFromJson(errorData, type)
+                    OperationResult.Error(errorResponse?.error?.message ?: Constants.DEFAULT_ERROR)
                 }
             }
         } catch (e: Exception) {

@@ -1,6 +1,7 @@
 package com.example.monitoringapp.di
 
 import com.example.monitoringapp.data.network.api.AuthenticationApiClient
+import com.example.monitoringapp.data.network.api.UserApiClient
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.PreferencesHelper
 import com.google.gson.GsonBuilder
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 import okhttp3.Interceptor
 import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -35,20 +37,25 @@ object NetworkModule {
         val httpClient = OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(TokenHeader())
-            //.addInterceptor(interceptor())
+            .addInterceptor(interceptor())
 
         return builder.client(httpClient.build()).build()
     }
 
-    /*private fun interceptor(): HttpLoggingInterceptor {
+    private fun interceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
-    }*/
+    }
 
     @Provides
     fun provideAuthenticationApiClient(retrofit: Retrofit): AuthenticationApiClient {
         return retrofit.create(AuthenticationApiClient::class.java)
+    }
+
+    @Provides
+    fun provideUserApiClient(retrofit: Retrofit): UserApiClient {
+        return retrofit.create(UserApiClient::class.java)
     }
 
 }
@@ -64,7 +71,7 @@ class TokenHeader : Interceptor {
 
             val builder = original.newBuilder()
                 .addHeader("Authorization", "Bearer $token")
-                .method(original.method(), original.body())
+                .method(original.method, original.body)
 
             newRequest = builder.build()
 

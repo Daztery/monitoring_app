@@ -10,6 +10,10 @@ object Constants {
     const val KEY_PATIENT = "patient"
     const val KEY_TYPE = "type"
 
+    const val PATIENT = "Patient"
+    const val DOCTOR = "Doctor"
+
+
     // Messages
     const val DEFAULT_ERROR = "Ocurrió un error."
 }

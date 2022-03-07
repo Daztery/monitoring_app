@@ -84,7 +84,7 @@
         android:layout_marginTop="29dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/icon_blood" />
+        app:srcCompat="@drawable/icon_red_blood" />
 
     <TextView
         android:id="@+id/text_weight"
@@ -148,7 +148,7 @@
         android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView10"
-        app:srcCompat="@drawable/icon_ruler" />
+        app:srcCompat="@drawable/icon_ruler_yellow" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -158,7 +158,7 @@
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView11"
-        app:srcCompat="@drawable/icon_temperature" />
+        app:srcCompat="@drawable/icon_temperature_red" />
 
     <ImageView
         android:id="@+id/imageView13"
