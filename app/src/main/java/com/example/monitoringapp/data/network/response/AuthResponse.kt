@@ -8,15 +8,15 @@ data class AuthResponse(
     @SerializedName("data")
     var userData: User?
 )
-/*
-data class ExtendTokenResponse(
-    var success: Boolean,
-    @SerializedName("data")
-    var token: String?
-)
 
-data class GetSelfUserResponse(
+data class LogoutResponse(
     var success: Boolean?,
     @SerializedName("data")
-    var user: User?
-)*/
+    var message: String?
+)
+
+data class RefreshTokenResponse(
+    var token: String,
+    var refreshToken: String
+)
+

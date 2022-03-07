@@ -1,8 +1,13 @@
 package com.example.monitoringapp.data.network.api
 
 import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.data.network.request.RecoverPasswordRequest
+import com.example.monitoringapp.data.network.request.RefreshTokenRequest
 import com.example.monitoringapp.data.network.request.SignInRequest
+import com.example.monitoringapp.data.network.request.UpdatePasswordRequest
+import com.example.monitoringapp.data.network.response.LogoutResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
+import com.example.monitoringapp.data.network.response.RefreshTokenResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -14,12 +19,16 @@ interface AuthenticationApiClient {
     @POST("auth/signin/patient")
     suspend fun loginPatient(@Body user: SignInRequest): Response<ObjectResponse<User>>
 
-    /*@GET("auth/extend-token")
-    suspend fun refreshToken(): Response<ExtendTokenResponse>
+    @DELETE("/auth/signout/{refreshToken}")
+    suspend fun logout(@Path("refreshToken") refreshToken: String): Response<LogoutResponse>
 
-    @GET("users/self/logout")
-    suspend fun logout(
-        @Query("deviceUUID") deviceUUID:String
-    ): Response<AuthResponse>*/
+    @POST("auth/token/refresh")
+    suspend fun refreshToken(@Body refreshTokenRequest: RefreshTokenRequest): Response<RefreshTokenResponse>
+
+    /*@POST("auth/password/forgot")
+    suspend fun recoverPassword(@Body recoverPasswordRequest: RecoverPasswordRequest): Response<AuthResponse>*/
+
+    /*@POST("auth/password/update")
+    suspend fun updatePassword(@Body updatePasswordRequest: UpdatePasswordRequest): Response<AuthResponse>*/
 
 }

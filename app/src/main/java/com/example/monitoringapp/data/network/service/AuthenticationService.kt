@@ -2,9 +2,12 @@ package com.example.monitoringapp.data.network.service
 
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.api.AuthenticationApiClient
+import com.example.monitoringapp.data.network.request.RefreshTokenRequest
 import com.example.monitoringapp.data.network.request.SignInRequest
 import com.example.monitoringapp.data.network.response.GenericErrorResponse
+import com.example.monitoringapp.data.network.response.LogoutResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
+import com.example.monitoringapp.data.network.response.RefreshTokenResponse
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.DataUtil
 import com.example.monitoringapp.util.OperationResult
@@ -51,34 +54,18 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
         }
     }
 
-
-    /*suspend fun forgotPassword(user: User): OperationResult<Boolean> {
+    suspend fun logout(refreshToken: String): OperationResult<LogoutResponse> {
         try {
-            val response = apiClient.forgotPassword(user)
-            response.let {
-                return if (it.isSuccessful) {
-                    OperationResult.Success(true)
-                } else {
-                    OperationResult.Success(false)
-                }
-            }
-        } catch (e: Exception) {
-            return OperationResult.Error(e.message ?: Constants.DEFAULT_ERROR)
-        }
-    }
-
-    suspend fun extendToken(): OperationResult<ExtendTokenResponse> {
-        try {
-            val response = apiClient.extendToken()
+            val response = apiClient.logout(refreshToken)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()
                     OperationResult.Success(data)
                 } else {
-                    val type = object : TypeToken<ErrorResponse>() {}.type
+                    val type = object : TypeToken<GenericErrorResponse>() {}.type
                     val errorData = response.errorBody()!!.charStream()
-                    val errorResponse: ErrorResponse? = DataUtil.getFromJson(errorData, type)
-                    OperationResult.Error(errorResponse?.message ?: Constants.DEFAULT_ERROR)
+                    val errorResponse: GenericErrorResponse? = DataUtil.getFromJson(errorData, type)
+                    OperationResult.Error(errorResponse?.error?.message ?: Constants.DEFAULT_ERROR)
                 }
             }
         } catch (e: Exception) {
@@ -86,19 +73,24 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
         }
     }
 
-    suspend fun logout(deviceUUID: String): OperationResult<Boolean> {
+    suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): OperationResult<RefreshTokenResponse> {
         try {
-            val response = apiClient.logout(deviceUUID)
+            val response = apiClient.refreshToken(refreshTokenRequest)
             response.let {
-                return if (response.isSuccessful) {
-                    OperationResult.Success(true)
+                return if (it.isSuccessful && it.body() != null) {
+                    val data = it.body()
+                    OperationResult.Success(data)
                 } else {
-                    OperationResult.Success(false)
+                    val type = object : TypeToken<GenericErrorResponse>() {}.type
+                    val errorData = response.errorBody()!!.charStream()
+                    val errorResponse: GenericErrorResponse? = DataUtil.getFromJson(errorData, type)
+                    OperationResult.Error(errorResponse?.error?.message ?: Constants.DEFAULT_ERROR)
                 }
             }
         } catch (e: Exception) {
             return OperationResult.Error(e.message ?: Constants.DEFAULT_ERROR)
         }
-    }*/
+    }
+
 
 }
