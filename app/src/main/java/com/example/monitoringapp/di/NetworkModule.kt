@@ -1,6 +1,8 @@
 package com.example.monitoringapp.di
 
+import com.example.monitoringapp.data.network.api.AuthenticationApiClient
 import com.example.monitoringapp.util.Constants
+import com.example.monitoringapp.util.PreferencesHelper
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -32,7 +34,7 @@ object NetworkModule {
 
         val httpClient = OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
-            //.addInterceptor(TokenHeader())
+            .addInterceptor(TokenHeader())
             //.addInterceptor(interceptor())
 
         return builder.client(httpClient.build()).build()
@@ -44,9 +46,33 @@ object NetworkModule {
         return interceptor
     }*/
 
-   /* @Provides
+    @Provides
     fun provideAuthenticationApiClient(retrofit: Retrofit): AuthenticationApiClient {
         return retrofit.create(AuthenticationApiClient::class.java)
-    }*/
+    }
 
 }
+
+class TokenHeader : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+
+        val token = PreferencesHelper.token
+        val original = chain.request()
+        var newRequest = original
+
+        if (!token.isNullOrBlank()) {
+
+            val builder = original.newBuilder()
+                .addHeader("Authorization", "Bearer $token")
+                .method(original.method(), original.body())
+
+            newRequest = builder.build()
+
+        }
+
+
+        return chain.proceed(newRequest)
+    }
+}
+
+

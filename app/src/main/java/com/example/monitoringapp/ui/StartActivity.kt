@@ -5,8 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.monitoringapp.databinding.ActivityStartBinding
 import com.example.monitoringapp.ui.auth.LoginActivity
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
+import com.example.monitoringapp.ui.patient.HomePatientActivity
+import com.example.monitoringapp.ui.patient.HomePatientFragment
 import com.example.monitoringapp.util.Constants
+import com.example.monitoringapp.util.PreferencesHelper
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStartBinding
@@ -18,6 +24,17 @@ class StartActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val intent = Intent(this@StartActivity, LoginActivity::class.java)
+
+        if (PreferencesHelper.type == "Patient") {
+            val intentPatient = Intent(this@StartActivity, HomePatientActivity::class.java)
+            startActivity(intentPatient)
+            finish()
+        } else if (PreferencesHelper.type == "Doctor") {
+            val intentDoctor = Intent(this@StartActivity, HomeDoctorActivity::class.java)
+            startActivity(intentDoctor)
+            finish()
+        }
+
 
         binding.run {
 

@@ -3,22 +3,34 @@ package com.example.monitoringapp.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.example.monitoringapp.R
+import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.data.network.request.SignInRequest
 import com.example.monitoringapp.databinding.ActivityLoginBinding
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.ui.patient.HomePatientActivity
-import com.example.monitoringapp.util.Constants
+import com.example.monitoringapp.util.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
+    private val authenticationViewModel: AuthenticationViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
-
+    var type = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupObservers()
+
         binding.run {
 
-            val type = intent.getStringExtra(Constants.KEY_TYPE)
+            type = intent.getStringExtra(Constants.KEY_TYPE) ?: ""
             textType.text = type
 
             textForgotPassword.setOnClickListener {
@@ -27,14 +39,82 @@ class LoginActivity : AppCompatActivity() {
             }
 
             buttonLogin.setOnClickListener {
-                if (type == "Paciente") {
-                    val intent = Intent(this@LoginActivity, HomePatientActivity::class.java)
-                    startActivity(intent)
-                }
+                login(editDni.text.toString(), editPassword.text.toString())
             }
 
+        }
+    }
+
+    private fun setupObservers() {
+        authenticationViewModel.uiViewLoginDoctorStateObservable.observe(
+            this@LoginActivity,
+            loginDoctorObserver
+        )
+
+        authenticationViewModel.uiViewLoginPatientStateObservable.observe(
+            this@LoginActivity,
+            loginPatientObserver
+        )
+    }
+
+    private fun login(email: String, password: String) {
+        binding.run {
+            if (email.isNotBlank() && password.isNotBlank()) {
+                val user = SignInRequest(
+                    identification = editDni.text.toString().trim(),
+                    password = editPassword.text.toString()
+                )
+                if (type == "Médico") {
+                    authenticationViewModel.loginDoctor(user)
+                } else {
+                    authenticationViewModel.loginPatient(user)
+                }
+            } else {
+                toast(resources.getText(R.string.text_missing_email_or_password).toString())
+            }
+        }
+    }
 
 
+    private val loginDoctorObserver = Observer<UIViewState<User>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val userData = it.result
+
+                PreferencesHelper.token = userData.token
+                PreferencesHelper.type = "Doctor"
+                PreferencesHelper.userData = DataUtil.stringify(userData)
+
+                val intent = Intent(this@LoginActivity, HomeDoctorActivity::class.java)
+                startActivity(intent)
+            }
+            is UIViewState.Loading -> {
+                // TODO: Handle UI loading
+            }
+            is UIViewState.Error -> {
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+    private val loginPatientObserver = Observer<UIViewState<User>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val userData = it.result
+
+                PreferencesHelper.token = userData.token
+                PreferencesHelper.type = "Patient"
+                PreferencesHelper.userData = DataUtil.stringify(userData)
+
+                val intent = Intent(this@LoginActivity, HomePatientActivity::class.java)
+                startActivity(intent)
+            }
+            is UIViewState.Loading -> {
+                // TODO: Handle UI loading
+            }
+            is UIViewState.Error -> {
+                toast(Constants.DEFAULT_ERROR)
+            }
         }
     }
 }

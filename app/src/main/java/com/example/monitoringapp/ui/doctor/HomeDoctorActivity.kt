@@ -2,13 +2,15 @@ package com.example.monitoringapp.ui.doctor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomeDoctorBinding
 import com.example.monitoringapp.databinding.ActivityHomePatientBinding
+import com.google.android.material.navigation.NavigationView
 
-class HomeDoctorActivity : AppCompatActivity() {
+class HomeDoctorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityHomeDoctorBinding
 
@@ -33,6 +35,8 @@ class HomeDoctorActivity : AppCompatActivity() {
             actionBarDrawerToggle.syncState()
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+            navigationView.setNavigationItemSelectedListener(this@HomeDoctorActivity)
+
         }
     }
 
@@ -41,4 +45,11 @@ class HomeDoctorActivity : AppCompatActivity() {
             true
         } else super.onOptionsItemSelected(item)
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        Log.i("Selected",item.itemId.toString())
+        return true
+    }
+
+
 }

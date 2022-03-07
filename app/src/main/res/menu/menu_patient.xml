@@ -8,7 +8,7 @@
             android:id="@+id/nav_history_doctor_fragment"
             android:title="Historial Médico" />
         <item
-            android:id="@+id/nav_medica_record_fragment"
+            android:id="@+id/nav_medical_record_fragment"
             android:title="Ficha Médica" />
         <item
             android:id="@+id/nav_daily_report_fragment"

@@ -18,6 +18,7 @@
     <string name="text_dni">DNI</string>
     <string name="text_password">Contraseña</string>
     <string name="text_description_login">Ingresa tu cuenta para continuar</string>
+    <string name="text_missing_email_or_password">Por favor completar correo y contraseña.</string>
 
     <!--Forgot Password-->
     <string name="text_forgot_password">¿Olvidaste tu contraseña?</string>

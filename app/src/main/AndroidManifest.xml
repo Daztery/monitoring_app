@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.monitoringapp" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:name=".MVVMApplication"
+        android:name="com.example.monitoringapp.MVVMApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,11 +20,6 @@
         <activity
             android:name=".ui.doctor.EditPatientActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.doctor.SearchPatientActivity"
@@ -31,21 +28,6 @@
             android:theme="@style/Theme.MonitoringApp.NoActionBar" />
         <activity
             android:name=".ui.doctor.HomeDoctorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.patient.PrescriptionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.patient.AlertsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.patient.DailyReportActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.patient.MedicalHistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.patient.MedicalRecordActivity"
             android:exported="false" />
         <activity
             android:name=".ui.patient.InformationActivity"
@@ -65,6 +47,11 @@
         <activity
             android:name=".ui.StartActivity"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
