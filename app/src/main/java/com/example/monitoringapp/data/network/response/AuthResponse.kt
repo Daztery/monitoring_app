@@ -15,8 +15,4 @@ data class LogoutResponse(
     var message: String?
 )
 
-data class RefreshTokenResponse(
-    var token: String,
-    var refreshToken: String
-)
 

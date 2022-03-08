@@ -1,6 +1,7 @@
 package com.example.monitoringapp.di
 
 import com.example.monitoringapp.data.network.api.AuthenticationApiClient
+import com.example.monitoringapp.data.network.api.EmergencyTypeApiClient
 import com.example.monitoringapp.data.network.api.UserApiClient
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.PreferencesHelper
@@ -56,6 +57,11 @@ object NetworkModule {
     @Provides
     fun provideUserApiClient(retrofit: Retrofit): UserApiClient {
         return retrofit.create(UserApiClient::class.java)
+    }
+
+    @Provides
+    fun provideEmergencyTypeApiClient(retrofit: Retrofit): EmergencyTypeApiClient {
+        return retrofit.create(EmergencyTypeApiClient::class.java)
     }
 
 }

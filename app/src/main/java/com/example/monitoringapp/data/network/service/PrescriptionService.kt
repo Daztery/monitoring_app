@@ -1,24 +1,22 @@
 package com.example.monitoringapp.data.network.service
 
-import com.example.monitoringapp.data.model.User
-import com.example.monitoringapp.data.network.api.AuthenticationApiClient
-import com.example.monitoringapp.data.network.request.RefreshTokenRequest
-import com.example.monitoringapp.data.network.request.SignInRequest
+import com.example.monitoringapp.data.model.Prescription
+import com.example.monitoringapp.data.network.api.PrescriptionApiClient
+import com.example.monitoringapp.data.network.request.PlanPrescriptionRequest
+import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.data.network.response.GenericErrorResponse
-import com.example.monitoringapp.data.network.response.LogoutResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
-import com.example.monitoringapp.data.model.RefreshToken
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.DataUtil
 import com.example.monitoringapp.util.OperationResult
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
 
-class AuthenticationService @Inject constructor(private val apiClient: AuthenticationApiClient) {
+class PrescriptionService @Inject constructor(private val apiClient: PrescriptionApiClient) {
 
-    suspend fun loginDoctor(user: SignInRequest): OperationResult<ObjectResponse<User>> {
+    suspend fun getPlanPrescription(planId: Int): OperationResult<ObjectResponse<Prescription>> {
         try {
-            val response = apiClient.loginDoctor(user)
+            val response = apiClient.getPlanPrescription(planId)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()
@@ -35,9 +33,12 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
         }
     }
 
-    suspend fun loginPatient(user: SignInRequest): OperationResult<ObjectResponse<User>> {
+    suspend fun createPlanPrescription(
+        planId: Int,
+        planPrescriptionRequest: PlanPrescriptionRequest
+    ): OperationResult<CollectionResponse<Prescription>> {
         try {
-            val response = apiClient.loginPatient(user)
+            val response = apiClient.createPlanPrescription(planId, planPrescriptionRequest)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()
@@ -54,9 +55,12 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
         }
     }
 
-    suspend fun logout(refreshToken: String): OperationResult<LogoutResponse> {
+    suspend fun getSelfPrescription(
+        active: Boolean,
+        from: String
+    ): OperationResult<CollectionResponse<Prescription>> {
         try {
-            val response = apiClient.logout(refreshToken)
+            val response = apiClient.getSelfPrescription(active, from)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()
@@ -73,9 +77,9 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
         }
     }
 
-    suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): OperationResult<ObjectResponse<RefreshToken>> {
+    suspend fun getPrescription(id: Int): OperationResult<ObjectResponse<Prescription>> {
         try {
-            val response = apiClient.refreshToken(refreshTokenRequest)
+            val response = apiClient.getPrescription(id)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()
@@ -91,6 +95,5 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
             return OperationResult.Error(e.message ?: Constants.DEFAULT_ERROR)
         }
     }
-
 
 }

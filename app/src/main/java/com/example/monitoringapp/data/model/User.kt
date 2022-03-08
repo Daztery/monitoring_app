@@ -1,6 +1,7 @@
 package com.example.monitoringapp.data.model
 
 data class User(
+    var id: Int? = 0,
     var email: String? = "",
     var idType: String? = "",
     var identification: String? = "",
@@ -13,6 +14,7 @@ data class User(
 )
 
 data class Patient(
+    var id: Int? = 0,
     var firstName: String? = "",
     var lastName: String? = "",
     var birthdate: String? = "",
@@ -25,6 +27,7 @@ data class Patient(
 )
 
 data class Doctor(
+    var id: Int? = 0,
     var firstName: String? = "",
     var lastName: String? = "",
     var birthdate: String? = "",
