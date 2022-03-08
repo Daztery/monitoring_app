@@ -1,8 +1,6 @@
 package com.example.monitoringapp.di
 
-import com.example.monitoringapp.data.network.api.AuthenticationApiClient
-import com.example.monitoringapp.data.network.api.EmergencyTypeApiClient
-import com.example.monitoringapp.data.network.api.UserApiClient
+import com.example.monitoringapp.data.network.api.*
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.PreferencesHelper
 import com.google.gson.GsonBuilder
@@ -62,6 +60,26 @@ object NetworkModule {
     @Provides
     fun provideEmergencyTypeApiClient(retrofit: Retrofit): EmergencyTypeApiClient {
         return retrofit.create(EmergencyTypeApiClient::class.java)
+    }
+
+    @Provides
+    fun providePriorityTypeApiClient(retrofit: Retrofit): PriorityTypeApiClient {
+        return retrofit.create(PriorityTypeApiClient::class.java)
+    }
+
+    @Provides
+    fun provideReportTypeApiClient(retrofit: Retrofit): ReportApiClient {
+        return retrofit.create(ReportApiClient::class.java)
+    }
+
+    @Provides
+    fun provideMedicalCenterApiClient(retrofit: Retrofit): MedicalCenterApiClient {
+        return retrofit.create(MedicalCenterApiClient::class.java)
+    }
+
+    @Provides
+    fun providePrescriptionApiClient(retrofit: Retrofit): PrescriptionApiClient {
+        return retrofit.create(PrescriptionApiClient::class.java)
     }
 
 }
