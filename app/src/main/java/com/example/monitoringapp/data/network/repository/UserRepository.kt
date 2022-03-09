@@ -1,5 +1,6 @@
 package com.example.monitoringapp.data.network.repository
 
+import android.util.Log
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.request.UpdateDoctorRequest
 import com.example.monitoringapp.data.network.request.UpdatePatientRequest
@@ -21,12 +22,19 @@ class UserRepository @Inject constructor(
         return userService.getPatient(identification)
     }
 
-    suspend fun updatePatient(updatePatientRequest: UpdatePatientRequest): OperationResult<UpdateResponse> {
-        return userService.updatePatient(updatePatientRequest)
+    suspend fun updatePatient(
+        id: Int,
+        updatePatientRequest: UpdatePatientRequest
+    ): OperationResult<UpdateResponse> {
+        Log.i("ErrorAPI",userService.updatePatient(id, updatePatientRequest).toString())
+        return userService.updatePatient(id, updatePatientRequest)
     }
 
-    suspend fun updateDoctor(updateDoctorRequest: UpdateDoctorRequest): OperationResult<UpdateResponse> {
-        return userService.updateDoctor(updateDoctorRequest)
+    suspend fun updateDoctor(
+        id: Int,
+        updateDoctorRequest: UpdateDoctorRequest
+    ): OperationResult<UpdateResponse> {
+        return userService.updateDoctor(id, updateDoctorRequest)
     }
 
 }

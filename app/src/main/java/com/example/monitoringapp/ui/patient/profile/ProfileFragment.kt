@@ -1,5 +1,6 @@
 package com.example.monitoringapp.ui.patient.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentProfileBinding
+import com.example.monitoringapp.ui.patient.information.InformationActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Constants.PATIENT
 import com.example.monitoringapp.util.Formatter
@@ -19,9 +21,12 @@ import java.util.*
 class ProfileFragment : Fragment() {
 
     private val profileViewModel: ProfileViewModel by viewModels()
-    private var _binding: FragmentProfileBinding? = null
 
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var user: User
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +39,15 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         profileViewModel.getSelf()
+
+        binding.run {
+            imageEdit.setOnClickListener {
+                val intent = Intent(context, InformationActivity::class.java)
+                intent.putExtra(Constants.KEY_USER, user)
+                startActivity(intent)
+            }
+        }
+
     }
 
     private fun setupObservers() {
@@ -47,33 +61,44 @@ class ProfileFragment : Fragment() {
     private val getSelfObserver = Observer<UIViewState<User>> {
         when (it) {
             is UIViewState.Success -> {
-                val user = it.result
+                val userObserver = it.result
+                user = userObserver
                 binding.run {
-                    if (PreferencesHelper.type == PATIENT){
-                        textFullname.text = "${user.patient!!.firstName} ${user.patient!!.lastName}"
-                        textDni.text = user.identification
+                    progressBar.gone()
+                    constraint.visible()
+                    if (PreferencesHelper.type == PATIENT) {
+                        textFullname.text =
+                            "${userObserver.patient!!.firstName} ${userObserver.patient!!.lastName}"
+                        textDni.text = userObserver.identification
                         textGender.text = "Masculino"
-                        val date= Formatter.getLocaleDate(user.patient?.birthdate ?: "")
+                        val date = Formatter.getLocaleDate(userObserver.patient?.birthdate ?: "")
                         textAge.text = Formatter.formatLocalDate(date ?: Date())
-                        textCellphone.text = user.patient?.phone
-                        textEmail.text = user.email
-                    }else{
-                        textFullname.text = "${user.doctor?.firstName} ${user.doctor?.lastName}"
-                        textDni.text = user.identification
+                        textCellphone.text = userObserver.patient?.phone
+                        textEmail.text = userObserver.email
+                    } else {
+                        textFullname.text =
+                            "${userObserver.doctor?.firstName} ${userObserver.doctor?.lastName}"
+                        textDni.text = userObserver.identification
                         textGender.text = "Masculino"
-                        val date= Formatter.getLocaleDate(user.doctor?.birthdate ?: "")
+                        val date = Formatter.getLocaleDate(userObserver.doctor?.birthdate ?: "")
                         textAge.text = Formatter.formatLocalDate(date ?: Date())
-                        textCellphone.text = user.doctor?.phone
-                        textEmail.text = user.email
+                        textCellphone.text = userObserver.doctor?.phone
+                        textEmail.text = userObserver.email
                     }
-
                 }
 
             }
             is UIViewState.Loading -> {
-                // TODO: Handle UI loading
+                binding.run {
+                    progressBar.visible()
+                    constraint.gone()
+                }
             }
             is UIViewState.Error -> {
+                binding.run {
+                    progressBar.visible()
+                    constraint.gone()
+                }
                 toast(Constants.DEFAULT_ERROR)
             }
         }
@@ -82,5 +107,11 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        profileViewModel.getSelf()
     }
 }

@@ -11,6 +11,7 @@ import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.DataUtil
 import com.example.monitoringapp.util.OperationResult
 import com.google.gson.reflect.TypeToken
+import retrofit2.http.Path
 import javax.inject.Inject
 
 class UserService @Inject constructor(private val apiClient: UserApiClient) {
@@ -53,9 +54,12 @@ class UserService @Inject constructor(private val apiClient: UserApiClient) {
         }
     }
 
-    suspend fun updatePatient(updatePatientRequest: UpdatePatientRequest): OperationResult<UpdateResponse> {
+    suspend fun updatePatient(
+        id: Int,
+        updatePatientRequest: UpdatePatientRequest
+    ): OperationResult<UpdateResponse> {
         try {
-            val response = apiClient.updatePatient(updatePatientRequest)
+            val response = apiClient.updatePatient(id, updatePatientRequest)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()
@@ -72,9 +76,12 @@ class UserService @Inject constructor(private val apiClient: UserApiClient) {
         }
     }
 
-    suspend fun updateDoctor(updateDoctorRequest: UpdateDoctorRequest): OperationResult<UpdateResponse> {
+    suspend fun updateDoctor(
+        id: Int,
+        updateDoctorRequest: UpdateDoctorRequest
+    ): OperationResult<UpdateResponse> {
         try {
-            val response = apiClient.updateDoctor(updateDoctorRequest)
+            val response = apiClient.updateDoctor(id, updateDoctorRequest)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()

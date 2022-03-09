@@ -1,18 +1,20 @@
 package com.example.monitoringapp.ui.doctor
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomeDoctorBinding
-import com.example.monitoringapp.databinding.ActivityHomePatientBinding
-import com.google.android.material.navigation.NavigationView
+import com.example.monitoringapp.ui.StartActivity
+import com.example.monitoringapp.util.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeDoctorActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeDoctorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeDoctorBinding
 
@@ -37,7 +39,22 @@ class HomeDoctorActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             actionBarDrawerToggle.syncState()
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-            navigationView.setNavigationItemSelectedListener(this@HomeDoctorActivity)
+            navigationView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.nav_reports_fragment -> replaceFragment(ReportsFragment())
+                    R.id.nav_alerts_doctor_fragment -> replaceFragment(AlertsDoctorFragment())
+                    R.id.nav_search_patient_fragment -> replaceFragment(SearchPatientFragment())
+                    R.id.nav_register_plan_fragment -> replaceFragment(RegisterMonitoringPlanFragment())
+                    R.id.nav_register_patient_fragment -> replaceFragment(RegisterPatientFragment())
+                    R.id.logout_doctor -> {
+                        PreferencesHelper.clear()
+                        val intent = Intent(this@HomeDoctorActivity, StartActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+                true
+            }
 
         }
     }
@@ -48,10 +65,21 @@ class HomeDoctorActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         } else super.onOptionsItemSelected(item)
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        Log.i("Selected",item.itemId.toString())
-        return true
+    override fun onBackPressed() {
+        if (this.binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.nav_doctor_fragment, fragment)
+        fragmentTransaction.commit()
+        this.binding.drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
 
 
 }

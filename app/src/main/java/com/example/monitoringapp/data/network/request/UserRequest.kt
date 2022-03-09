@@ -4,8 +4,8 @@ import com.example.monitoringapp.data.model.Doctor
 import com.example.monitoringapp.data.model.Patient
 
 data class UpdatePatientRequest(
-    var email: String,
-    var patient: Patient
+    var email: String? = "",
+    var patient: Patient? = Patient()
 )
 
 data class UpdateDoctorRequest(

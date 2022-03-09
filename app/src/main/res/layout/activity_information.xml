@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_gradiente"
-    tools:context=".ui.patient.InformationActivity">
+    tools:context=".ui.patient.information.InformationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.patient.InformationActivity">
+        tools:context=".ui.patient.information.InformationActivity">
 
         <TextView
             android:id="@+id/textView"
@@ -54,6 +54,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -71,13 +72,14 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_dni" />
 
         <EditText
-            android:id="@+id/edit_name_lastname"
+            android:id="@+id/edit_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_horizontal"
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +93,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:text="@string/text_birthday"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_name_lastname" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_fullname" />
 
         <EditText
             android:id="@+id/edit_birthday"
@@ -101,6 +103,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +127,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
@@ -141,7 +145,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_age" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/edit_cellphone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_horizontal"
@@ -162,7 +166,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:text="@string/text_email"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_cellphone" />
 
         <EditText
             android:id="@+id/edit_mail"

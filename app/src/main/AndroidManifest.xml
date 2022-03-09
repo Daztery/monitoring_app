@@ -30,7 +30,7 @@
             android:name=".ui.doctor.HomeDoctorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.patient.InformationActivity"
+            android:name=".ui.patient.information.InformationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.patient.HomePatientActivity"
@@ -46,7 +46,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.StartActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

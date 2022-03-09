@@ -7,7 +7,10 @@ import com.example.monitoringapp.util.OperationResult
 import javax.inject.Inject
 
 class UpdateDoctorUseCase @Inject constructor(private val userRepository: UserRepository) {
-    suspend operator fun invoke(updateDoctorRequest: UpdateDoctorRequest): OperationResult<UpdateResponse> {
-        return userRepository.updateDoctor(updateDoctorRequest)
+    suspend operator fun invoke(
+        id: Int,
+        updateDoctorRequest: UpdateDoctorRequest
+    ): OperationResult<UpdateResponse> {
+        return userRepository.updateDoctor(id, updateDoctorRequest)
     }
 }

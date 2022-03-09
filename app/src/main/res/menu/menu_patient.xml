@@ -19,5 +19,8 @@
         <item
             android:id="@+id/nav_prescription_fragment"
             android:title="Receta Médica" />
+        <item
+            android:id="@+id/logout_patient"
+            android:title="Cerrar sesión" />
     </group>
 </menu>

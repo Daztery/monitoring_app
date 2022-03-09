@@ -28,5 +28,10 @@
         <item
             android:id="@+id/nav_register_patient_fragment"
             android:title="Registrar Paciente" />
+
+        <item
+            android:id="@+id/logout_doctor"
+            android:title="Cerrar sesión" />
+
     </group>
 </menu>

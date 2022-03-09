@@ -16,10 +16,16 @@ interface UserApiClient {
     @GET("user/patient/{identification}")
     suspend fun getPatient(@Path("identification") identification: Int): Response<ObjectResponse<User>>
 
-    @POST("user/{id}")
-    suspend fun updatePatient(@Body updatePatientRequest: UpdatePatientRequest): Response<UpdateResponse>
+    @PUT("user/{id}")
+    suspend fun updatePatient(
+        @Path("id") id: Int,
+        @Body updatePatientRequest: UpdatePatientRequest
+    ): Response<UpdateResponse>
 
-    @POST("user/{id}")
-    suspend fun updateDoctor(@Body updateDoctorRequest: UpdateDoctorRequest): Response<UpdateResponse>
+    @PUT("user/{id}")
+    suspend fun updateDoctor(
+        @Path("id") id: Int,
+        @Body updateDoctorRequest: UpdateDoctorRequest
+    ): Response<UpdateResponse>
 
 }

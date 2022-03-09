@@ -9,10 +9,12 @@ object Constants {
     const val KEY_DOCTOR = "doctor"
     const val KEY_PATIENT = "patient"
     const val KEY_TYPE = "type"
+    const val KEY_USER = "user"
 
     const val PATIENT = "Patient"
     const val DOCTOR = "Doctor"
-
+    const val PATIENT_TEXT = "Paciente"
+    const val DOCTOR_TEXT = "Médico"
 
     // Messages
     const val DEFAULT_ERROR = "Ocurrió un error."
