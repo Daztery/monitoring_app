@@ -82,6 +82,11 @@ object NetworkModule {
         return retrofit.create(PrescriptionApiClient::class.java)
     }
 
+    @Provides
+    fun monitoringApiClient(retrofit: Retrofit): MonitoringApiClient {
+        return retrofit.create(MonitoringApiClient::class.java)
+    }
+
 }
 
 class TokenHeader : Interceptor {

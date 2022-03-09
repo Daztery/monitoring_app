@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomePatientBinding
 import com.example.monitoringapp.ui.StartActivity
+import com.example.monitoringapp.ui.patient.dailyreport.DailyReportFragment
+import com.example.monitoringapp.ui.patient.medicalhistory.MedicalHistoryFragment
 import com.example.monitoringapp.ui.patient.medicalrecord.MedicalRecordFragment
 import com.example.monitoringapp.ui.patient.profile.ProfileFragment
 import com.example.monitoringapp.util.PreferencesHelper

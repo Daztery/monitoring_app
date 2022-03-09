@@ -27,9 +27,10 @@ class PrescriptionRepository @Inject constructor(
 
     suspend fun getSelfPrescription(
         active: Boolean,
-        from: String
+        from: String,
+        to: String
     ): OperationResult<CollectionResponse<Prescription>> {
-        return prescriptionService.getSelfPrescription(active, from)
+        return prescriptionService.getSelfPrescription(active, from, to)
     }
 
     suspend fun getPrescription(

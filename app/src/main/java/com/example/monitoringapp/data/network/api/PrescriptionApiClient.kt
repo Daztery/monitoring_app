@@ -21,7 +21,8 @@ interface PrescriptionApiClient {
     @GET("prescription/self")
     suspend fun getSelfPrescription(
         @Query("active") active: Boolean,
-        @Query("from") from: String
+        @Query("from") from: String,
+        @Query("to") to: String
     ): Response<CollectionResponse<Prescription>>
 
     @GET("prescription/{id}")

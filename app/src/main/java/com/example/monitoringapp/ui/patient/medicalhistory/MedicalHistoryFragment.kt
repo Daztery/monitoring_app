@@ -1,0 +1,169 @@
+package com.example.monitoringapp.ui.patient.medicalhistory
+
+import android.app.DatePickerDialog
+import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.monitoringapp.data.model.Prescription
+import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.databinding.FragmentMedicalHistoryBinding
+import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
+import com.example.monitoringapp.ui.patient.medicalrecord.MedicalRecordViewModel
+import com.example.monitoringapp.util.*
+import com.example.monitoringapp.util.Formatter
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+
+@AndroidEntryPoint
+class MedicalHistoryFragment : Fragment() {
+
+    private val medicalHistoryViewModel: MedicalHistoryViewModel by viewModels()
+    var currentDate: Date = DataUtil.getCurrentDate()
+    private var datePickerDialog: DatePickerDialog? = null
+
+    private var _binding: FragmentMedicalHistoryBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var prescriptionAdapter: PrescriptionAdapter
+    private var startDate = 0.0
+    private var endDate = 0.0
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMedicalHistoryBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupObservers()
+
+        binding.run {
+
+            recycler.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+            textStartDate.setOnClickListener {
+                showDatePickerDialogStartDate()
+            }
+            textStartEnd.setOnClickListener {
+                showDatePickerDialogEndDate()
+            }
+
+            buttonSearch.setOnClickListener {
+                medicalHistoryViewModel.getSelfPrescription(
+                    true,
+                    startDate.toString(),
+                    endDate.toString()
+                )
+            }
+        }
+    }
+
+    private fun setupObservers() {
+        medicalHistoryViewModel.uiViewGetSelfPrescriptionStateObservable.observe(
+            viewLifecycleOwner,
+            getSelfPrescriptionObserver
+        )
+    }
+
+    //Observers
+    private val getSelfPrescriptionObserver = Observer<UIViewState<List<Prescription>>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val prescriptionObserver = it.result
+                binding.run {
+                    progressBar.gone()
+                    recycler.visible()
+
+                    prescriptionAdapter = PrescriptionAdapter(prescriptionObserver)
+                    recycler.adapter = prescriptionAdapter
+
+                }
+
+            }
+            is UIViewState.Loading -> {
+                binding.run {
+                    progressBar.visible()
+                    recycler.gone()
+                }
+            }
+            is UIViewState.Error -> {
+                binding.run {
+                    progressBar.visible()
+                    recycler.gone()
+                }
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+    private fun showDatePickerDialogStartDate() {
+        val c: Calendar = Calendar.getInstance()
+        c.time = currentDate
+        var mYear: Int = c.get(Calendar.YEAR)
+        var mMonth: Int = c.get(Calendar.MONTH)
+        var mDay: Int = c.get(Calendar.DAY_OF_MONTH)
+
+        datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, monthOfYear, dayOfMonth ->
+                mYear = year
+                mMonth = monthOfYear
+                mDay = dayOfMonth
+                c.set(mYear, mMonth, mDay)
+
+                val date = Date(c.timeInMillis)
+                val textCalendar = Formatter.formatLocalDate(date)
+                currentDate = date
+                binding.textStartDate.text = textCalendar
+
+                startDate = (c.timeInMillis / 1000).toDouble()
+                //Log.i("startDate", startDate.toString())
+            }, mYear, mMonth, mDay
+        )
+        datePickerDialog?.datePicker?.maxDate = System.currentTimeMillis()
+        datePickerDialog?.show()
+    }
+
+    private fun showDatePickerDialogEndDate() {
+        val c: Calendar = Calendar.getInstance()
+        c.time = currentDate
+        var mYear: Int = c.get(Calendar.YEAR)
+        var mMonth: Int = c.get(Calendar.MONTH)
+        var mDay: Int = c.get(Calendar.DAY_OF_MONTH)
+
+        datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, monthOfYear, dayOfMonth ->
+                mYear = year
+                mMonth = monthOfYear
+                mDay = dayOfMonth
+                c.set(mYear, mMonth, mDay)
+
+                val date = Date(c.timeInMillis)
+                val textCalendar = Formatter.formatLocalDate(date)
+                currentDate = date
+                binding.textStartEnd.text = textCalendar
+
+                endDate = (c.timeInMillis / 1000).toDouble()
+            }, mYear, mMonth, mDay
+        )
+        datePickerDialog?.datePicker?.maxDate = System.currentTimeMillis()
+        datePickerDialog?.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

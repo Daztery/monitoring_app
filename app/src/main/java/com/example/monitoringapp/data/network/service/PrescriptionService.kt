@@ -57,10 +57,11 @@ class PrescriptionService @Inject constructor(private val apiClient: Prescriptio
 
     suspend fun getSelfPrescription(
         active: Boolean,
-        from: String
+        from: String,
+        to: String
     ): OperationResult<CollectionResponse<Prescription>> {
         try {
-            val response = apiClient.getSelfPrescription(active, from)
+            val response = apiClient.getSelfPrescription(active, from, to)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()
