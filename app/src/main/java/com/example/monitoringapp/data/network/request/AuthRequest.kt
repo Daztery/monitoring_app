@@ -11,11 +11,11 @@ data class RefreshTokenRequest(
 )
 
 data class RecoverPasswordRequest(
-    var identification: String,
-    var birthdate: Double
+    var identification: String = "",
+    var birthdate: Long = 0
 )
 
 data class UpdatePasswordRequest(
-    var oldPassword: String,
-    var newPassword: String
+    var oldPassword: String = "",
+    var newPassword: String = ""
 )

@@ -2,8 +2,10 @@ package com.example.monitoringapp.data.network.repository
 
 import com.example.monitoringapp.data.model.RefreshToken
 import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.data.network.request.RecoverPasswordRequest
 import com.example.monitoringapp.data.network.request.RefreshTokenRequest
 import com.example.monitoringapp.data.network.request.SignInRequest
+import com.example.monitoringapp.data.network.request.UpdatePasswordRequest
 import com.example.monitoringapp.data.network.response.LogoutResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
 import com.example.monitoringapp.data.network.service.AuthenticationService
@@ -28,6 +30,14 @@ class AuthenticationRepository @Inject constructor(
 
     suspend fun refreshToken(refreshTokenRequest: RefreshTokenRequest): OperationResult<ObjectResponse<RefreshToken>> {
         return authenticationService.refreshToken(refreshTokenRequest)
+    }
+
+    suspend fun recoverPassword(recoverPasswordRequest: RecoverPasswordRequest): OperationResult<ObjectResponse<String>> {
+        return authenticationService.recoverPassword(recoverPasswordRequest)
+    }
+
+    suspend fun updatePassword(updatePasswordRequest: UpdatePasswordRequest): OperationResult<ObjectResponse<String>> {
+        return authenticationService.updatePassword(updatePasswordRequest)
     }
 
 }

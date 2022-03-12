@@ -66,10 +66,14 @@ class HomePatientViewModel @Inject constructor(
             }
             when (result) {
                 is OperationResult.Success -> {
-                    val data = result.data?.data?.get(result.data.data.size - 1)
-                    if (data != null) {
-                        emitUIGetSelfPlansState(UIViewState.Success(data))
-                    } else {
+                    if (result.data?.data?.size != 0) {
+                        val data = result.data?.data?.get(result.data.data.size - 1)
+                        if (data != null) {
+                            emitUIGetSelfPlansState(UIViewState.Success(data))
+                        } else {
+                            emitUIGetSelfPlansState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                        }
+                    }else{
                         emitUIGetSelfPlansState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
                 }

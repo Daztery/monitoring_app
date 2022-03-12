@@ -4,9 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.data.network.request.RecoverPasswordRequest
 import com.example.monitoringapp.data.network.request.SignInRequest
+import com.example.monitoringapp.data.network.request.UpdatePasswordRequest
 import com.example.monitoringapp.usecase.auth.LoginDoctorUseCase
 import com.example.monitoringapp.usecase.auth.LoginPatientUseCase
+import com.example.monitoringapp.usecase.auth.RecoverPasswordUseCase
+import com.example.monitoringapp.usecase.auth.UpdatePasswordUseCase
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,15 +21,22 @@ import javax.inject.Inject
 class AuthenticationViewModel @Inject constructor(
     private val loginDoctorUseCase: LoginDoctorUseCase,
     private val loginPatientUseCase: LoginPatientUseCase,
+    private val updatePasswordUseCase: UpdatePasswordUseCase,
+    private val recoverPasswordUseCase: RecoverPasswordUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
-
 
     private val _mutableLoginDoctorUIViewState = MutableLiveData<UIViewState<User>>()
     val uiViewLoginDoctorStateObservable = _mutableLoginDoctorUIViewState.asLiveData()
 
     private val _mutableLoginPatientUIViewState = MutableLiveData<UIViewState<User>>()
     val uiViewLoginPatientStateObservable = _mutableLoginPatientUIViewState.asLiveData()
+
+    private val _mutableRecoverPasswordUIViewState = MutableLiveData<UIViewState<String>>()
+    val uiViewRecoverPasswordStateObservable = _mutableRecoverPasswordUIViewState.asLiveData()
+
+    private val _mutableUpdatePasswordUIViewState = MutableLiveData<UIViewState<String>>()
+    val uiViewUpdatePasswordStateObservable = _mutableUpdatePasswordUIViewState.asLiveData()
 
     fun loginDoctor(user: SignInRequest) {
         emitUILoginDoctorState(UIViewState.Loading)
@@ -71,48 +82,49 @@ class AuthenticationViewModel @Inject constructor(
         }
     }
 
-    /*fun signup(user: SignUpRequest) {
-        emitUISignUpState(UIViewState.Loading)
+    fun recoverPassword(recoverPasswordRequest: RecoverPasswordRequest) {
+        emitUIRecoverPasswordState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                signUpUseCase(user)
+                recoverPasswordUseCase(recoverPasswordRequest)
             }
             when (result) {
                 is OperationResult.Success -> {
-                    val data = result.data?.userData
+                    val data = result.data?.data
                     if (data != null) {
-                        emitUISignUpState(UIViewState.Success(data))
+                        emitUIRecoverPasswordState(UIViewState.Success(data))
                     } else {
-                        emitUISignUpState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                        emitUIRecoverPasswordState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
                 }
                 is OperationResult.Error -> {
-                    emitUISignUpState(UIViewState.Error(result.exception))
+                    emitUIRecoverPasswordState(UIViewState.Error(result.exception))
                 }
             }
         }
     }
 
-    fun logout(deviceUUID: String) {
-        viewModelScope.launch(dispatchers.io) {
-            val result = logoutUseCase(deviceUUID)
-            withContext(dispatchers.main) {
-                when (result) {
-                    is OperationResult.Success -> {
-                        val response = result.data ?: false
-                        if (response) {
-                            emitUILogoutState(UIViewState.Success(response))
-                        } else {
-                            emitUILogoutState(UIViewState.Error(Constants.DEFAULT_ERROR))
-                        }
+    fun updatePassword(updatePasswordRequest: UpdatePasswordRequest) {
+        emitUIUpdatePasswordState(UIViewState.Loading)
+        viewModelScope.launch {
+            val result = withContext(dispatchers.io) {
+                updatePasswordUseCase(updatePasswordRequest)
+            }
+            when (result) {
+                is OperationResult.Success -> {
+                    val data = result.data?.data
+                    if (data != null) {
+                        emitUIUpdatePasswordState(UIViewState.Success(data))
+                    } else {
+                        emitUIUpdatePasswordState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
-                    is OperationResult.Error -> {
-                        emitUILogoutState(UIViewState.Error(result.exception))
-                    }
+                }
+                is OperationResult.Error -> {
+                    emitUIUpdatePasswordState(UIViewState.Error(result.exception))
                 }
             }
         }
-    }*/
+    }
 
     private fun emitUILoginDoctorState(state: UIViewState<User>) {
         _mutableLoginDoctorUIViewState.postValue(state)
@@ -121,4 +133,13 @@ class AuthenticationViewModel @Inject constructor(
     private fun emitUILoginPatientState(state: UIViewState<User>) {
         _mutableLoginPatientUIViewState.postValue(state)
     }
+
+    private fun emitUIRecoverPasswordState(state: UIViewState<String>) {
+        _mutableRecoverPasswordUIViewState.postValue(state)
+    }
+
+    private fun emitUIUpdatePasswordState(state: UIViewState<String>) {
+        _mutableUpdatePasswordUIViewState.postValue(state)
+    }
+
 }
