@@ -13,6 +13,8 @@
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_home_doctor.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_home_patient.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_information.xml" value="0.36666666666666664" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_information_doctor.xml" value="0.3333333333333333" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_information_patient.xml" value="0.3333333333333333" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_medical_consultation_detail.xml" value="0.33" />

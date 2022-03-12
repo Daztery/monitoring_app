@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomeDoctorBinding
 import com.example.monitoringapp.ui.StartActivity
+import com.example.monitoringapp.ui.doctor.home.HomeDoctorFragment
 import com.example.monitoringapp.util.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +39,8 @@ class HomeDoctorActivity : AppCompatActivity() {
             drawerLayout.addDrawerListener(actionBarDrawerToggle)
             actionBarDrawerToggle.syncState()
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+            replaceFragment(HomeDoctorFragment())
 
             navigationView.setNavigationItemSelectedListener {
                 when (it.itemId) {

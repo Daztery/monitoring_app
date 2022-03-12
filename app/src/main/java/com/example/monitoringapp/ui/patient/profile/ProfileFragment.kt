@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentProfileBinding
 import com.example.monitoringapp.ui.patient.HomePatientActivity
-import com.example.monitoringapp.ui.patient.information.InformationActivity
+import com.example.monitoringapp.ui.information.InformationActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Constants.PATIENT
 import com.example.monitoringapp.util.Formatter
@@ -70,8 +70,7 @@ class ProfileFragment : Fragment() {
                     progressBar.gone()
                     constraint.visible()
                     if (PreferencesHelper.type == PATIENT) {
-                        textFullname.text =
-                            "${userObserver.patient!!.firstName} ${userObserver.patient!!.lastName}"
+                        textFullname.text = userObserver.patient?.getFullName()
                         textDni.text = userObserver.identification
                         textGender.text = "Masculino"
                         val date = Formatter.getLocaleDate(userObserver.patient?.birthdate ?: "")
@@ -79,8 +78,7 @@ class ProfileFragment : Fragment() {
                         textCellphone.text = userObserver.patient?.phone
                         textEmail.text = userObserver.email
                     } else {
-                        textFullname.text =
-                            "${userObserver.doctor?.firstName} ${userObserver.doctor?.lastName}"
+                        textFullname.text = userObserver.doctor?.getFullName()
                         textDni.text = userObserver.identification
                         textGender.text = "Masculino"
                         val date = Formatter.getLocaleDate(userObserver.doctor?.birthdate ?: "")
@@ -114,7 +112,6 @@ class ProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         profileViewModel.getSelf()
     }
 }

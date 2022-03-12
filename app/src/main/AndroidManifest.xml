@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.monitoringapp" >
+    package="com.example.monitoringapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.example.monitoringapp.MVVMApplication"
+        android:name=".MVVMApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MonitoringApp" >
+        android:theme="@style/Theme.MonitoringApp">
+        <activity
+            android:name=".ui.doctor.InformationDoctorActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.doctor.MedicalConsultationDetailActivity"
             android:exported="false"
@@ -19,8 +22,7 @@
             android:theme="@style/Theme.MonitoringApp.NoActionBar" />
         <activity
             android:name=".ui.doctor.EditPatientActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ui.doctor.SearchPatientActivity"
             android:exported="false"
@@ -30,24 +32,27 @@
             android:name=".ui.doctor.HomeDoctorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.patient.information.InformationActivity"
+            android:name=".ui.information.InformationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.patient.HomePatientActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.ChangePasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
         <activity
             android:name=".ui.auth.ForgotPasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
         <activity
             android:name=".ui.auth.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
         <activity
             android:name=".ui.StartActivity"
             android:exported="true"
-            android:theme="@style/Theme.MonitoringApp.NoActionBar" >
+            android:theme="@style/Theme.MonitoringApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

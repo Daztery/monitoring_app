@@ -9,6 +9,6 @@ data class UpdatePatientRequest(
 )
 
 data class UpdateDoctorRequest(
-    var email: String,
-    var doctor: Doctor
+    var email: String? = "",
+    var doctor: Doctor? = Doctor()
 )

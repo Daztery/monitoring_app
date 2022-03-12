@@ -87,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
 
                 val intent = Intent(this@LoginActivity, HomeDoctorActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             is UIViewState.Loading -> {
                 // TODO: Handle UI loading
@@ -108,6 +109,7 @@ class LoginActivity : AppCompatActivity() {
 
                 val intent = Intent(this@LoginActivity, HomePatientActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             is UIViewState.Loading -> {
                 // TODO: Handle UI loading

@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_gradiente"
-    tools:context=".ui.patient.information.InformationActivity">
+    tools:context=".ui.information.InformationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.patient.information.InformationActivity">
+        tools:context=".ui.information.InformationActivity">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
@@ -44,7 +44,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/text_nro_documento"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
         <EditText
             android:id="@+id/edit_dni"
