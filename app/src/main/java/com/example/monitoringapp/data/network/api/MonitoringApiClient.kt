@@ -2,6 +2,7 @@ package com.example.monitoringapp.data.network.api
 
 import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.data.model.TemperatureSaturation
 import com.example.monitoringapp.data.network.request.DailyReportDateRequest
 import com.example.monitoringapp.data.network.request.DailyReportRequest
 import com.example.monitoringapp.data.network.request.PlanRequest
@@ -39,13 +40,13 @@ interface MonitoringApiClient {
     suspend fun createDailyReport(
         @Path("planId") planId: Int,
         @Body dailyReportRequest: DailyReportRequest
-    ): Response<ObjectResponse<Plan>>
+    ): Response<ObjectResponse<TemperatureSaturation>>
 
     @POST("monitoring/{planId}/daily/self")
     suspend fun getByDate(
         @Path("planId") planId: Int,
         @Body dailyReportDateRequest: DailyReportDateRequest
-    ): Response<CollectionResponse<Plan>>
+    ): Response<ObjectResponse<TemperatureSaturation>>
 
 
     @POST("monitoring/{planId}/daily/patient/{patientId}")

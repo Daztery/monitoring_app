@@ -1,6 +1,7 @@
 package com.example.monitoringapp.data.network.repository
 
 import com.example.monitoringapp.data.model.Plan
+import com.example.monitoringapp.data.model.TemperatureSaturation
 import com.example.monitoringapp.data.network.request.DailyReportDateRequest
 import com.example.monitoringapp.data.network.request.DailyReportRequest
 import com.example.monitoringapp.data.network.request.PlanRequest
@@ -44,14 +45,14 @@ class MonitoringRepository @Inject constructor(
     suspend fun createDailyReport(
         planId: Int,
         dailyReportRequest: DailyReportRequest
-    ): OperationResult<ObjectResponse<Plan>> {
+    ): OperationResult<ObjectResponse<TemperatureSaturation>> {
         return monitoringService.createDailyReport(planId, dailyReportRequest)
     }
 
     suspend fun getByDate(
         planId: Int,
         dailyReportDateRequest: DailyReportDateRequest
-    ): OperationResult<CollectionResponse<Plan>> {
+    ): OperationResult<ObjectResponse<TemperatureSaturation>> {
         return monitoringService.getByDate(planId, dailyReportDateRequest)
     }
 

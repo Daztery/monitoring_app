@@ -45,6 +45,11 @@ object Formatter {
         return formatter.format(date)
     }
 
+    fun formatLocalYearFirstDate(date: Date): String {
+        val formatter = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+        return formatter.format(date)
+    }
+
     fun formatDate(date: String): String {
         val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val parsedDate = getLocaleDate(date)

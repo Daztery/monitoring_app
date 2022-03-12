@@ -49,10 +49,7 @@ class InformationActivity : AppCompatActivity() {
                 updateUser.patient?.phone = editCellphone.text.toString()
                 informationViewModel.updatePatient(user.id!!, updateUser)
             }
-
-
         }
-
     }
 
     private fun setupObservers() {
@@ -68,9 +65,6 @@ class InformationActivity : AppCompatActivity() {
             is UIViewState.Success -> {
                 toast("Cambio Exitoso")
                 finish()
-            }
-            is UIViewState.Loading -> {
-                //TODO
             }
             is UIViewState.Error -> {
                 toast(Constants.DEFAULT_ERROR)

@@ -7,7 +7,6 @@ import com.example.monitoringapp.databinding.ActivityStartBinding
 import com.example.monitoringapp.ui.auth.LoginActivity
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.ui.patient.HomePatientActivity
-import com.example.monitoringapp.ui.patient.HomePatientFragment
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint

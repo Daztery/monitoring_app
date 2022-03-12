@@ -7,17 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.monitoringapp.data.model.Plan
+import com.example.monitoringapp.data.model.TemperatureSaturation
 import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.data.network.request.DailyReportDateRequest
+import com.example.monitoringapp.data.network.request.DailyReportRequest
 import com.example.monitoringapp.databinding.FragmentDailyReportBinding
 import com.example.monitoringapp.ui.patient.medicalrecord.MedicalRecordViewModel
 import com.example.monitoringapp.util.*
+import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class DailyReportFragment : Fragment() {
 
-
-    private val medicalRecordViewModel: MedicalRecordViewModel by viewModels()
+    private val dailyReportViewModel: DailyReportViewModel by viewModels()
     private var _binding: FragmentDailyReportBinding? = null
 
     private val binding get() = _binding!!
@@ -42,7 +47,7 @@ class DailyReportFragment : Fragment() {
                 flagFrequency = if (flagFrequency) {
                     constraintFrequencyBelow.visible()
                     !flagFrequency
-                }else{
+                } else {
                     constraintFrequencyBelow.gone()
                     !flagFrequency
                 }
@@ -51,7 +56,7 @@ class DailyReportFragment : Fragment() {
                 flagTemperature = if (flagTemperature) {
                     constraintTemperatureBelow.visible()
                     !flagTemperature
-                }else{
+                } else {
                     constraintTemperatureBelow.gone()
                     !flagTemperature
                 }
@@ -60,7 +65,7 @@ class DailyReportFragment : Fragment() {
                 flagOxygenSaturation = if (flagOxygenSaturation) {
                     constraintOxygenSaturationBelow.visible()
                     !flagOxygenSaturation
-                }else{
+                } else {
                     constraintOxygenSaturationBelow.gone()
                     !flagOxygenSaturation
                 }
@@ -70,42 +75,73 @@ class DailyReportFragment : Fragment() {
                 flagGeneralDiscomfort = if (flagGeneralDiscomfort) {
                     constraintGeneralDiscomfortBelow.visible()
                     !flagGeneralDiscomfort
-                }else{
+                } else {
                     constraintGeneralDiscomfortBelow.gone()
                     !flagGeneralDiscomfort
                 }
             }
 
             buttonRegister.setOnClickListener {
-
+                if (editTemperature.text.isNotEmpty() &&
+                    editFrequency.text.isNotEmpty() &&
+                    editOxygenSaturation.text.isNotEmpty()
+                ) {
+                    dailyReportViewModel.getSelfPlans()
+                } else {
+                    toast(Constants.DEFAULT_ERROR)
+                }
             }
         }
     }
 
     private fun setupObservers() {
-        medicalRecordViewModel.uiViewGetSelfStateObservable.observe(
+        dailyReportViewModel.uiViewCreateReportStateObservable.observe(
             viewLifecycleOwner,
-            getSelfObserver
+            createReportObserver
+        )
+        dailyReportViewModel.uiViewGetSelfPlansStateObservable.observe(
+            viewLifecycleOwner,
+            getSelfPlansObserver
         )
     }
 
     //Observers
-    private val getSelfObserver = Observer<UIViewState<User>> {
+    private val createReportObserver = Observer<UIViewState<TemperatureSaturation>> {
         when (it) {
             is UIViewState.Success -> {
-
+                binding.progressBar.gone()
+                toast("Reporte diario creado")
+                binding.run {
+                    editFrequency.setText("")
+                    editOxygenSaturation.setText("")
+                    editTemperature.setText("")
+                }
             }
             is UIViewState.Loading -> {
-                /*binding.run {
-                    progressBar.visible()
-                    constraint.gone()
-                }*/
+                binding.progressBar.visible()
             }
             is UIViewState.Error -> {
-                /*binding.run {
-                    progressBar.visible()
-                    constraint.gone()
-                }*/
+                binding.progressBar.gone()
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+    private val getSelfPlansObserver = Observer<UIViewState<Plan>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val planObserver = it.result
+                val dailyReportRequest = DailyReportRequest()
+                val currentDate = Formatter.formatLocalYearFirstDate(Date())
+                binding.run {
+                    dailyReportRequest.heartRate = editFrequency.text.toString().toInt()
+                    dailyReportRequest.saturation = editOxygenSaturation.text.toString().toInt()
+                    dailyReportRequest.temperature = editTemperature.text.toString().toInt()
+                    dailyReportRequest.currentDate = currentDate
+                    dailyReportViewModel.createReport(planObserver.id ?: 0, dailyReportRequest)
+                }
+            }
+            is UIViewState.Error -> {
                 toast(Constants.DEFAULT_ERROR)
             }
         }

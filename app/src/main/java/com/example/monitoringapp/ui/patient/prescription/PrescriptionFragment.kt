@@ -1,8 +1,7 @@
-package com.example.monitoringapp.ui.patient.medicalhistory
+package com.example.monitoringapp.ui.patient.prescription
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,48 +9,46 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.data.model.Prescription
-import com.example.monitoringapp.data.model.User
-import com.example.monitoringapp.databinding.FragmentMedicalHistoryBinding
-import com.example.monitoringapp.ui.adapter.PlanAdapter
+import com.example.monitoringapp.databinding.FragmentPrescriptionBinding
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
-import com.example.monitoringapp.ui.patient.medicalrecord.MedicalRecordViewModel
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class MedicalHistoryFragment : Fragment() {
+class PrescriptionFragment : Fragment() {
 
-    private val medicalHistoryViewModel: MedicalHistoryViewModel by viewModels()
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
 
-    private var _binding: FragmentMedicalHistoryBinding? = null
+    private val prescriptionViewModel: PrescriptionViewModel by viewModels()
+
+    private var _binding: FragmentPrescriptionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var planAdapter: PlanAdapter
-    private var startDate = 0.0
-    private var endDate = 0.0
+    private lateinit var prescriptionAdapter: PrescriptionAdapter
+
+    private var startDate = 1641016800000
+    private var endDate = 1704002400000
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMedicalHistoryBinding.inflate(inflater, container, false)
+        _binding = FragmentPrescriptionBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupObservers()
+        prescriptionViewModel.getSelfPrescriptions(startDate.toString(),currentDate.toString())
 
         binding.run {
 
-            recycler.layoutManager =
+            recyclerView.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
             textStartDate.setOnClickListener {
@@ -62,42 +59,44 @@ class MedicalHistoryFragment : Fragment() {
                 showDatePickerDialogEndDate()
             }
 
+            imageStartDate.setOnClickListener {
+                showDatePickerDialogStartDate()
+            }
+
+            imageEndDate.setOnClickListener {
+                showDatePickerDialogEndDate()
+            }
+
             buttonSearch.setOnClickListener {
-                medicalHistoryViewModel.getSelfPlan()
+                prescriptionViewModel.getSelfPrescriptions(startDate.toString(),currentDate.toString())
             }
         }
+
     }
 
     private fun setupObservers() {
-        medicalHistoryViewModel.uiViewGetSelfPrescriptionStateObservable.observe(
+        prescriptionViewModel.uiViewGetSelfPrescriptionStateObservable.observe(
             viewLifecycleOwner,
-            getSelfPlanObserver
+            getSelfPrescriptionObserver
         )
     }
 
     //Observers
-    private val getSelfPlanObserver = Observer<UIViewState<List<Plan>>> {
+    private val getSelfPrescriptionObserver = Observer<UIViewState<List<Prescription>>> {
         when (it) {
             is UIViewState.Success -> {
-                val planObserver = it.result
+                binding.progressBar.gone()
+                val prescriptionObserver = it.result
                 binding.run {
-                    progressBar.gone()
-                    recycler.visible()
-                    planAdapter = PlanAdapter(planObserver)
-                    recycler.adapter = planAdapter
+                    prescriptionAdapter = PrescriptionAdapter(prescriptionObserver)
+                    recyclerView.adapter = prescriptionAdapter
                 }
             }
             is UIViewState.Loading -> {
-                binding.run {
-                    progressBar.visible()
-                    recycler.gone()
-                }
+                binding.progressBar.visible()
             }
             is UIViewState.Error -> {
-                binding.run {
-                    progressBar.visible()
-                    recycler.gone()
-                }
+                binding.progressBar.gone()
                 toast(Constants.DEFAULT_ERROR)
             }
         }
@@ -123,8 +122,8 @@ class MedicalHistoryFragment : Fragment() {
                 currentDate = date
                 binding.textStartDate.text = textCalendar
 
-                startDate = (c.timeInMillis / 1000).toDouble()
-                //Log.i("startDate", startDate.toString())
+                startDate = (c.timeInMillis / 1000)
+
             }, mYear, mMonth, mDay
         )
         datePickerDialog?.datePicker?.maxDate = System.currentTimeMillis()
@@ -151,10 +150,9 @@ class MedicalHistoryFragment : Fragment() {
                 currentDate = date
                 binding.textEndDate.text = textCalendar
 
-                endDate = (c.timeInMillis / 1000).toDouble()
+                endDate = (c.timeInMillis / 1000)
             }, mYear, mMonth, mDay
         )
-        datePickerDialog?.datePicker?.maxDate = System.currentTimeMillis()
         datePickerDialog?.show()
     }
 

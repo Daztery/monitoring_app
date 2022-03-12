@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <!--item
+        <item
+            android:id="@+id/nav_reports_fragment"
+            android:title="Reportes" />
+
+        <item
             android:id="@+id/nav_profile_fragment"
             android:title="Reporte Médico" />
         <item
@@ -12,10 +16,8 @@
             android:title="Pacientes por prioridad" />
         <item
             android:id="@+id/nav_daily_report_fragment"
-            android:title="Pacientes por tipo de emergencia" /-->
-        <item
-            android:id="@+id/nav_reports_fragment"
-            android:title="Reportes" />
+            android:title="Pacientes por tipo de emergencia" />
+
         <item
             android:id="@+id/nav_alerts_doctor_fragment"
             android:title="Alertas" />
@@ -29,9 +31,15 @@
             android:id="@+id/nav_register_patient_fragment"
             android:title="Registrar Paciente" />
 
-        <item
-            android:id="@+id/logout_doctor"
-            android:title="Cerrar sesión" />
+        <item android:title="">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/logout_doctor"
+                        android:title="Cerrar sesión" />
+                </group>
+            </menu>
+        </item>
 
     </group>
 </menu>

@@ -1,6 +1,7 @@
 package com.example.monitoringapp.data.network.service
 
 import com.example.monitoringapp.data.model.Plan
+import com.example.monitoringapp.data.model.TemperatureSaturation
 import com.example.monitoringapp.data.network.api.MonitoringApiClient
 import com.example.monitoringapp.data.network.request.DailyReportDateRequest
 import com.example.monitoringapp.data.network.request.DailyReportRequest
@@ -100,7 +101,7 @@ class MonitoringService @Inject constructor(private val apiClient: MonitoringApi
     suspend fun createDailyReport(
         planId: Int,
         dailyReportRequest: DailyReportRequest
-    ): OperationResult<ObjectResponse<Plan>> {
+    ): OperationResult<ObjectResponse<TemperatureSaturation>> {
         try {
             val response = apiClient.createDailyReport(planId, dailyReportRequest)
             response.let {
@@ -122,7 +123,7 @@ class MonitoringService @Inject constructor(private val apiClient: MonitoringApi
     suspend fun getByDate(
         planId: Int,
         dailyReportDateRequest: DailyReportDateRequest
-    ): OperationResult<CollectionResponse<Plan>> {
+    ): OperationResult<ObjectResponse<TemperatureSaturation>> {
         try {
             val response = apiClient.getByDate(planId, dailyReportDateRequest)
             response.let {

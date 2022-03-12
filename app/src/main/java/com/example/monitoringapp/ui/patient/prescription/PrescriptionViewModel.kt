@@ -1,4 +1,4 @@
-package com.example.monitoringapp.ui.patient.medicalhistory
+package com.example.monitoringapp.ui.patient.prescription
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,21 +14,24 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MedicalHistoryViewModel @Inject constructor(
-    private val getSelfPlansUseCase: GetSelfPlansUseCase,
+class PrescriptionViewModel @Inject constructor(
+    private val getSelfPrescriptionUseCase: GetSelfPrescriptionUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
 
     private val _mutableGetSelfPrescriptionUIViewState =
-        MutableLiveData<UIViewState<List<Plan>>>()
+        MutableLiveData<UIViewState<List<Prescription>>>()
     val uiViewGetSelfPrescriptionStateObservable =
         _mutableGetSelfPrescriptionUIViewState.asLiveData()
 
-    fun getSelfPlan() {
+    fun getSelfPrescriptions(
+        from: String,
+        to: String
+    ) {
         emitUIGetSelfPrescriptionState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getSelfPlansUseCase(true)
+                getSelfPrescriptionUseCase(true, from, to)
             }
             when (result) {
                 is OperationResult.Success -> {
@@ -46,7 +49,7 @@ class MedicalHistoryViewModel @Inject constructor(
         }
     }
 
-    private fun emitUIGetSelfPrescriptionState(state: UIViewState<List<Plan>>) {
+    private fun emitUIGetSelfPrescriptionState(state: UIViewState<List<Prescription>>) {
         _mutableGetSelfPrescriptionUIViewState.postValue(state)
     }
 

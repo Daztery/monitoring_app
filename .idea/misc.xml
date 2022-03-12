@@ -15,7 +15,7 @@
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_information.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_medical_consultation_detail.xml" value="0.67" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_medical_consultation_detail.xml" value="0.33" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_medical_history.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_medical_record.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_prescription.xml" value="0.36666666666666664" />
@@ -51,6 +51,7 @@
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/item_patient_by_priority.xml" value="0.3333333333333333" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/item_patient_history.xml" value="0.3333333333333333" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/item_patient_status.xml" value="0.3333333333333333" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/item_prescription.xml" value="0.3333333333333333" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/toolbar.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/menu/menu_doctor.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/menu/menu_hamburger.xml" value="0.36666666666666664" />
