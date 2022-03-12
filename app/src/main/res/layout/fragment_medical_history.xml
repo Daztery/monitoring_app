@@ -39,7 +39,7 @@
         android:layout_marginTop="65dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_calendar" />
+        app:srcCompat="@drawable/icon_calendary" />
 
     <TextView
         android:id="@+id/text_start_date"

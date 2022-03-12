@@ -52,8 +52,8 @@ class HomePatientActivity : AppCompatActivity() {
                 it.isChecked = true
                 when (it.itemId) {
                     R.id.nav_profile_fragment -> replaceFragment(ProfileFragment())
-                    R.id.nav_history_doctor_fragment -> replaceFragment(MedicalRecordFragment())
-                    R.id.nav_medical_record_fragment -> replaceFragment(MedicalHistoryFragment())
+                    R.id.nav_history_doctor_fragment -> replaceFragment(MedicalHistoryFragment())
+                    R.id.nav_medical_record_fragment -> replaceFragment(MedicalRecordFragment())
                     R.id.nav_daily_report_fragment -> replaceFragment(DailyReportFragment())
                     R.id.nav_alerts_fragment -> replaceFragment(AlertsFragment())
                     R.id.nav_prescription_fragment -> replaceFragment(PrescriptionFragment())

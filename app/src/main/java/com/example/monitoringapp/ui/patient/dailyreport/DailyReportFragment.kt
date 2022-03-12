@@ -13,6 +13,7 @@ import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.request.DailyReportDateRequest
 import com.example.monitoringapp.data.network.request.DailyReportRequest
 import com.example.monitoringapp.databinding.FragmentDailyReportBinding
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.ui.patient.medicalrecord.MedicalRecordViewModel
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
@@ -36,6 +37,9 @@ class DailyReportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as HomePatientActivity).title = "Reporte diario"
+
         setupObservers()
 
         binding.run {

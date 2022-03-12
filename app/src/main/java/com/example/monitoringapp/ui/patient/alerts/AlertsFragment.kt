@@ -13,6 +13,7 @@ import com.example.monitoringapp.data.model.Alert
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentAlertsBinding
 import com.example.monitoringapp.ui.adapter.AlertsAdapter
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.ui.patient.medicalrecord.MedicalRecordViewModel
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +37,7 @@ class AlertsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as HomePatientActivity).title = "Alertas"
         setupObservers()
         alertsViewModel.getSelf()
         binding.run {

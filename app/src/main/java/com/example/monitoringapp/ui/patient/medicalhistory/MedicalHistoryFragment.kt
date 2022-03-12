@@ -16,6 +16,7 @@ import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentMedicalHistoryBinding
 import com.example.monitoringapp.ui.adapter.PlanAdapter
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.ui.patient.medicalrecord.MedicalRecordViewModel
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
@@ -46,6 +47,8 @@ class MedicalHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as HomePatientActivity).title = "Historial Médico"
 
         setupObservers()
 

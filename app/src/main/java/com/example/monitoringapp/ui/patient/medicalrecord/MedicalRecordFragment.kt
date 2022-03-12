@@ -7,8 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.example.monitoringapp.data.model.Plan
+import com.example.monitoringapp.data.model.TemperatureSaturation
 import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.data.network.request.DailyReportDateRequest
 import com.example.monitoringapp.databinding.FragmentMedicalRecordBinding
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +35,7 @@ class MedicalRecordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as HomePatientActivity).title = "Ficha Médica"
         setupObservers()
         medicalRecordViewModel.getSelf()
     }
@@ -39,6 +44,14 @@ class MedicalRecordFragment : Fragment() {
         medicalRecordViewModel.uiViewGetSelfStateObservable.observe(
             viewLifecycleOwner,
             getSelfObserver
+        )
+        medicalRecordViewModel.uiViewGetSelfPlansStateObservable.observe(
+            viewLifecycleOwner,
+            getSelfPlansObserver
+        )
+        medicalRecordViewModel.uiViewGetTemperatureAndSaturationStateObservable.observe(
+            viewLifecycleOwner,
+            getTemperatureAndSaturationObserver
         )
     }
 
@@ -50,30 +63,63 @@ class MedicalRecordFragment : Fragment() {
                 binding.run {
                     progressBar.gone()
                     constraint.visible()
-                    textFullname.text =
-                        "${userObserver.patient!!.firstName} ${userObserver.patient!!.lastName}"
+                    textFullname.text = userObserver.patient?.getFullName()
                     textDni.text = userObserver.identification
                     textType.text = Constants.PATIENT_TEXT
                     textTypeBlood.text = userObserver.patient?.bloodType
                     textWeight.text = userObserver.patient?.weight.toString()
                     textHeight.text = userObserver.patient?.height.toString()
-                    textTemperature.text = "36°"
-                    textPercentage.text = "96%"
-
+                    medicalRecordViewModel.getSelfPlans()
                 }
-
             }
             is UIViewState.Loading -> {
-                 binding.run {
-                     progressBar.visible()
-                     constraint.gone()
-                 }
+                binding.run {
+                    progressBar.visible()
+                    constraint.gone()
+                }
             }
             is UIViewState.Error -> {
                 binding.run {
                     progressBar.visible()
                     constraint.gone()
                 }
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+    private val getSelfPlansObserver = Observer<UIViewState<Plan>> {
+        when (it) {
+            is UIViewState.Success -> {
+                binding.progressBar.gone()
+                val planObserver = it.result
+                val currentDate = Formatter.formatLocalYearFirstDate(Date())
+                val dailyReportDateRequest = DailyReportDateRequest(currentDate)
+                medicalRecordViewModel.getTemperatureAndSaturation(
+                    planObserver.id ?: 0,
+                    dailyReportDateRequest
+                )
+            }
+            is UIViewState.Loading -> {
+                binding.progressBar.visible()
+            }
+            is UIViewState.Error -> {
+                binding.progressBar.gone()
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+    private val getTemperatureAndSaturationObserver = Observer<UIViewState<TemperatureSaturation>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val itemObserver = it.result
+                binding.run {
+                    textTemperature.text = itemObserver.temperature + "°"
+                    textSaturationOxygen.text = itemObserver.saturation + "%"
+                }
+            }
+            is UIViewState.Error -> {
                 toast(Constants.DEFAULT_ERROR)
             }
         }

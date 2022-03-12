@@ -15,6 +15,7 @@ import com.example.monitoringapp.data.model.TemperatureSaturation
 import com.example.monitoringapp.data.network.request.DailyReportDateRequest
 import com.example.monitoringapp.databinding.FragmentHomePatientBinding
 import com.example.monitoringapp.ui.adapter.PlanAdapter
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.ui.patient.dailyreport.DailyReportFragment
 import com.example.monitoringapp.ui.patient.medicalhistory.MedicalHistoryViewModel
 import com.example.monitoringapp.util.*
@@ -40,6 +41,8 @@ class HomePatientFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as HomePatientActivity).title = "Inicio"
 
         setupObservers()
 
@@ -76,6 +79,8 @@ class HomePatientFragment : Fragment() {
                     planObserver.id ?: 0,
                     dailyReportDateRequest
                 )
+
+                (activity as HomePatientActivity).title = planObserver.patient?.getFullName()
             }
             is UIViewState.Loading -> {
                 binding.progressBar.visible()

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.databinding.FragmentPrescriptionBinding
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +44,9 @@ class PrescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as HomePatientActivity).title = "Receta Médica"
+
         setupObservers()
         prescriptionViewModel.getSelfPrescriptions(startDate.toString(),currentDate.toString())
 

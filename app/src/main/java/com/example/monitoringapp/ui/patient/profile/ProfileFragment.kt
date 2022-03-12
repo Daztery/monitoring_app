@@ -2,14 +2,15 @@ package com.example.monitoringapp.ui.patient.profile
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentProfileBinding
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.ui.patient.information.InformationActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Constants.PATIENT
@@ -39,6 +40,8 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         profileViewModel.getSelf()
+
+        (activity as HomePatientActivity).title = "Perfil"
 
         binding.run {
             imageEdit.setOnClickListener {
