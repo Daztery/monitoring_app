@@ -1,4 +1,4 @@
-package com.example.monitoringapp.ui.patient.prescription
+package com.example.monitoringapp.ui.doctor.patientstatus
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -10,27 +10,29 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Prescription
-import com.example.monitoringapp.databinding.FragmentPrescriptionBinding
+import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.data.model.Status
+import com.example.monitoringapp.databinding.FragmentPatientStatusBinding
+import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
-import com.example.monitoringapp.ui.patient.HomePatientActivity
+import com.example.monitoringapp.ui.patient.prescription.PrescriptionViewModel
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class PrescriptionFragment : Fragment() {
+class PatientStatusFragment : Fragment() {
+
+    private val patientStatusViewModel: PatientStatusViewModel by viewModels()
+
+    private var _binding: FragmentPatientStatusBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var patientStatusAdapter: PatientStatusAdapter
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
-
-    private val prescriptionViewModel: PrescriptionViewModel by viewModels()
-
-    private var _binding: FragmentPrescriptionBinding? = null
-    private val binding get() = _binding!!
-
-    private lateinit var prescriptionAdapter: PrescriptionAdapter
-
     private var startDate = 1641016800000
     private var endDate = 1704002400000
 
@@ -38,21 +40,17 @@ class PrescriptionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPrescriptionBinding.inflate(inflater, container, false)
+        _binding = FragmentPatientStatusBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (activity as HomePatientActivity).title = "Receta Médica"
-
         setupObservers()
-        prescriptionViewModel.getSelfPrescriptions(startDate.toString(), currentDate.toString())
 
         binding.run {
 
-            recyclerView.layoutManager =
+            recycler.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
             textStartDate.setOnClickListener {
@@ -72,43 +70,39 @@ class PrescriptionFragment : Fragment() {
             }
 
             buttonSearch.setOnClickListener {
-                prescriptionViewModel.getSelfPrescriptions(
-                    startDate.toString(),
-                    currentDate.toString()
-                )
+                patientStatusViewModel.getPatientStatus(startDate.toString(),endDate.toString())
             }
         }
 
     }
 
     private fun setupObservers() {
-        prescriptionViewModel.uiViewGetSelfPrescriptionStateObservable.observe(
+        patientStatusViewModel.uiViewGetPatientStatusStateObservable.observe(
             viewLifecycleOwner,
-            getSelfPrescriptionObserver
+            getPatientStatusObserver
         )
     }
 
     //Observers
-    private val getSelfPrescriptionObserver = Observer<UIViewState<List<Prescription>>> {
+    private val getPatientStatusObserver = Observer<UIViewState<List<Status>>> {
         when (it) {
             is UIViewState.Success -> {
-                binding.progressBar.gone()
-                val prescriptionObserver = it.result
+                //binding.progressBar.gone()
+                val patientStatusObserver = it.result
                 binding.run {
-                    prescriptionAdapter = PrescriptionAdapter(prescriptionObserver)
-                    recyclerView.adapter = prescriptionAdapter
+                    patientStatusAdapter = PatientStatusAdapter(patientStatusObserver)
+                    recycler.adapter = patientStatusAdapter
                 }
             }
             is UIViewState.Loading -> {
-                binding.progressBar.visible()
+                //binding.progressBar.visible()
             }
             is UIViewState.Error -> {
-                binding.progressBar.gone()
+                //binding.progressBar.gone()
                 toast(Constants.DEFAULT_ERROR)
             }
         }
     }
-
     private fun showDatePickerDialogStartDate() {
         val c: Calendar = Calendar.getInstance()
         c.time = currentDate
@@ -129,7 +123,7 @@ class PrescriptionFragment : Fragment() {
                 currentDate = date
                 binding.textStartDate.text = textCalendar
 
-                startDate = c.timeInMillis / 1000
+                startDate = c.timeInMillis
 
             }, mYear, mMonth, mDay
         )
@@ -167,4 +161,5 @@ class PrescriptionFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

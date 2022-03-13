@@ -1,6 +1,7 @@
 package com.example.monitoringapp.data.network.api
 
 import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.data.model.Status
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -38,7 +39,7 @@ interface ReportApiClient {
         @Query("active") active: Boolean,
         @Query("from") from: String,
         @Query("to") to: String
-    ): Response<CollectionResponse<Report>>
+    ): Response<CollectionResponse<Status>>
 
     @GET("report/patient/status/resume")
     suspend fun getPatientStatusResume(

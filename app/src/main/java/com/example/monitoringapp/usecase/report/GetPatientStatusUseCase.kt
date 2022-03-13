@@ -1,6 +1,7 @@
 package com.example.monitoringapp.usecase.report
 
 import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.data.model.Status
 import com.example.monitoringapp.data.network.repository.ReportRepository
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.util.OperationResult
@@ -11,7 +12,7 @@ class GetPatientStatusUseCase @Inject constructor(private val reportRepository: 
         active: Boolean,
         from: String,
         to: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<Status>> {
         return reportRepository.getPatientStatus(active, from, to)
     }
 }

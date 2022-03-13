@@ -42,7 +42,7 @@ class AlertsFragment : Fragment() {
         alertsViewModel.getSelf()
         binding.run {
             recycler.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             mockAlert()
         }
     }

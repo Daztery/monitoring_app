@@ -9,8 +9,8 @@
             android:id="@+id/nav_profile_fragment"
             android:title="Reporte Médico" />
         <item
-            android:id="@+id/nav_history_doctor_fragment"
-            android:title="Estado de Paciente" />
+            android:id="@+id/nav_patient_status_fragment"
+            android:title="Estado de Pacientes" />
         <item
             android:id="@+id/nav_medica_record_fragment"
             android:title="Pacientes por prioridad" />

@@ -55,7 +55,7 @@ class MedicalHistoryFragment : Fragment() {
         binding.run {
 
             recycler.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
             textStartDate.setOnClickListener {
                 showDatePickerDialogStartDate()

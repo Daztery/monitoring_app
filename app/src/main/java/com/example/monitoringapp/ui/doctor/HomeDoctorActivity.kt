@@ -11,6 +11,7 @@ import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomeDoctorBinding
 import com.example.monitoringapp.ui.StartActivity
 import com.example.monitoringapp.ui.doctor.home.HomeDoctorFragment
+import com.example.monitoringapp.ui.doctor.patientstatus.PatientStatusFragment
 import com.example.monitoringapp.util.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,6 +46,7 @@ class HomeDoctorActivity : AppCompatActivity() {
             navigationView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.nav_reports_fragment -> replaceFragment(ReportsFragment())
+                    R.id.nav_patient_status_fragment -> replaceFragment(PatientStatusFragment())
                     R.id.nav_alerts_doctor_fragment -> replaceFragment(AlertsDoctorFragment())
                     R.id.nav_search_patient_fragment -> replaceFragment(SearchPatientFragment())
                     R.id.nav_register_plan_fragment -> replaceFragment(RegisterMonitoringPlanFragment())

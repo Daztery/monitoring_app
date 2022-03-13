@@ -1,6 +1,7 @@
 package com.example.monitoringapp.data.network.repository
 
 import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.data.model.Status
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.data.network.service.ReportService
 import com.example.monitoringapp.util.OperationResult
@@ -44,7 +45,7 @@ class ReportRepository @Inject constructor(
         active: Boolean,
         from: String,
         to: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<Status>> {
         return reportService.getPatientStatus(active, from, to)
     }
 

@@ -1,4 +1,4 @@
-package com.example.monitoringapp.ui.doctor
+package com.example.monitoringapp.ui.doctor.medicreport
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,26 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.monitoringapp.R
-import com.example.monitoringapp.databinding.FragmentPatientStatusBinding
-import com.example.monitoringapp.databinding.FragmentPatientsEmergencyBinding
+import com.example.monitoringapp.databinding.FragmentMedicReportBinding
+import com.example.monitoringapp.databinding.FragmentReportsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PatientsEmergencyFragment : Fragment() {
+class MedicReportFragment : Fragment() {
 
-    private var _binding: FragmentPatientsEmergencyBinding? = null
+    private var _binding: FragmentMedicReportBinding? = null
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPatientsEmergencyBinding.inflate(inflater, container, false)
+        _binding = FragmentMedicReportBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
 
     override fun onDestroyView() {
