@@ -1,5 +1,6 @@
 package com.example.monitoringapp.ui.doctor.historyclinic
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +16,9 @@ import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.UIViewState
 import com.example.monitoringapp.util.hideKeyboard
 import com.example.monitoringapp.util.toast
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ElectronicMedicalRecordFragment : Fragment() {
 
     private val electronicMedicalRecordViewModel: ElectronicMedicalRecordViewModel by viewModels()
@@ -35,6 +38,7 @@ class ElectronicMedicalRecordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObservers()
         binding.run {
             recycler.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -81,9 +85,9 @@ class ElectronicMedicalRecordFragment : Fragment() {
 
     // Callbacks
     private fun onClickCallback(user: User) {
-       /* val intent = Intent(context, SearchPatientActivity::class.java)
+        val intent = Intent(context, ElectronicMedicalRecordDetailActivity::class.java)
         intent.putExtra(Constants.KEY_USER,user)
-        startActivity(intent)*/
+        startActivity(intent)
     }
 
 }

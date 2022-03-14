@@ -4,7 +4,6 @@
         <item
             android:id="@+id/nav_reports_fragment"
             android:title="Reportes" />
-
         <item
             android:id="@+id/nav_report"
             android:title="Reporte Médico" />
@@ -21,6 +20,9 @@
         <item
             android:id="@+id/nav_alerts_doctor_fragment"
             android:title="Alertas" />
+        <item
+            android:id="@+id/nav_history_clinic"
+            android:title="Buscar Historial Clínico" />
         <item
             android:id="@+id/nav_search_patient_fragment"
             android:title="Buscar Paciente" />

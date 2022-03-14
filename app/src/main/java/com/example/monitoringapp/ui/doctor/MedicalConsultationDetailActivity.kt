@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MedicalConsultationDetailActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMedicalConsultationDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

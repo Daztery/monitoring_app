@@ -1,52 +1,43 @@
-package com.example.monitoringapp.ui.doctor.patientspriority
+package com.example.monitoringapp.ui.doctor.medicalconsultation
 
 import android.app.DatePickerDialog
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.monitoringapp.data.model.PriorityType
-import com.example.monitoringapp.databinding.FragmentPatientsPriorityBinding
-import com.example.monitoringapp.ui.adapter.PatientsByPriorityAdapter
+import com.example.monitoringapp.data.model.Plan
+import com.example.monitoringapp.databinding.ActivityMedicalConsultationBinding
+import com.example.monitoringapp.ui.adapter.PatientHistoryAdapter
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class PatientsPriorityFragment : Fragment() {
+class MedicalConsultationActivity : AppCompatActivity() {
 
-    private val patientsPriorityViewModel: PatientsPriorityViewModel by viewModels()
-    
-    private var _binding: FragmentPatientsPriorityBinding? = null
-    private val binding get() = _binding!!
+    private val medicalConsultationViewModel: MedicalConsultationViewModel by viewModels()
 
-    private lateinit var patientsByPriorityAdapter: PatientsByPriorityAdapter
+    private lateinit var binding: ActivityMedicalConsultationBinding
+
+    private lateinit var patientHistoryAdapter: PatientHistoryAdapter
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
     private var startDate = 1641016800000
     private var endDate = 1704002400000
-    
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentPatientsPriorityBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMedicalConsultationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         setupObservers()
         binding.run {
 
             recycler.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
 
             textStartDate.setOnClickListener {
                 showDatePickerDialogStartDate()
@@ -56,36 +47,29 @@ class PatientsPriorityFragment : Fragment() {
                 showDatePickerDialogEndDate()
             }
 
-            imageStartDate.setOnClickListener {
-                showDatePickerDialogStartDate()
-            }
-
-            imageEndDate.setOnClickListener {
-                showDatePickerDialogEndDate()
-            }
-
             buttonSearch.setOnClickListener {
-                patientsPriorityViewModel.getPatientsByPriority(1, startDate.toString())
+                medicalConsultationViewModel.getPatientHistory(3)
             }
         }
+
     }
-    
+
     private fun setupObservers() {
-        patientsPriorityViewModel.uiViewGetPatientsByPriorityStateObservable.observe(
-            viewLifecycleOwner,
-            getPatientsPriorityObserver
+        medicalConsultationViewModel.uiViewGetPatientHistoryStateObservable.observe(
+            this,
+            getPatientHistoryObserver
         )
     }
 
     //Observers
-    private val getPatientsPriorityObserver = Observer<UIViewState<List<PriorityType>>> {
+    private val getPatientHistoryObserver = Observer<UIViewState<List<Plan>>> {
         when (it) {
             is UIViewState.Success -> {
                 //binding.progressBar.gone()
-                val prioritiesObserver = it.result
+                val itemObserver = it.result
                 binding.run {
-                    patientsByPriorityAdapter = PatientsByPriorityAdapter(prioritiesObserver)
-                    recycler.adapter = patientsByPriorityAdapter
+                    patientHistoryAdapter = PatientHistoryAdapter(itemObserver)
+                    recycler.adapter = patientHistoryAdapter
                 }
             }
             is UIViewState.Loading -> {
@@ -97,7 +81,7 @@ class PatientsPriorityFragment : Fragment() {
             }
         }
     }
-    
+
     private fun showDatePickerDialogStartDate() {
         val c: Calendar = Calendar.getInstance()
         c.time = currentDate
@@ -106,7 +90,7 @@ class PatientsPriorityFragment : Fragment() {
         var mDay: Int = c.get(Calendar.DAY_OF_MONTH)
 
         datePickerDialog = DatePickerDialog(
-            requireContext(),
+            this,
             { _, year, monthOfYear, dayOfMonth ->
                 mYear = year
                 mMonth = monthOfYear
@@ -134,7 +118,7 @@ class PatientsPriorityFragment : Fragment() {
         var mDay: Int = c.get(Calendar.DAY_OF_MONTH)
 
         datePickerDialog = DatePickerDialog(
-            requireContext(),
+            this,
             { _, year, monthOfYear, dayOfMonth ->
                 mYear = year
                 mMonth = monthOfYear
@@ -150,11 +134,6 @@ class PatientsPriorityFragment : Fragment() {
             }, mYear, mMonth, mDay
         )
         datePickerDialog?.show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

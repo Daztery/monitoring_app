@@ -11,6 +11,7 @@ import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomeDoctorBinding
 import com.example.monitoringapp.ui.StartActivity
 import com.example.monitoringapp.ui.doctor.alerts.AlertsDoctorFragment
+import com.example.monitoringapp.ui.doctor.historyclinic.ElectronicMedicalRecordFragment
 import com.example.monitoringapp.ui.doctor.home.HomeDoctorFragment
 import com.example.monitoringapp.ui.doctor.patientsemergency.PatientsEmergencyFragment
 import com.example.monitoringapp.ui.doctor.patientspriority.PatientsPriorityFragment
@@ -55,6 +56,7 @@ class HomeDoctorActivity : AppCompatActivity() {
                     R.id.nav_patients_emergency_type -> replaceFragment(PatientsEmergencyFragment())
                     R.id.nav_patients_priority -> replaceFragment(PatientsPriorityFragment())
                     R.id.nav_alerts_doctor_fragment -> replaceFragment(AlertsDoctorFragment())
+                    R.id.nav_history_clinic -> replaceFragment(ElectronicMedicalRecordFragment())
                     R.id.nav_search_patient_fragment -> replaceFragment(SearchPatientFragment())
                     R.id.nav_register_plan_fragment -> replaceFragment(RegisterMonitoringPlanFragment())
                     R.id.nav_register_patient_fragment -> replaceFragment(RegisterPatientFragment())
