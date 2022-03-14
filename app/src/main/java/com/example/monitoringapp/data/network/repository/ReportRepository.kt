@@ -1,5 +1,7 @@
 package com.example.monitoringapp.data.network.repository
 
+import com.example.monitoringapp.data.model.EmergencyType
+import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.data.model.Status
 import com.example.monitoringapp.data.network.response.CollectionResponse
@@ -29,7 +31,7 @@ class ReportRepository @Inject constructor(
         emergencyId: Int,
         active: Boolean,
         from: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<EmergencyType>> {
         return reportService.getPatientsByEmergency(emergencyId, active, from)
     }
 
@@ -37,7 +39,7 @@ class ReportRepository @Inject constructor(
         priorityId: Int,
         active: Boolean,
         from: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<PriorityType>> {
         return reportService.getPatientsByPriority(priorityId, active, from)
     }
 

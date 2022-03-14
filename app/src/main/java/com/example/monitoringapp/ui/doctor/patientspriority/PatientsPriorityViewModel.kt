@@ -3,6 +3,7 @@ package com.example.monitoringapp.ui.doctor.patientspriority
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.usecase.report.GetPatientsByPriorityUseCase
 import com.example.monitoringapp.util.*
@@ -18,13 +19,12 @@ class PatientsPriorityViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _mutableGetPatientsByPriorityUIViewState =
-        MutableLiveData<UIViewState<List<Report>>>()
+        MutableLiveData<UIViewState<List<PriorityType>>>()
     val uiViewGetPatientsByPriorityStateObservable =
         _mutableGetPatientsByPriorityUIViewState.asLiveData()
 
     fun getPatientsByPriority(
         PriorityId: Int,
-        active: Boolean,
         from: String
     ) {
         emitUIGetPatientsByPriorityState(UIViewState.Loading)
@@ -36,7 +36,7 @@ class PatientsPriorityViewModel @Inject constructor(
                 is OperationResult.Success -> {
                     val data = result.data?.data
                     if (data != null) {
-                       // emitUIGetPatientsByPriorityState(UIViewState.Success(data))
+                        emitUIGetPatientsByPriorityState(UIViewState.Success(data))
                     } else {
                         emitUIGetPatientsByPriorityState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
@@ -48,7 +48,7 @@ class PatientsPriorityViewModel @Inject constructor(
         }
     }
 
-    private fun emitUIGetPatientsByPriorityState(state: UIViewState<List<Report>>) {
+    private fun emitUIGetPatientsByPriorityState(state: UIViewState<List<PriorityType>>) {
         _mutableGetPatientsByPriorityUIViewState.postValue(state)
     }
 

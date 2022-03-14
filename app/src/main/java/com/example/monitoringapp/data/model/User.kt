@@ -35,8 +35,8 @@ data class Patient(
         return "$firstName $lastName"
     }
 
-    fun getBirthday():String{
-        val date= Formatter.getLocaleDate(birthdate ?: "")
+    fun getBirthday(): String {
+        val date = Formatter.getLocaleDate(birthdate ?: "")
         return Formatter.formatLocalDate(date ?: Date())
     }
 
@@ -81,13 +81,13 @@ data class Doctor(
     var phone: String = "",
     var userId: Int? = 0,
     var medicalCenterId: Int? = 0,
-)  : Serializable {
+) : Serializable {
     fun getFullName(): String {
         return "$firstName $lastName"
     }
 
-    fun getBirthday():String{
-        val date= Formatter.getLocaleDate(birthdate ?: "")
+    fun getBirthday(): String {
+        val date = Formatter.getLocaleDate(birthdate ?: "")
         return Formatter.formatLocalDate(date ?: Date())
     }
 

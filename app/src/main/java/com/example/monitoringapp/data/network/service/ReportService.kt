@@ -1,5 +1,7 @@
 package com.example.monitoringapp.data.network.service
 
+import com.example.monitoringapp.data.model.EmergencyType
+import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.data.model.Status
 import com.example.monitoringapp.data.network.api.ReportApiClient
@@ -61,7 +63,7 @@ class ReportService @Inject constructor(private val apiClient: ReportApiClient) 
         emergencyId: Int,
         active: Boolean,
         from: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<EmergencyType>> {
         try {
             val response = apiClient.getPatientsByEmergency(emergencyId, active, from)
             response.let {
@@ -84,7 +86,7 @@ class ReportService @Inject constructor(private val apiClient: ReportApiClient) 
         priorityId: Int,
         active: Boolean,
         from: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<PriorityType>> {
         try {
             val response = apiClient.getPatientsByPriority(priorityId, active, from)
             response.let {

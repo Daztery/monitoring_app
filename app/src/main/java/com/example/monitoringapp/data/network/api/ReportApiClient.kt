@@ -1,5 +1,7 @@
 package com.example.monitoringapp.data.network.api
 
+import com.example.monitoringapp.data.model.EmergencyType
+import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.data.model.Status
 import com.example.monitoringapp.data.network.response.CollectionResponse
@@ -25,14 +27,14 @@ interface ReportApiClient {
         @Path("emergencyId") emergencyId: Int,
         @Query("active") active: Boolean,
         @Query("from") from: String
-    ): Response<CollectionResponse<Report>>
+    ): Response<CollectionResponse<EmergencyType>>
 
-    @GET("report/patient/priorityId/{priorityId}")
+    @GET("report/patient/priority/{priorityId}")
     suspend fun getPatientsByPriority(
         @Path("priorityId") priorityId: Int,
         @Query("active") active: Boolean,
         @Query("from") from: String
-    ): Response<CollectionResponse<Report>>
+    ): Response<CollectionResponse<PriorityType>>
 
     @GET("report/patient/status")
     suspend fun getPatientStatus(

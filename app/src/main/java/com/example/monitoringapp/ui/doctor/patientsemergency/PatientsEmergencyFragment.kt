@@ -8,11 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.R
+import com.example.monitoringapp.data.model.EmergencyType
 import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.databinding.FragmentPatientStatusBinding
 import com.example.monitoringapp.databinding.FragmentPatientsEmergencyBinding
+import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
+import com.example.monitoringapp.ui.adapter.PatientsByEmergencyAdapter
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
 import com.example.monitoringapp.ui.doctor.home.HomeDoctorViewModel
 import com.example.monitoringapp.util.*
@@ -27,6 +31,8 @@ class PatientsEmergencyFragment : Fragment() {
 
     private var _binding: FragmentPatientsEmergencyBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var patientsByEmergencyAdapter: PatientsByEmergencyAdapter
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
@@ -43,6 +49,32 @@ class PatientsEmergencyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObservers()
+        binding.run {
+
+            recycler.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+            textStartDate.setOnClickListener {
+                showDatePickerDialogStartDate()
+            }
+
+            textEndDate.setOnClickListener {
+                showDatePickerDialogEndDate()
+            }
+
+            imageStartDate.setOnClickListener {
+                showDatePickerDialogStartDate()
+            }
+
+            imageEndDate.setOnClickListener {
+                showDatePickerDialogEndDate()
+            }
+
+            buttonSearch.setOnClickListener {
+                patientsEmergencyViewModel.getPatientsByEmergency(1, startDate.toString())
+            }
+        }
     }
 
     private fun setupObservers() {
@@ -53,15 +85,15 @@ class PatientsEmergencyFragment : Fragment() {
     }
 
     //Observers
-    private val getPatientsEmergencyObserver = Observer<UIViewState<List<Report>>> {
+    private val getPatientsEmergencyObserver = Observer<UIViewState<List<EmergencyType>>> {
         when (it) {
             is UIViewState.Success -> {
-                /*binding.progressBar.gone()
+                //binding.progressBar.gone()
                 val prescriptionObserver = it.result
                 binding.run {
-                    prescriptionAdapter = PrescriptionAdapter(prescriptionObserver)
-                    recyclerView.adapter = prescriptionAdapter
-                }*/
+                    patientsByEmergencyAdapter = PatientsByEmergencyAdapter(prescriptionObserver)
+                    recycler.adapter = patientsByEmergencyAdapter
+                }
             }
             is UIViewState.Loading -> {
                 //binding.progressBar.visible()
@@ -93,7 +125,7 @@ class PatientsEmergencyFragment : Fragment() {
                 currentDate = date
                 binding.textStartDate.text = textCalendar
 
-                startDate = c.timeInMillis / 1000
+                startDate = c.timeInMillis
 
             }, mYear, mMonth, mDay
         )

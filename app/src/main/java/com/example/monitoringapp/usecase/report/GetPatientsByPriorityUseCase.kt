@@ -1,5 +1,6 @@
 package com.example.monitoringapp.usecase.report
 
+import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.data.network.repository.ReportRepository
 import com.example.monitoringapp.data.network.response.CollectionResponse
@@ -11,7 +12,7 @@ class GetPatientsByPriorityUseCase @Inject constructor(private val reportReposit
         priorityId: Int,
         active: Boolean,
         from: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<PriorityType>> {
         return reportRepository.getPatientsByPriority(priorityId, active, from)
     }
 }

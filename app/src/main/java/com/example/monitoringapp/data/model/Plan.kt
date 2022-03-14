@@ -11,8 +11,8 @@ data class Plan(
     var priorityTypeId: Int? = 0,
     var doctor: Doctor? = Doctor(),
     var patient: Patient? = Patient(),
-    var emergencyType: EmergencyType? = EmergencyType(),
-    var priority: PriorityType? = PriorityType(),
+    var emergencyType: Emergency? = Emergency(),
+    var priority: Priority? = Priority(),
 )
 
 

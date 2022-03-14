@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_gradiente"
-    tools:context=".ui.doctor.AlertDetailFragment">
+    tools:context=".ui.doctor.alerts.AlertDetailFragment">
 
     <ImageView
         android:id="@+id/imageView"

@@ -3,6 +3,7 @@ package com.example.monitoringapp.ui.doctor.patientsemergency
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.monitoringapp.data.model.EmergencyType
 import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.usecase.report.GetPatientsByEmergencyUseCase
@@ -19,13 +20,12 @@ class PatientsEmergencyViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _mutableGetPatientsByEmergencyUIViewState =
-        MutableLiveData<UIViewState<List<Report>>>()
+        MutableLiveData<UIViewState<List<EmergencyType>>>()
     val uiViewGetPatientsByEmergencyStateObservable =
         _mutableGetPatientsByEmergencyUIViewState.asLiveData()
 
     fun getPatientsByEmergency(
         emergencyId: Int,
-        active: Boolean,
         from: String
     ) {
         emitUIGetPatientsByEmergencyState(UIViewState.Loading)
@@ -37,7 +37,7 @@ class PatientsEmergencyViewModel @Inject constructor(
                 is OperationResult.Success -> {
                     val data = result.data?.data
                     if (data != null) {
-                       // emitUIGetPatientsByEmergencyState(UIViewState.Success(data))
+                        emitUIGetPatientsByEmergencyState(UIViewState.Success(data))
                     } else {
                         emitUIGetPatientsByEmergencyState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
@@ -49,7 +49,7 @@ class PatientsEmergencyViewModel @Inject constructor(
         }
     }
 
-    private fun emitUIGetPatientsByEmergencyState(state: UIViewState<List<Report>>) {
+    private fun emitUIGetPatientsByEmergencyState(state: UIViewState<List<EmergencyType>>) {
         _mutableGetPatientsByEmergencyUIViewState.postValue(state)
     }
 

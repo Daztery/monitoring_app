@@ -6,16 +6,16 @@
             android:title="Reportes" />
 
         <item
-            android:id="@+id/nav_profile_fragment"
+            android:id="@+id/nav_report"
             android:title="Reporte Médico" />
         <item
             android:id="@+id/nav_patient_status_fragment"
             android:title="Estado de Pacientes" />
         <item
-            android:id="@+id/nav_medica_record_fragment"
+            android:id="@+id/nav_patients_priority"
             android:title="Pacientes por prioridad" />
         <item
-            android:id="@+id/nav_daily_report_fragment"
+            android:id="@+id/nav_patients_emergency_type"
             android:title="Pacientes por tipo de emergencia" />
 
         <item
