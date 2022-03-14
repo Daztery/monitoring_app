@@ -16,6 +16,7 @@ import com.example.monitoringapp.ui.doctor.patientsemergency.PatientsEmergencyFr
 import com.example.monitoringapp.ui.doctor.patientspriority.PatientsPriorityFragment
 import com.example.monitoringapp.ui.doctor.patientstatus.PatientStatusFragment
 import com.example.monitoringapp.ui.doctor.reports.ReportsFragment
+import com.example.monitoringapp.ui.doctor.searchpatient.SearchPatientFragment
 import com.example.monitoringapp.util.PreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,6 +84,7 @@ class HomeDoctorActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -90,7 +92,5 @@ class HomeDoctorActivity : AppCompatActivity() {
         fragmentTransaction.commit()
         this.binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
-
-
 
 }

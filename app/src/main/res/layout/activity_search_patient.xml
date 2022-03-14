@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_gradiente"
-    tools:context=".ui.doctor.SearchPatientActivity">
+    tools:context=".ui.doctor.searchpatient.SearchPatientActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -50,6 +50,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -74,6 +75,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +99,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -120,6 +123,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
@@ -137,13 +141,14 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_age" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/edit_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_horizontal"
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
@@ -158,7 +163,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:text="@string/text_email"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_phone" />
 
         <EditText
             android:id="@+id/edit_mail"
@@ -168,6 +173,7 @@
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
             android:ems="10"
+            android:enabled="false"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -214,15 +220,15 @@
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <Button
-            android:id="@+id/button_register"
+            android:id="@+id/button_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="@dimen/edit_top"
-            android:text="@string/button_register"
+            android:text="Editar"
             android:textAllCaps="false"
-            android:layout_marginTop="@dimen/edit_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

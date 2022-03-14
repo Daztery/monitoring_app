@@ -72,4 +72,10 @@
     </string>
     <string name="textview">Textview</string>
 
+    <!--Spinner-->
+    <string-array name="spinner_identification">
+        <item>DNI</item>
+    </string-array>
+
+
 </resources>

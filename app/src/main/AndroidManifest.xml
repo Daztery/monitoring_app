@@ -21,10 +21,10 @@
             android:label="@string/title_activity_medical_consultation_detail"
             android:theme="@style/Theme.MonitoringApp.NoActionBar" />
         <activity
-            android:name=".ui.doctor.EditPatientActivity"
+            android:name=".ui.doctor.searchpatient.EditPatientActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".ui.doctor.SearchPatientActivity"
+            android:name=".ui.doctor.searchpatient.SearchPatientActivity"
             android:exported="false"
             android:label="@string/title_activity_search_patient"
             android:theme="@style/Theme.MonitoringApp.NoActionBar" />
