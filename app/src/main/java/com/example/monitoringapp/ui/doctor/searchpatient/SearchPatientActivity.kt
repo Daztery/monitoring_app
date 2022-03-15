@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivitySearchPatientBinding
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.UIViewState
 import com.example.monitoringapp.util.hideKeyboard
@@ -27,6 +28,8 @@ class SearchPatientActivity : AppCompatActivity() {
 
         binding = ActivitySearchPatientBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.title = "Busqueda de paciente"
 
         setupObservers()
 

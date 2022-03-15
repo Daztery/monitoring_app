@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.monitoringapp.R
 import com.example.monitoringapp.databinding.ActivityHomePatientBinding
 import com.example.monitoringapp.ui.StartActivity
+import com.example.monitoringapp.ui.doctor.home.HomeDoctorFragment
 import com.example.monitoringapp.ui.patient.alerts.AlertsFragment
 import com.example.monitoringapp.ui.patient.dailyreport.DailyReportFragment
 import com.example.monitoringapp.ui.patient.home.HomePatientFragment
@@ -46,6 +47,9 @@ class HomePatientActivity : AppCompatActivity() {
             actionBarDrawerToggle.syncState()
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+            navigationView.getHeaderView(0).setOnClickListener {
+                replaceFragment(HomePatientFragment())
+            }
 
             replaceFragment(HomePatientFragment())
             navigationView.setNavigationItemSelectedListener {

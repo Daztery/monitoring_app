@@ -45,7 +45,7 @@
         android:layout_gravity="start"
         android:background="@color/blue_600"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/header_hamburger"
+        app:headerLayout="@layout/header_hamburger_patient"
         app:itemTextColor="@color/white"
         app:menu="@menu/menu_patient" />
 

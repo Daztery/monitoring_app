@@ -16,6 +16,7 @@ import com.example.monitoringapp.ui.adapter.EmergencyReportAdapter
 import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
 import com.example.monitoringapp.ui.adapter.PatientsByPriorityAdapter
 import com.example.monitoringapp.ui.adapter.PriorityReportAdapter
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.ui.doctor.patientspriority.PatientsPriorityViewModel
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.Formatter
@@ -46,6 +47,7 @@ class ReportsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as HomeDoctorActivity).title = "Reportes"
         setupObservers()
 
         binding.run {

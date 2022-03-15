@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.monitoringapp.databinding.FragmentAlertDetailBinding
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.ui.patient.HomePatientActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +27,7 @@ class AlertDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as HomePatientActivity).title = "Alertas"
+        (activity as HomeDoctorActivity).title = "Alertas"
 
     }
 

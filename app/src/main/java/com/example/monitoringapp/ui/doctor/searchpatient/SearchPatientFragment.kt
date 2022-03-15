@@ -14,6 +14,7 @@ import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentSearchPatientBinding
 import com.example.monitoringapp.ui.adapter.EmergencyReportAdapter
 import com.example.monitoringapp.ui.adapter.SearchPatientAdapter
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.ui.doctor.reports.ReportsViewModel
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +37,7 @@ class SearchPatientFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as HomeDoctorActivity).title = "Buscar paciente"
         setupObservers()
         binding.run {
             buttonSearch.setOnClickListener {

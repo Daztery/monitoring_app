@@ -22,7 +22,7 @@ class InformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        this.title = "Informacion del paciente"
         val user = intent.getSerializableExtra(Constants.KEY_USER) as User
 
         setupObservers()

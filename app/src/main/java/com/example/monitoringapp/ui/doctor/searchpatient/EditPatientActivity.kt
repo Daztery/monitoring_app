@@ -34,6 +34,8 @@ class EditPatientActivity : AppCompatActivity() {
         binding = ActivityEditPatientBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        this.title = "Editar paciente"
+
         setupObservers()
 
         val user = intent.getSerializableExtra("update") as User

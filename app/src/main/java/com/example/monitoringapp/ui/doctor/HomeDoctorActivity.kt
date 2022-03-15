@@ -22,6 +22,7 @@ import com.example.monitoringapp.ui.doctor.registerpatient.RegisterPatientFragme
 import com.example.monitoringapp.ui.doctor.reports.ReportsFragment
 import com.example.monitoringapp.ui.doctor.searchpatient.SearchPatientFragment
 import com.example.monitoringapp.util.PreferencesHelper
+import com.example.monitoringapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,8 +48,13 @@ class HomeDoctorActivity : AppCompatActivity() {
             )
 
             drawerLayout.addDrawerListener(actionBarDrawerToggle)
+            drawerLayout.bringToFront()
             actionBarDrawerToggle.syncState()
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+            navigationView.getHeaderView(0).setOnClickListener {
+                replaceFragment(HomeDoctorFragment())
+            }
 
             replaceFragment(HomeDoctorFragment())
 

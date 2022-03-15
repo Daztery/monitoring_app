@@ -12,6 +12,7 @@ import com.example.monitoringapp.data.network.request.PatientRequest
 import com.example.monitoringapp.data.network.request.RegisterPatientRequest
 import com.example.monitoringapp.data.network.response.RegisterPatientResponse
 import com.example.monitoringapp.databinding.FragmentRegisterPatientBinding
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +40,8 @@ class RegisterPatientFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as HomeDoctorActivity).title = "Registrar Paciente"
         setupObservers()
         binding.run {
 
