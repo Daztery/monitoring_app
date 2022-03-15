@@ -40,11 +40,13 @@ class StartActivity : AppCompatActivity() {
             buttonDoctor.setOnClickListener {
                 intent.putExtra(Constants.KEY_TYPE, "Médico")
                 startActivity(intent)
+                finish()
             }
 
             buttonPatient.setOnClickListener {
                 intent.putExtra(Constants.KEY_TYPE, "Paciente")
                 startActivity(intent)
+                finish()
             }
         }
 

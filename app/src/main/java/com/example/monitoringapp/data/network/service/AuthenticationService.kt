@@ -2,14 +2,12 @@ package com.example.monitoringapp.data.network.service
 
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.api.AuthenticationApiClient
-import com.example.monitoringapp.data.network.request.RefreshTokenRequest
-import com.example.monitoringapp.data.network.request.SignInRequest
 import com.example.monitoringapp.data.network.response.GenericErrorResponse
 import com.example.monitoringapp.data.network.response.LogoutResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
 import com.example.monitoringapp.data.model.RefreshToken
-import com.example.monitoringapp.data.network.request.RecoverPasswordRequest
-import com.example.monitoringapp.data.network.request.UpdatePasswordRequest
+import com.example.monitoringapp.data.network.request.*
+import com.example.monitoringapp.data.network.response.RegisterPatientResponse
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.DataUtil
 import com.example.monitoringapp.util.OperationResult
@@ -116,6 +114,25 @@ class AuthenticationService @Inject constructor(private val apiClient: Authentic
     suspend fun updatePassword(updatePasswordRequest: UpdatePasswordRequest): OperationResult<ObjectResponse<String>> {
         try {
             val response = apiClient.updatePassword(updatePasswordRequest)
+            response.let {
+                return if (it.isSuccessful && it.body() != null) {
+                    val data = it.body()
+                    OperationResult.Success(data)
+                } else {
+                    val type = object : TypeToken<GenericErrorResponse>() {}.type
+                    val errorData = response.errorBody()!!.charStream()
+                    val errorResponse: GenericErrorResponse? = DataUtil.getFromJson(errorData, type)
+                    OperationResult.Error(errorResponse?.error?.message ?: Constants.DEFAULT_ERROR)
+                }
+            }
+        } catch (e: Exception) {
+            return OperationResult.Error(e.message ?: Constants.DEFAULT_ERROR)
+        }
+    }
+
+    suspend fun registerPatient(registerPatientRequest: RegisterPatientRequest): OperationResult<ObjectResponse<RegisterPatientResponse>> {
+        try {
+            val response = apiClient.registerPatient(registerPatientRequest)
             response.let {
                 return if (it.isSuccessful && it.body() != null) {
                     val data = it.body()

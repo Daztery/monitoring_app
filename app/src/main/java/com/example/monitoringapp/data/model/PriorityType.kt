@@ -1,9 +1,11 @@
 package com.example.monitoringapp.data.model
 
+import java.io.Serializable
+
 data class Priority(
     var id: Int? = 0,
     var name: String? = ""
-)
+): Serializable
 
 data class Report(
     var id: Int? = 0,

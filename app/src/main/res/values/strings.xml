@@ -16,7 +16,6 @@
     <!--Login-->
     <string name="text_login">Iniciar Sesión</string>
     <string name="text_dni">DNI</string>
-    <string name="text_password">Contraseña</string>
     <string name="text_description_login">Ingresa tu cuenta para continuar</string>
     <string name="text_missing_email_or_password">Por favor completar correo y contraseña.</string>
 
@@ -46,6 +45,8 @@
     <string name="button_save">Guardar</string>
     <string name="text_nro_documento">Nro Documento</string>
     <string name="text_name_lastname">Nombres y Apellidos</string>
+    <string name="text_name">Nombres</string>
+    <string name="text_lastname">Apellidos</string>
     <string name="text_birthday">Fecha de Nacimiento</string>
     <string name="text_age">Edad</string>
     <string name="text_email">Correo electrónico</string>
@@ -71,6 +72,7 @@
     <string name="title_activity_medical_consultation_detail">MedicalConsultationDetailActivity
     </string>
     <string name="textview">Textview</string>
+    <string name="text_password">Contraseña</string>
 
     <!--Spinner-->
     <string-array name="spinner_identification">

@@ -5,16 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.monitoringapp.R
-import com.example.monitoringapp.data.model.EmergencyType
 import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.databinding.ItemMedicalConsultationBinding
-import com.example.monitoringapp.databinding.ItemPatientByEmergencyBinding
-import com.example.monitoringapp.databinding.ItemPatientStatusBinding
-import com.example.monitoringapp.util.Formatter
-import java.util.*
 
 class PatientHistoryAdapter(
-    private var items: List<Plan>
+    private var items: List<Plan>,
+    private val onClickCallback: (plan: Plan) -> Unit
 ) :
     RecyclerView.Adapter<PatientHistoryAdapter.CardViewHolder>() {
 
@@ -31,6 +27,9 @@ class PatientHistoryAdapter(
                 textEmergencyType.text = item.emergencyType?.name
                 textStatus.text = item.patient?.status
                 textMonitoringTime.text = "1 semana"
+                card.setOnClickListener {
+                    onClickCallback(item)
+                }
             }
         }
 
@@ -42,7 +41,8 @@ class PatientHistoryAdapter(
         viewType: Int,
     ): CardViewHolder {
         val inflater =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_medical_consultation, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_medical_consultation, parent, false)
         return CardViewHolder(inflater)
     }
 

@@ -10,6 +10,7 @@ object Constants {
     const val KEY_PATIENT = "patient"
     const val KEY_TYPE = "type"
     const val KEY_USER = "user"
+    const val KEY_PLAN = "plan"
 
     const val PATIENT = "Patient"
     const val DOCTOR = "Doctor"

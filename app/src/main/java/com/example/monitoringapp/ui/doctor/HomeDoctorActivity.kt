@@ -16,6 +16,8 @@ import com.example.monitoringapp.ui.doctor.home.HomeDoctorFragment
 import com.example.monitoringapp.ui.doctor.patientsemergency.PatientsEmergencyFragment
 import com.example.monitoringapp.ui.doctor.patientspriority.PatientsPriorityFragment
 import com.example.monitoringapp.ui.doctor.patientstatus.PatientStatusFragment
+import com.example.monitoringapp.ui.doctor.registermonitoringplan.RegisterMonitoringPlanFragment
+import com.example.monitoringapp.ui.doctor.registerpatient.RegisterPatientFragment
 import com.example.monitoringapp.ui.doctor.reports.ReportsFragment
 import com.example.monitoringapp.ui.doctor.searchpatient.SearchPatientFragment
 import com.example.monitoringapp.util.PreferencesHelper
@@ -58,7 +60,9 @@ class HomeDoctorActivity : AppCompatActivity() {
                     R.id.nav_alerts_doctor_fragment -> replaceFragment(AlertsDoctorFragment())
                     R.id.nav_history_clinic -> replaceFragment(ElectronicMedicalRecordFragment())
                     R.id.nav_search_patient_fragment -> replaceFragment(SearchPatientFragment())
-                    R.id.nav_register_plan_fragment -> replaceFragment(RegisterMonitoringPlanFragment())
+                    R.id.nav_register_plan_fragment -> replaceFragment(
+                        RegisterMonitoringPlanFragment()
+                    )
                     R.id.nav_register_patient_fragment -> replaceFragment(RegisterPatientFragment())
                     R.id.logout_doctor -> {
                         PreferencesHelper.clear()

@@ -1,5 +1,7 @@
 package com.example.monitoringapp.data.model
 
+import java.io.Serializable
+
 data class Plan(
     var id: Int? = 0,
     var code: Int? = 0,
@@ -13,6 +15,6 @@ data class Plan(
     var patient: Patient? = Patient(),
     var emergencyType: Emergency? = Emergency(),
     var priority: Priority? = Priority(),
-)
+) : Serializable
 
 

@@ -2,12 +2,10 @@ package com.example.monitoringapp.data.network.api
 
 import com.example.monitoringapp.data.model.RefreshToken
 import com.example.monitoringapp.data.model.User
-import com.example.monitoringapp.data.network.request.RecoverPasswordRequest
-import com.example.monitoringapp.data.network.request.RefreshTokenRequest
-import com.example.monitoringapp.data.network.request.SignInRequest
-import com.example.monitoringapp.data.network.request.UpdatePasswordRequest
+import com.example.monitoringapp.data.network.request.*
 import com.example.monitoringapp.data.network.response.LogoutResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
+import com.example.monitoringapp.data.network.response.RegisterPatientResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -30,5 +28,8 @@ interface AuthenticationApiClient {
 
     @PUT("auth/password/update")
     suspend fun updatePassword(@Body updatePasswordRequest: UpdatePasswordRequest): Response<ObjectResponse<String>>
+
+    @POST("auth/signup/patient")
+    suspend fun registerPatient(@Body registerPatientRequest: RegisterPatientRequest): Response<ObjectResponse<RegisterPatientResponse>>
 
 }

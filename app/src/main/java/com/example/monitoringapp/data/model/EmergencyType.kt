@@ -1,9 +1,11 @@
 package com.example.monitoringapp.data.model
 
+import java.io.Serializable
+
 data class Emergency(
     var id: Int? = 0,
     var name: String? = ""
-)
+) : Serializable
 
 data class EmergencyType(
     var patient: PatientEmergencyType? = PatientEmergencyType(),

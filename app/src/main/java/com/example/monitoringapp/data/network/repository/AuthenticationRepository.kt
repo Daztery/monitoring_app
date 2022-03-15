@@ -2,12 +2,10 @@ package com.example.monitoringapp.data.network.repository
 
 import com.example.monitoringapp.data.model.RefreshToken
 import com.example.monitoringapp.data.model.User
-import com.example.monitoringapp.data.network.request.RecoverPasswordRequest
-import com.example.monitoringapp.data.network.request.RefreshTokenRequest
-import com.example.monitoringapp.data.network.request.SignInRequest
-import com.example.monitoringapp.data.network.request.UpdatePasswordRequest
+import com.example.monitoringapp.data.network.request.*
 import com.example.monitoringapp.data.network.response.LogoutResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
+import com.example.monitoringapp.data.network.response.RegisterPatientResponse
 import com.example.monitoringapp.data.network.service.AuthenticationService
 import com.example.monitoringapp.util.OperationResult
 import javax.inject.Inject
@@ -38,6 +36,10 @@ class AuthenticationRepository @Inject constructor(
 
     suspend fun updatePassword(updatePasswordRequest: UpdatePasswordRequest): OperationResult<ObjectResponse<String>> {
         return authenticationService.updatePassword(updatePasswordRequest)
+    }
+
+    suspend fun registerPatient(registerPatientRequest: RegisterPatientRequest): OperationResult<ObjectResponse<RegisterPatientResponse>> {
+        return authenticationService.registerPatient(registerPatientRequest)
     }
 
 }

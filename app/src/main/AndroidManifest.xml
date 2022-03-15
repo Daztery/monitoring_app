@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoringApp">
         <activity
+            android:name=".ui.doctor.prescription.PatientPrescriptionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.doctor.medicalconsultation.MedicalConsultationActivity"
             android:exported="false" />
         <activity
@@ -25,7 +28,7 @@
             android:name=".ui.doctor.InformationDoctorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.doctor.MedicalConsultationDetailActivity"
+            android:name=".ui.doctor.medicalconsultation.MedicalConsultationDetailActivity"
             android:exported="false"
             android:label="@string/title_activity_medical_consultation_detail"
             android:theme="@style/Theme.MonitoringApp.NoActionBar" />

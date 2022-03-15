@@ -1,14 +1,17 @@
 package com.example.monitoringapp.ui.doctor.medicalconsultation
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Plan
+import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivityMedicalConsultationBinding
 import com.example.monitoringapp.ui.adapter.PatientHistoryAdapter
+import com.example.monitoringapp.ui.doctor.historyclinic.ElectronicMedicalRecordDetailActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,7 +71,9 @@ class MedicalConsultationActivity : AppCompatActivity() {
                 //binding.progressBar.gone()
                 val itemObserver = it.result
                 binding.run {
-                    patientHistoryAdapter = PatientHistoryAdapter(itemObserver)
+                    patientHistoryAdapter = PatientHistoryAdapter(
+                        itemObserver,
+                        onClickCallback = { plan -> onClickCallback(plan) })
                     recycler.adapter = patientHistoryAdapter
                 }
             }
@@ -134,6 +139,13 @@ class MedicalConsultationActivity : AppCompatActivity() {
             }, mYear, mMonth, mDay
         )
         datePickerDialog?.show()
+    }
+
+    // Callbacks
+    private fun onClickCallback(plan: Plan) {
+        val intent = Intent(this, ElectronicMedicalRecordDetailActivity::class.java)
+        intent.putExtra(Constants.KEY_PLAN, plan)
+        startActivity(intent)
     }
 
 }

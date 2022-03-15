@@ -1,4 +1,4 @@
-package com.example.monitoringapp.ui.doctor
+package com.example.monitoringapp.ui.doctor.registermonitoringplan
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
