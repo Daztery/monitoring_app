@@ -31,9 +31,6 @@
             android:name=".ui.doctor.historyclinic.ElectronicMedicalRecordDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.doctor.InformationDoctorActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.doctor.medicalconsultation.MedicalConsultationDetailActivity"
             android:exported="false"
             android:label="@string/title_activity_medical_consultation_detail"
@@ -71,6 +68,7 @@
             android:name=".ui.StartActivity"
             android:exported="true"
             android:theme="@style/Theme.MonitoringApp.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

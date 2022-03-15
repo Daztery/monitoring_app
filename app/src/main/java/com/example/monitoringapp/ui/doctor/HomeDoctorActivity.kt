@@ -1,10 +1,13 @@
 package com.example.monitoringapp.ui.doctor
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.monitoringapp.R
@@ -22,8 +25,8 @@ import com.example.monitoringapp.ui.doctor.registerpatient.RegisterPatientFragme
 import com.example.monitoringapp.ui.doctor.reports.ReportsFragment
 import com.example.monitoringapp.ui.doctor.searchpatient.SearchPatientFragment
 import com.example.monitoringapp.util.PreferencesHelper
-import com.example.monitoringapp.util.toast
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeDoctorActivity : AppCompatActivity() {
@@ -40,6 +43,7 @@ class HomeDoctorActivity : AppCompatActivity() {
 
         binding.run {
 
+
             actionBarDrawerToggle = ActionBarDrawerToggle(
                 this@HomeDoctorActivity,
                 drawerLayout,
@@ -51,6 +55,9 @@ class HomeDoctorActivity : AppCompatActivity() {
             drawerLayout.bringToFront()
             actionBarDrawerToggle.syncState()
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+            val headerDoctor = findViewById<TextView>(R.id.text_name)
+            //headerDoctor.text = "asd"
 
             navigationView.getHeaderView(0).setOnClickListener {
                 replaceFragment(HomeDoctorFragment())
