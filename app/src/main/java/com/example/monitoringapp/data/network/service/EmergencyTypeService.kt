@@ -1,5 +1,6 @@
 package com.example.monitoringapp.data.network.service
 
+import com.example.monitoringapp.data.model.Emergency
 import com.example.monitoringapp.data.model.EmergencyType
 import com.example.monitoringapp.data.network.api.EmergencyTypeApiClient
 import com.example.monitoringapp.data.network.response.CollectionResponse
@@ -32,7 +33,7 @@ class EmergencyTypeService @Inject constructor(private val apiClient: EmergencyT
         }
     }
 
-    suspend fun getAllEmergency(): OperationResult<CollectionResponse<EmergencyType>> {
+    suspend fun getAllEmergency(): OperationResult<CollectionResponse<Emergency>> {
         try {
             val response = apiClient.getAllEmergency()
             response.let {

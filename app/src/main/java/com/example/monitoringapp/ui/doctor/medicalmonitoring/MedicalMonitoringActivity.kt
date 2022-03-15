@@ -26,6 +26,8 @@ class MedicalMonitoringActivity : AppCompatActivity() {
         binding = ActivityMedicalMonitoringBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        this.title = "Seguimiento Médico"
+
         val user = intent.getSerializableExtra(Constants.KEY_USER) as User
 
         setupObservers()

@@ -6,6 +6,7 @@ import com.example.monitoringapp.databinding.ActivityMedicalConsultationBinding
 import com.example.monitoringapp.databinding.ActivityPatientPrescriptionBinding
 import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 
 class PatientPrescriptionActivity : AppCompatActivity() {
 
@@ -17,5 +18,8 @@ class PatientPrescriptionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPatientPrescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.title = "Receta Médica"
+
     }
 }

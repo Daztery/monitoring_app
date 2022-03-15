@@ -7,6 +7,7 @@ import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivityElectronicMedicalRecordDetailBinding
 import com.example.monitoringapp.ui.doctor.medicalconsultation.MedicalConsultationActivity
 import com.example.monitoringapp.ui.doctor.medicalmonitoring.MedicalMonitoringActivity
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.Constants
 
 class ElectronicMedicalRecordDetailActivity : AppCompatActivity() {
@@ -17,6 +18,8 @@ class ElectronicMedicalRecordDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityElectronicMedicalRecordDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.title = "Historial Clínico Electrónico"
 
         val user = intent.getSerializableExtra(Constants.KEY_USER) as User
 

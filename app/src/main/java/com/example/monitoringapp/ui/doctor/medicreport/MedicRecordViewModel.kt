@@ -3,7 +3,9 @@ package com.example.monitoringapp.ui.doctor.medicreport
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.usecase.monitoring.GetSelfPlansUseCase
 import com.example.monitoringapp.usecase.report.GetEmergencyReportUseCase
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,41 +15,39 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MedicRecordViewModel @Inject constructor(
-    private val getEmergencyReportUseCase: GetEmergencyReportUseCase,
+    private val getSelfPlansUseCase: GetSelfPlansUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
 
-    private val _mutableGetEmergencyReportUIViewState =
-        MutableLiveData<UIViewState<List<Report>>>()
-    val uiViewGetEmergencyReportStateObservable =
-        _mutableGetEmergencyReportUIViewState.asLiveData()
+    private val _mutableGetSelfPlansUIViewState =
+        MutableLiveData<UIViewState<List<Plan>>>()
+    val uiViewGetSelfPlansStateObservable =
+        _mutableGetSelfPlansUIViewState.asLiveData()
 
-    fun getEmergencyReport(
-        from: String
-    ) {
-        emitUIGetEmergencyReportState(UIViewState.Loading)
+    fun getSelfPlans() {
+        emitUIGetSelfPlansState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getEmergencyReportUseCase(false, from)
+                getSelfPlansUseCase(false)
             }
             when (result) {
                 is OperationResult.Success -> {
                     val data = result.data?.data
                     if (data != null) {
-                        emitUIGetEmergencyReportState(UIViewState.Success(data))
+                        emitUIGetSelfPlansState(UIViewState.Success(data))
                     } else {
-                        emitUIGetEmergencyReportState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                        emitUIGetSelfPlansState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
                 }
                 is OperationResult.Error -> {
-                    emitUIGetEmergencyReportState(UIViewState.Error(result.exception))
+                    emitUIGetSelfPlansState(UIViewState.Error(result.exception))
                 }
             }
         }
     }
 
-    private fun emitUIGetEmergencyReportState(state: UIViewState<List<Report>>) {
-        _mutableGetEmergencyReportUIViewState.postValue(state)
+    private fun emitUIGetSelfPlansState(state: UIViewState<List<Plan>>) {
+        _mutableGetSelfPlansUIViewState.postValue(state)
     }
 
 }

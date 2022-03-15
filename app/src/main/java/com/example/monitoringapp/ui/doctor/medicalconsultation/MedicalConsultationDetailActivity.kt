@@ -6,6 +6,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivityMedicalConsultationDetailBinding
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +20,8 @@ class MedicalConsultationDetailActivity : AppCompatActivity() {
 
         binding = ActivityMedicalConsultationDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.title = "Consultas Médicas"
 
         val plan = intent.getSerializableExtra(Constants.KEY_PLAN) as Plan
 

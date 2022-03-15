@@ -12,6 +12,7 @@ import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivityMedicalConsultationBinding
 import com.example.monitoringapp.ui.adapter.PatientHistoryAdapter
 import com.example.monitoringapp.ui.doctor.historyclinic.ElectronicMedicalRecordDetailActivity
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +36,8 @@ class MedicalConsultationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMedicalConsultationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.title = "Consultas Médicas"
 
         setupObservers()
         binding.run {

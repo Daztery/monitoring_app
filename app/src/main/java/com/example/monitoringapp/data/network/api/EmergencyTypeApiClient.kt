@@ -1,5 +1,6 @@
 package com.example.monitoringapp.data.network.api
 
+import com.example.monitoringapp.data.model.Emergency
 import com.example.monitoringapp.data.model.EmergencyType
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
@@ -12,7 +13,7 @@ interface EmergencyTypeApiClient {
     suspend fun getEmergency(@Path("id") id: Int): Response<ObjectResponse<EmergencyType>>
 
     @GET("emergency")
-    suspend fun getAllEmergency(): Response<CollectionResponse<EmergencyType>>
+    suspend fun getAllEmergency(): Response<CollectionResponse<Emergency>>
 
     /*@POST("emergency")
     suspend fun createEmergency(@Body emergencyTypeRequest: EmergencyTypeRequest): Response<UpdateResponse>

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentElectronicMedicalRecordBinding
 import com.example.monitoringapp.ui.adapter.SearchPatientAdapter
+import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.UIViewState
 import com.example.monitoringapp.util.hideKeyboard
@@ -39,6 +40,9 @@ class ElectronicMedicalRecordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
+
+        (activity as HomePatientActivity).title = "Historial Clínico Electrónico"
+
         binding.run {
             recycler.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

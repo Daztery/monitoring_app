@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_gradiente"
-    tools:context=".ui.doctor.registermonitoringplan.RegisterMonitoringPlanDetailFragment">
+    tools:context=".ui.doctor.registermonitoringplan.RegisterMonitoringPlanDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -58,41 +58,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_fullname" />
 
-        <EditText
-            android:id="@+id/edit_kind_emergency"
+        <Spinner
+            android:id="@+id/spinner_kind_emergency"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginStart="@dimen/margin_horizontal"
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
-            android:ems="10"
-            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="@dimen/edit_top"
-            android:text="Fecha de Alta Médica"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_kind_emergency" />
-
-        <EditText
-            android:id="@+id/edit_discharge_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_horizontal"
-            android:layout_marginTop="@dimen/edit_top"
-            android:layout_marginEnd="@dimen/margin_horizontal"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/textView5"
@@ -100,23 +75,75 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="@dimen/edit_top"
-            android:text="Periodo de Monitoreo"
+            android:text="Inicio"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_discharge_date" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner_kind_emergency" />
 
-        <EditText
-            android:id="@+id/edit_monitoring_period"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text_start_date"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_horizontal"
-            android:layout_marginTop="@dimen/edit_top"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="@dimen/margin_horizontal"
-            android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
+            android:background="@color/gray_400"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="01/01/2022"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/image_start_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <ImageView
+            android:id="@+id/image_start_date"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/edit_top"
+            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:src="@drawable/icon_calendary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/edit_top"
+            android:text="Fin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_start_date" />
+
+        <TextView
+            android:id="@+id/text_end_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_horizontal"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:background="@color/gray_400"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="31/01/2022"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/image_end_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <ImageView
+            android:id="@+id/image_end_date"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/edit_top"
+            android:layout_marginEnd="@dimen/margin_horizontal"
+            android:src="@drawable/icon_calendary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <TextView
             android:id="@+id/textView7"
@@ -125,18 +152,19 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="@dimen/edit_top"
             android:text="Plan Medicamento"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_monitoring_period" />
+            app:layout_constraintTop_toBottomOf="@+id/image_end_date" />
 
-        <Spinner
-            android:id="@+id/spinner_drug_plan"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+        <ImageView
+            android:id="@+id/image_prescription"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginStart="@dimen/margin_horizontal"
             android:layout_marginTop="@dimen/edit_top"
             android:layout_marginEnd="@dimen/margin_horizontal"
-            android:ems="10"
-            android:inputType="textPersonName"
+            android:src="@drawable/icon_daily_report"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -155,9 +183,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_drug_plan"
+            app:layout_constraintTop_toBottomOf="@+id/image_prescription"
             app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

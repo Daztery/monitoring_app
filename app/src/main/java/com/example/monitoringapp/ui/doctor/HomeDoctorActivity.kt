@@ -13,6 +13,7 @@ import com.example.monitoringapp.ui.StartActivity
 import com.example.monitoringapp.ui.doctor.alerts.AlertsDoctorFragment
 import com.example.monitoringapp.ui.doctor.historyclinic.ElectronicMedicalRecordFragment
 import com.example.monitoringapp.ui.doctor.home.HomeDoctorFragment
+import com.example.monitoringapp.ui.doctor.medicreport.MedicReportFragment
 import com.example.monitoringapp.ui.doctor.patientsemergency.PatientsEmergencyFragment
 import com.example.monitoringapp.ui.doctor.patientspriority.PatientsPriorityFragment
 import com.example.monitoringapp.ui.doctor.patientstatus.PatientStatusFragment
@@ -54,6 +55,7 @@ class HomeDoctorActivity : AppCompatActivity() {
             navigationView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.nav_reports_fragment -> replaceFragment(ReportsFragment())
+                    R.id.nav_report -> replaceFragment(MedicReportFragment())
                     R.id.nav_patient_status_fragment -> replaceFragment(PatientStatusFragment())
                     R.id.nav_patients_emergency_type -> replaceFragment(PatientsEmergencyFragment())
                     R.id.nav_patients_priority -> replaceFragment(PatientsPriorityFragment())

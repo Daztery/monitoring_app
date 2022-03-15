@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.databinding.FragmentPatientsPriorityBinding
 import com.example.monitoringapp.ui.adapter.PatientsByPriorityAdapter
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +43,7 @@ class PatientsPriorityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as HomeDoctorActivity).title = "Pacientes por Prioridad"
         setupObservers()
         binding.run {
 

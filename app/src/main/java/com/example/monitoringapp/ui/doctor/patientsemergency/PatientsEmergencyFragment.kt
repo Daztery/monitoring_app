@@ -18,6 +18,7 @@ import com.example.monitoringapp.databinding.FragmentPatientsEmergencyBinding
 import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
 import com.example.monitoringapp.ui.adapter.PatientsByEmergencyAdapter
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
+import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.ui.doctor.home.HomeDoctorViewModel
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
@@ -49,6 +50,9 @@ class PatientsEmergencyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as HomeDoctorActivity).title = "Paciente por tipo de emergencia"
+
         setupObservers()
         binding.run {
 
