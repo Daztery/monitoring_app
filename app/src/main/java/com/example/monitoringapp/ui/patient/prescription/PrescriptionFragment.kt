@@ -48,7 +48,7 @@ class PrescriptionFragment : Fragment() {
         (activity as HomePatientActivity).title = "Receta Médica"
 
         setupObservers()
-        prescriptionViewModel.getSelfPrescriptions(startDate.toString(), currentDate.toString())
+        prescriptionViewModel.getSelfPrescriptions(startDate.toString(), endDate.toString())
 
         binding.run {
 
@@ -74,7 +74,7 @@ class PrescriptionFragment : Fragment() {
             buttonSearch.setOnClickListener {
                 prescriptionViewModel.getSelfPrescriptions(
                     startDate.toString(),
-                    currentDate.toString()
+                    endDate.toString()
                 )
             }
         }

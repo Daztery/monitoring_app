@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Plan
+import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.request.PlanPrescriptionRequest
 import com.example.monitoringapp.databinding.ActivityRegisterPrescriptionBinding
@@ -39,8 +40,7 @@ class RegisterPrescriptionActivity : AppCompatActivity() {
 
             editFullname.setText(plan.patient?.getFullName())
             editCodeMonitoring.setText(plan.code.toString())
-            editCodePrescription.setText((100..999).random())
-
+            editCodePrescription.setText((100..999).random().toString())
 
             buttonRegister.setOnClickListener {
                 if (editCodeMonitoring.text.toString().isNotEmpty() &&
@@ -92,10 +92,35 @@ class RegisterPrescriptionActivity : AppCompatActivity() {
             this,
             getPatientObserver
         )
+        registerMonitoringPlanViewModel.uiViewCreatePlanPrescriptionStateObservable.observe(
+            this,
+            createPlanPrescriptionObserver
+        )
     }
 
     //Observers
     private val getPatientObserver = Observer<UIViewState<User>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val userObserver = it.result
+                binding.run {
+                    //progressBar.gone()
+                    //toast("Receta médica registrada")
+                    //finish()
+                }
+            }
+            is UIViewState.Loading -> {
+                hideKeyboard()
+                //binding.progressBar.visible()
+            }
+            is UIViewState.Error -> {
+                //binding.progressBar.visible()
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+    private val createPlanPrescriptionObserver = Observer<UIViewState<Prescription>> {
         when (it) {
             is UIViewState.Success -> {
                 val userObserver = it.result

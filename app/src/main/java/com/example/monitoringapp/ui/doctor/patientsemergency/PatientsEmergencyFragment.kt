@@ -35,6 +35,7 @@ class PatientsEmergencyFragment : Fragment() {
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
+    private var datePickerDialog2: DatePickerDialog? = null
     private var startDate = 1646978400000
     private var endDate = 1672506000000
 
@@ -174,7 +175,7 @@ class PatientsEmergencyFragment : Fragment() {
         var mMonth: Int = c.get(Calendar.MONTH)
         var mDay: Int = c.get(Calendar.DAY_OF_MONTH)
 
-        datePickerDialog = DatePickerDialog(
+        datePickerDialog2 = DatePickerDialog(
             requireContext(),
             { _, year, monthOfYear, dayOfMonth ->
                 mYear = year
@@ -190,7 +191,7 @@ class PatientsEmergencyFragment : Fragment() {
                 endDate = c.timeInMillis
             }, mYear, mMonth, mDay
         )
-        datePickerDialog?.show()
+        datePickerDialog2?.show()
     }
 
 

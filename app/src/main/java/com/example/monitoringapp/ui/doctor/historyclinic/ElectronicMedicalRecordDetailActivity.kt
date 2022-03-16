@@ -7,6 +7,7 @@ import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivityElectronicMedicalRecordDetailBinding
 import com.example.monitoringapp.ui.doctor.medicalconsultation.MedicalConsultationActivity
 import com.example.monitoringapp.ui.doctor.medicalmonitoring.MedicalMonitoringActivity
+import com.example.monitoringapp.ui.doctor.prescription.PatientPrescriptionActivity
 import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.Constants
 
@@ -42,7 +43,7 @@ class ElectronicMedicalRecordDetailActivity : AppCompatActivity() {
             }
 
             constraintPrescription.setOnClickListener {
-                val intent = Intent(applicationContext, MedicalConsultationActivity::class.java)
+                val intent = Intent(applicationContext, PatientPrescriptionActivity::class.java)
                 intent.putExtra(Constants.KEY_USER, user)
                 startActivity(intent)
 

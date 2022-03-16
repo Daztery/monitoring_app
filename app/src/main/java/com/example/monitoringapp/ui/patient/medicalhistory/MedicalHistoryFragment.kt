@@ -127,7 +127,6 @@ class MedicalHistoryFragment : Fragment() {
                 binding.textStartDate.text = textCalendar
 
                 startDate = c.timeInMillis
-                //Log.i("startDate", startDate.toString())
             }, mYear, mMonth, mDay
         )
         datePickerDialog?.datePicker?.maxDate = System.currentTimeMillis()

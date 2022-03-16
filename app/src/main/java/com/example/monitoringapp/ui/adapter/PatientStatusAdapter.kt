@@ -28,7 +28,11 @@ class PatientStatusAdapter(
                 textName.text = item.getFullName()
                 val date= Formatter.getLocaleDate(item.date ?: "")
                 textDate.text = Formatter.formatLocalDate(date ?: Date())
-                textStatus.text = item.status
+                if(item.status=="NOT REPORTED"){
+                    textStatus.text = "No reportado"
+                }else{
+                    textStatus.text = "Reportado"
+                }
             }
 
         }

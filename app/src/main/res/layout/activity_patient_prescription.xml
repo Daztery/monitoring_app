@@ -42,7 +42,8 @@
         android:background="@color/gray_400"
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp"
-        android:text="26/10/2021"
+        android:text="11/03/2022"
+        android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -66,7 +67,8 @@
         android:background="@color/gray_400"
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp"
-        android:text="26/10/2022"
+        android:text="31/12/2022"
+        android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
