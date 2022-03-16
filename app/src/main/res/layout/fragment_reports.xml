@@ -7,17 +7,41 @@
     android:background="@drawable/fondo_gradiente"
     tools:context=".ui.doctor.reports.ReportsFragment">
 
+    <com.github.guilhe.views.CircularProgressView
+        android:id="@+id/progress_reported"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/progress_not_reported"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:progress="60"
+        app:progressBarColor="@android:color/holo_purple"
+        app:progressBarThickness="10dp" />
+
+    <com.github.guilhe.views.CircularProgressView
+        android:id="@+id/progress_not_reported"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/progress_reported"
+        app:layout_constraintTop_toTopOf="parent"
+        app:progress="60"
+        app:progressBarColor="@android:color/holo_purple"
+        app:progressBarThickness="10dp" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="32dp"
         android:text="Tipos de Emergencia"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/text_reported" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_emergency"
@@ -48,5 +72,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/text_reported"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="56dp"
+        android:text="0 reportados"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/text_not_reported"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_reported" />
+
+    <TextView
+        android:id="@+id/text_not_reported"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        android:text="0 no reportado"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_reported"
+        app:layout_constraintTop_toBottomOf="@+id/progress_not_reported" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -99,6 +99,9 @@ class HomePatientFragment : Fragment() {
                 binding.run {
                     textTemperature.text = itemObserver.temperature
                     textSaturationOxygen.text = itemObserver.saturation
+
+                    progressTemperature.setProgress(itemObserver.temperature!!.toFloat(), false, 3)
+                    progressSaturationOxygen.setProgress(itemObserver.saturation!!.toFloat(), false, 3)
                 }
             }
             is UIViewState.Error -> {

@@ -42,8 +42,10 @@ class ElectronicMedicalRecordDetailActivity : AppCompatActivity() {
             }
 
             constraintPrescription.setOnClickListener {
-                //val intent = Intent(applicationContext, MedicalConsultationActivity::class.java)
-                //startActivity(intent)
+                val intent = Intent(applicationContext, MedicalConsultationActivity::class.java)
+                intent.putExtra(Constants.KEY_USER, user)
+                startActivity(intent)
+
             }
         }
     }

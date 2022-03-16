@@ -6,8 +6,6 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.monitoringapp.R
@@ -43,7 +41,6 @@ class HomeDoctorActivity : AppCompatActivity() {
 
         binding.run {
 
-
             actionBarDrawerToggle = ActionBarDrawerToggle(
                 this@HomeDoctorActivity,
                 drawerLayout,
@@ -55,9 +52,6 @@ class HomeDoctorActivity : AppCompatActivity() {
             drawerLayout.bringToFront()
             actionBarDrawerToggle.syncState()
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-            val headerDoctor = findViewById<TextView>(R.id.text_name)
-            //headerDoctor.text = "asd"
 
             navigationView.getHeaderView(0).setOnClickListener {
                 replaceFragment(HomeDoctorFragment())

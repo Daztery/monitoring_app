@@ -1,6 +1,6 @@
 package com.example.monitoringapp.usecase.report
 
-import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.data.model.ReportStatus
 import com.example.monitoringapp.data.network.repository.ReportRepository
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.util.OperationResult
@@ -10,7 +10,7 @@ class GetPatientStatusResumeUseCase @Inject constructor(private val reportReposi
     suspend operator fun invoke(
         active: Boolean,
         from: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<ReportStatus>> {
         return reportRepository.getPatientStatusResume(active, from)
     }
 }

@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.data.model.ReportStatus
 import com.example.monitoringapp.data.model.Status
 import com.example.monitoringapp.databinding.FragmentPatientStatusBinding
 import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
@@ -34,8 +35,8 @@ class PatientStatusFragment : Fragment() {
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
-    private var startDate = 1641016800000
-    private var endDate = 1704002400000
+    private var startDate = 1646978400000
+    private var endDate = 1672506000000
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +53,7 @@ class PatientStatusFragment : Fragment() {
 
         setupObservers()
 
+        patientStatusViewModel.getPatientStatusResume(Date().time.toString())
         binding.run {
 
             recycler.layoutManager =
@@ -74,8 +76,10 @@ class PatientStatusFragment : Fragment() {
             }
 
             buttonSearch.setOnClickListener {
-                patientStatusViewModel.getPatientStatus(startDate.toString(),endDate.toString())
+                patientStatusViewModel.getPatientStatus(startDate.toString(), endDate.toString())
+                patientStatusViewModel.getPatientStatusResume(startDate.toString())
             }
+
         }
 
     }
@@ -84,6 +88,10 @@ class PatientStatusFragment : Fragment() {
         patientStatusViewModel.uiViewGetPatientStatusStateObservable.observe(
             viewLifecycleOwner,
             getPatientStatusObserver
+        )
+        patientStatusViewModel.uiViewGetPatientStatusResumeStateObservable.observe(
+            viewLifecycleOwner,
+            getPatientStatusResumeObserver
         )
     }
 
@@ -107,6 +115,47 @@ class PatientStatusFragment : Fragment() {
             }
         }
     }
+
+    private val getPatientStatusResumeObserver = Observer<UIViewState<List<ReportStatus>>> {
+        when (it) {
+            is UIViewState.Success -> {
+                //binding.progressBar.gone()
+                binding.run {
+                    val itemObserver = it.result
+                    var total = 0
+                    var percentageReported = 0.0
+                    var percentageNotReported = 0.0
+
+                    if (itemObserver.isNotEmpty()){
+                        textNotReported.text = itemObserver[0].total.toString() + " no reportado"
+
+                        if (itemObserver.size == 2) {
+                            textReported.text = itemObserver[1].total.toString() + " reportados"
+                            total = itemObserver[0].total!! + itemObserver[1].total!!
+                            percentageReported = ((100 * itemObserver[1].total!!) / total).toDouble()
+                            percentageNotReported = ((100 * itemObserver[0].total!!) / total).toDouble()
+                            progressReported.setProgress(percentageReported.toFloat(), false, 3)
+                            progressNotReported.setProgress(percentageNotReported.toFloat(), false, 3)
+                        } else {
+                            progressReported.setProgress(0F, false, 3)
+                            progressNotReported.setProgress(100F, false, 3)
+                        }
+                    }
+
+
+
+                }
+            }
+            is UIViewState.Loading -> {
+                //binding.progressBar.visible()
+            }
+            is UIViewState.Error -> {
+                //binding.progressBar.gone()
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
     private fun showDatePickerDialogStartDate() {
         val c: Calendar = Calendar.getInstance()
         c.time = currentDate

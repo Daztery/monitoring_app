@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.monitoringapp.R
+import com.example.monitoringapp.data.model.Emergency
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.databinding.ItemEmergencyBinding
 
 class EmergencyReportAdapter(
-    private var items: List<Report>
+    private var items: List<Emergency>
 ) :
     RecyclerView.Adapter<EmergencyReportAdapter.CardViewHolder>() {
 
@@ -20,7 +21,7 @@ class EmergencyReportAdapter(
 
         private val binding = ItemEmergencyBinding.bind(itemView)
 
-        fun bindTo(item: Report) {
+        fun bindTo(item: Emergency) {
             binding.run {
                 textName.text = item.name
             }

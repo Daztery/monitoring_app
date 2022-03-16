@@ -1,9 +1,6 @@
 package com.example.monitoringapp.data.network.repository
 
-import com.example.monitoringapp.data.model.EmergencyType
-import com.example.monitoringapp.data.model.PriorityType
-import com.example.monitoringapp.data.model.Report
-import com.example.monitoringapp.data.model.Status
+import com.example.monitoringapp.data.model.*
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.data.network.service.ReportService
 import com.example.monitoringapp.util.OperationResult
@@ -54,7 +51,7 @@ class ReportRepository @Inject constructor(
     suspend fun getPatientStatusResume(
         active: Boolean,
         from: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<ReportStatus>> {
         return reportService.getPatientStatusResume(active, from)
     }
 

@@ -43,7 +43,10 @@ class RegisterPatientFragment : Fragment() {
 
         (activity as HomeDoctorActivity).title = "Registrar Paciente"
         setupObservers()
+
         binding.run {
+
+            textMedicalCenter.text = PreferencesHelper.medicalCenter
 
             textBirthday.setOnClickListener {
                 showDatePickerDialogBirthday()

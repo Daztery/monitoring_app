@@ -22,7 +22,6 @@ class InformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        this.title = "Informacion del paciente"
         val user = intent.getSerializableExtra(Constants.KEY_USER) as User
 
         setupObservers()
@@ -30,14 +29,17 @@ class InformationActivity : AppCompatActivity() {
         binding.run {
             editDni.setText(user.identification)
             editMail.setText(user.email)
+            if (PreferencesHelper.medicalCenter != "") {
+                textMedicalCenter.text = PreferencesHelper.medicalCenter
+            }
             if (PreferencesHelper.type == Constants.DOCTOR) {
-                textTitle.text = "Información del Médico"
+                this@InformationActivity.title = "Información del Médico"
                 editFullname.setText(user.doctor?.getFullName())
                 editBirthday.setText(user.doctor?.getBirthday())
                 editAge.setText(user.doctor?.getAge().toString())
                 editCellphone.setText(user.doctor?.phone)
             } else {
-                textTitle.text = "Información del Paciente"
+                this@InformationActivity.title = "Información del Paciente"
                 editFullname.setText(user.patient?.getFullName())
                 editBirthday.setText(user.patient?.getBirthday())
                 editAge.setText(user.patient?.getAge().toString())

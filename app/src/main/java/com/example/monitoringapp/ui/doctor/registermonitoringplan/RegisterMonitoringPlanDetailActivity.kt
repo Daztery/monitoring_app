@@ -29,8 +29,8 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
-    private var startDate = 1641016800000
-    private var endDate = 1704002400000
+    private var startDate = 1646978400000
+    private var endDate = 1672506000000
     var positionSpinner = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,8 +85,8 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
                     planRequest.emergencyTypeId = positionSpinner
                     planRequest.priorityTypeId = 1
                     planRequest.patientId = user.id
-                    planRequest.startDate = startDate.toString()
-                    planRequest.endDate = endDate.toString()
+                    planRequest.startDate = startDate
+                    planRequest.endDate = endDate
                     registerMonitoringPlanViewModel.createPlan(planRequest)
                 } else {
                     toast("Completar todos los campos")

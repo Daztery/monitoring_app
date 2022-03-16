@@ -10,14 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.R
-import com.example.monitoringapp.data.model.EmergencyType
-import com.example.monitoringapp.data.model.Prescription
-import com.example.monitoringapp.data.model.Report
+import com.example.monitoringapp.data.model.*
 import com.example.monitoringapp.databinding.FragmentPatientStatusBinding
 import com.example.monitoringapp.databinding.FragmentPatientsEmergencyBinding
-import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
-import com.example.monitoringapp.ui.adapter.PatientsByEmergencyAdapter
-import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
+import com.example.monitoringapp.ui.adapter.*
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.ui.doctor.home.HomeDoctorViewModel
 import com.example.monitoringapp.util.*
@@ -34,11 +30,13 @@ class PatientsEmergencyFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var patientsByEmergencyAdapter: PatientsByEmergencyAdapter
+    private lateinit var emergencyReportAdapter: EmergencyReportAdapter
+
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
-    private var startDate = 1641016800000
-    private var endDate = 1704002400000
+    private var startDate = 1646978400000
+    private var endDate = 1672506000000
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +52,18 @@ class PatientsEmergencyFragment : Fragment() {
         (activity as HomeDoctorActivity).title = "Paciente por tipo de emergencia"
 
         setupObservers()
+
+        val user= PreferencesHelper.userData
+
         binding.run {
 
             recycler.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+            recyclerEmergency.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+            patientsEmergencyViewModel.getEmergencyReport(Date().time.toString())
 
             textStartDate.setOnClickListener {
                 showDatePickerDialogStartDate()
@@ -86,6 +92,10 @@ class PatientsEmergencyFragment : Fragment() {
             viewLifecycleOwner,
             getPatientsEmergencyObserver
         )
+        patientsEmergencyViewModel.uiViewGetEmergencyReportStateObservable.observe(
+            viewLifecycleOwner,
+            getEmergencyReportObserver
+        )
     }
 
     //Observers
@@ -97,6 +107,26 @@ class PatientsEmergencyFragment : Fragment() {
                 binding.run {
                     patientsByEmergencyAdapter = PatientsByEmergencyAdapter(prescriptionObserver)
                     recycler.adapter = patientsByEmergencyAdapter
+                }
+            }
+            is UIViewState.Loading -> {
+                //binding.progressBar.visible()
+            }
+            is UIViewState.Error -> {
+                //binding.progressBar.gone()
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+    private val getEmergencyReportObserver = Observer<UIViewState<List<Emergency>>> {
+        when (it) {
+            is UIViewState.Success -> {
+                //binding.progressBar.gone()
+                val itemObserver = it.result
+                binding.run {
+                    emergencyReportAdapter = EmergencyReportAdapter(itemObserver)
+                    recyclerEmergency.adapter = emergencyReportAdapter
                 }
             }
             is UIViewState.Loading -> {

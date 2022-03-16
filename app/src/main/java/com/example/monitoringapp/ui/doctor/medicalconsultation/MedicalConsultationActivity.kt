@@ -29,8 +29,8 @@ class MedicalConsultationActivity : AppCompatActivity() {
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
-    private var startDate = 1641016800000
-    private var endDate = 1704002400000
+    private var startDate = 1646978400000
+    private var endDate = 1672506000000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,7 @@ class MedicalConsultationActivity : AppCompatActivity() {
 
         this.title = "Consultas Médicas"
 
+        val user = intent.getSerializableExtra(Constants.KEY_USER) as User
         setupObservers()
         binding.run {
 
@@ -54,7 +55,7 @@ class MedicalConsultationActivity : AppCompatActivity() {
             }
 
             buttonSearch.setOnClickListener {
-                medicalConsultationViewModel.getPatientHistory(3)
+                medicalConsultationViewModel.getPatientHistory(user.patient?.id!!)
             }
         }
 

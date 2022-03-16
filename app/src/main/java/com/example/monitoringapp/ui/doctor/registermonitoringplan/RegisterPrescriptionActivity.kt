@@ -16,7 +16,9 @@ import com.example.monitoringapp.util.Constants
 import com.example.monitoringapp.util.UIViewState
 import com.example.monitoringapp.util.hideKeyboard
 import com.example.monitoringapp.util.toast
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterPrescriptionActivity : AppCompatActivity() {
 
     private val registerMonitoringPlanViewModel: RegisterMonitoringPlanViewModel by viewModels()
@@ -34,16 +36,18 @@ class RegisterPrescriptionActivity : AppCompatActivity() {
 
         setupObservers()
         binding.run {
+
+            editFullname.setText(plan.patient?.getFullName())
+            editCodeMonitoring.setText(plan.code.toString())
+            editCodePrescription.setText((100..999).random())
+
+
             buttonRegister.setOnClickListener {
                 if (editCodeMonitoring.text.toString().isNotEmpty() &&
                     editCodePrescription.text.toString().isNotEmpty() &&
                     editFullname.text.toString().isNotEmpty() &&
                     editIndications.text.toString().isNotEmpty() &&
-                    editMedicament1.text.toString().isNotEmpty() &&
-                    editMedicament2.text.toString().isNotEmpty() &&
-                    editMedicament3.text.toString().isNotEmpty() &&
-                    editMedicament4.text.toString().isNotEmpty() &&
-                    editMedicament5.text.toString().isNotEmpty()
+                    editMedicament1.text.toString().isNotEmpty()
                 ) {
                     val planPrescriptionRequest = PlanPrescriptionRequest()
                     planPrescriptionRequest.code = editCodePrescription.text.toString().toInt()

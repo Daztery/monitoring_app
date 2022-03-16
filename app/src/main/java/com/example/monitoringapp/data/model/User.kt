@@ -16,7 +16,7 @@ data class User(
     var patient: Patient? = Patient(),
     var doctor: Doctor? = Doctor(),
     var token: String? = "",
-    var refreshToken: String? = ""
+    var refreshToken: String? = "",
 ) : Serializable
 
 data class Patient(
@@ -81,6 +81,7 @@ data class Doctor(
     var phone: String = "",
     var userId: Int? = 0,
     var medicalCenterId: Int? = 0,
+    var medicalCenter: MedicalCenter? = MedicalCenter()
 ) : Serializable {
     fun getFullName(): String {
         return "$firstName $lastName"

@@ -31,9 +31,10 @@ class PlanAdapter(
 
                 val endDate = Formatter.getLocaleDate(item.endDate ?: "")
                 val currentDate = Date()
-                if(currentDate<endDate){
+                textDate.text = Formatter.formatLocalDate(endDate!!)
+                if (currentDate < endDate) {
                     textStatus.text = "En monitoreo"
-                }else{
+                } else {
                     textStatus.text = "Alta Médica"
                 }
 

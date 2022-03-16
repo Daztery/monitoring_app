@@ -43,13 +43,19 @@ class EditPatientActivity : AppCompatActivity() {
 
         if (user.identification != "") {
 
-            editPatientViewModel.getPatient(user.identification?.toInt() ?: 0 )
+            editPatientViewModel.getPatient(user.identification?.toInt() ?: 0)
 
             patient = user.patient!!
 
             binding.run {
 
-                buttonBirthday.setOnClickListener {
+                textMedicalCenter.text = PreferencesHelper.medicalCenter
+
+                textBirthday.setOnClickListener {
+                    showDatePickerDialog()
+                }
+
+                imageBirthday.setOnClickListener {
                     showDatePickerDialog()
                 }
 
@@ -146,7 +152,7 @@ class EditPatientActivity : AppCompatActivity() {
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
                 currentDate = date
-                binding.buttonBirthday.text = textCalendar
+                binding.textBirthday.text = textCalendar
 
                 patient.birthdate = c.timeInMillis.toString()
             }, mYear, mMonth, mDay

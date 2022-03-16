@@ -28,7 +28,7 @@ class MedicalConsultationViewModel @Inject constructor(
         emitUIGetPatientHistoryState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getPatientHistoryUseCase(patientId, true, true)
+                getPatientHistoryUseCase(patientId, false, false)
             }
             when (result) {
                 is OperationResult.Success -> {

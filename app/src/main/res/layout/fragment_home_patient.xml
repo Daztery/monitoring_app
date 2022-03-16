@@ -71,21 +71,33 @@
         android:layout_marginTop="20dp"
         android:text="Temperatura"
         android:textColor="@color/blue_500"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_register_report" />
 
+    <com.github.guilhe.views.CircularProgressView
+        android:id="@+id/progress_temperature"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:progress="60"
+        app:progressBarColor="@android:color/holo_purple"
+        app:progressBarThickness="10dp" />
+
     <TextView
         android:id="@+id/text_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="115dp"
         android:text="0"
-        android:textColor="@color/blue_500"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -93,26 +105,37 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="304dp"
+        android:layout_marginTop="32dp"
         android:text="Saturación de Oxígeno"
         android:textColor="@color/blue_500"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/progress_temperature"
         tools:ignore="MissingConstraints" />
+
+    <com.github.guilhe.views.CircularProgressView
+        android:id="@+id/progress_saturation_oxygen"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:progress="60"
+        app:progressBarColor="@android:color/holo_purple"
+        app:progressBarThickness="10dp" />
 
     <TextView
         android:id="@+id/text_saturation_oxygen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="115dp"
         android:text="0"
-        android:textColor="@color/blue_500"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         tools:ignore="MissingConstraints" />

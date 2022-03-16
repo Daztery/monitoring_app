@@ -31,8 +31,8 @@ class PrescriptionFragment : Fragment() {
 
     private lateinit var prescriptionAdapter: PrescriptionAdapter
 
-    private var startDate = 1641016800000
-    private var endDate = 1704002400000
+    private var startDate = 1646978400000
+    private var endDate = 1672506000000
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -129,7 +129,7 @@ class PrescriptionFragment : Fragment() {
                 currentDate = date
                 binding.textStartDate.text = textCalendar
 
-                startDate = c.timeInMillis / 1000
+                startDate = c.timeInMillis
 
             }, mYear, mMonth, mDay
         )

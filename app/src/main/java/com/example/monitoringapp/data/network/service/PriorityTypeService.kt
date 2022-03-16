@@ -1,5 +1,6 @@
 package com.example.monitoringapp.data.network.service
 
+import com.example.monitoringapp.data.model.Priority
 import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.network.api.PriorityTypeApiClient
 import com.example.monitoringapp.data.network.response.CollectionResponse
@@ -32,7 +33,7 @@ class PriorityTypeService @Inject constructor(private val apiClient: PriorityTyp
         }
     }
 
-    suspend fun getAllPriority(): OperationResult<CollectionResponse<PriorityType>> {
+    suspend fun getAllPriority(): OperationResult<CollectionResponse<Priority>> {
         try {
             val response = apiClient.getAllPriority()
             response.let {

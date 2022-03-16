@@ -1,5 +1,6 @@
 package com.example.monitoringapp.data.network.api
 
+import com.example.monitoringapp.data.model.Priority
 import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
@@ -12,7 +13,7 @@ interface PriorityTypeApiClient {
     suspend fun getPriority(@Path("id") id: Int): Response<ObjectResponse<PriorityType>>
 
     @GET("priority")
-    suspend fun getAllPriority(): Response<CollectionResponse<PriorityType>>
+    suspend fun getAllPriority(): Response<CollectionResponse<Priority>>
 
     /*@POST("emergency")
     suspend fun createEmergency(@Body emergencyTypeRequest: EmergencyTypeRequest): Response<UpdateResponse>

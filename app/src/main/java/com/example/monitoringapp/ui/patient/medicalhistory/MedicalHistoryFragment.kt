@@ -34,8 +34,8 @@ class MedicalHistoryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var planAdapter: PlanAdapter
-    private var startDate = 0.0
-    private var endDate = 0.0
+    private var startDate = 1646978400000
+    private var endDate = 1672506000000
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -119,14 +119,14 @@ class MedicalHistoryFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay)
-
+                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
                 currentDate = date
                 binding.textStartDate.text = textCalendar
 
-                startDate = (c.timeInMillis / 1000).toDouble()
+                startDate = c.timeInMillis
                 //Log.i("startDate", startDate.toString())
             }, mYear, mMonth, mDay
         )
@@ -147,14 +147,14 @@ class MedicalHistoryFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay)
-
+                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
                 currentDate = date
                 binding.textEndDate.text = textCalendar
 
-                endDate = (c.timeInMillis / 1000).toDouble()
+                endDate = c.timeInMillis
             }, mYear, mMonth, mDay
         )
         datePickerDialog?.datePicker?.maxDate = System.currentTimeMillis()

@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.monitoringapp.R
+import com.example.monitoringapp.data.model.Priority
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.databinding.ItemPriorityBinding
 
 class PriorityReportAdapter(
-    private var items: List<Report>
+    private var items: List<Priority>
 ) :
     RecyclerView.Adapter<PriorityReportAdapter.CardViewHolder>() {
 
@@ -20,7 +21,7 @@ class PriorityReportAdapter(
 
         private val binding = ItemPriorityBinding.bind(itemView)
 
-        fun bindTo(item: Report) {
+        fun bindTo(item: Priority) {
             binding.run {
                 textName.text = item.name
             }

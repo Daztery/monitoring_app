@@ -66,6 +66,7 @@ class HomeDoctorFragment : Fragment() {
                 user = userObserver
                 binding.run {
                     progressBar.gone()
+                    PreferencesHelper.medicalCenter = userObserver.doctor?.medicalCenter?.name
                     textFullname.text = userObserver.doctor?.getFullName()
                     textDni.text = userObserver.identification
                     textCellphone.text = userObserver.doctor?.phone

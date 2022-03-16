@@ -3,6 +3,7 @@ package com.example.monitoringapp.ui.auth
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.monitoringapp.data.model.MedicalCenter
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.request.RecoverPasswordRequest
 import com.example.monitoringapp.data.network.request.SignInRequest
@@ -11,6 +12,7 @@ import com.example.monitoringapp.usecase.auth.LoginDoctorUseCase
 import com.example.monitoringapp.usecase.auth.LoginPatientUseCase
 import com.example.monitoringapp.usecase.auth.RecoverPasswordUseCase
 import com.example.monitoringapp.usecase.auth.UpdatePasswordUseCase
+import com.example.monitoringapp.usecase.medicalcenter.GetMedicalCenterUseCase
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,6 +25,7 @@ class AuthenticationViewModel @Inject constructor(
     private val loginPatientUseCase: LoginPatientUseCase,
     private val updatePasswordUseCase: UpdatePasswordUseCase,
     private val recoverPasswordUseCase: RecoverPasswordUseCase,
+    private val getMedicalCenterUseCase: GetMedicalCenterUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
 
@@ -37,6 +40,9 @@ class AuthenticationViewModel @Inject constructor(
 
     private val _mutableUpdatePasswordUIViewState = MutableLiveData<UIViewState<String>>()
     val uiViewUpdatePasswordStateObservable = _mutableUpdatePasswordUIViewState.asLiveData()
+
+    private val _mutableGetMedicalCenterUIViewState = MutableLiveData<UIViewState<MedicalCenter>>()
+    val uiViewGetMedicalCenterStateObservable = _mutableGetMedicalCenterUIViewState.asLiveData()
 
     fun loginDoctor(user: SignInRequest) {
         emitUILoginDoctorState(UIViewState.Loading)
@@ -126,6 +132,28 @@ class AuthenticationViewModel @Inject constructor(
         }
     }
 
+    fun getMedicalCenter(id: Int) {
+        emitUIGetMedicalCenterState(UIViewState.Loading)
+        viewModelScope.launch {
+            val result = withContext(dispatchers.io) {
+                getMedicalCenterUseCase(id)
+            }
+            when (result) {
+                is OperationResult.Success -> {
+                    val data = result.data?.data
+                    if (data != null) {
+                        emitUIGetMedicalCenterState(UIViewState.Success(data))
+                    } else {
+                        emitUIGetMedicalCenterState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                    }
+                }
+                is OperationResult.Error -> {
+                    emitUIGetMedicalCenterState(UIViewState.Error(result.exception))
+                }
+            }
+        }
+    }
+
     private fun emitUILoginDoctorState(state: UIViewState<User>) {
         _mutableLoginDoctorUIViewState.postValue(state)
     }
@@ -140,6 +168,10 @@ class AuthenticationViewModel @Inject constructor(
 
     private fun emitUIUpdatePasswordState(state: UIViewState<String>) {
         _mutableUpdatePasswordUIViewState.postValue(state)
+    }
+
+    private fun emitUIGetMedicalCenterState(state: UIViewState<MedicalCenter>) {
+        _mutableGetMedicalCenterUIViewState.postValue(state)
     }
 
 }

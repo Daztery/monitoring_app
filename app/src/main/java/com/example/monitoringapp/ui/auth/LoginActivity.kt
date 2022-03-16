@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.monitoringapp.R
+import com.example.monitoringapp.data.model.MedicalCenter
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.request.SignInRequest
 import com.example.monitoringapp.databinding.ActivityLoginBinding
@@ -55,6 +56,11 @@ class LoginActivity : AppCompatActivity() {
             this@LoginActivity,
             loginPatientObserver
         )
+
+        authenticationViewModel.uiViewGetMedicalCenterStateObservable.observe(
+            this@LoginActivity,
+            medicalCenterObserver
+        )
     }
 
     private fun login(email: String, password: String) {
@@ -75,7 +81,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
     private val loginDoctorObserver = Observer<UIViewState<User>> {
         when (it) {
             is UIViewState.Success -> {
@@ -84,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
                 PreferencesHelper.token = userData.token
                 PreferencesHelper.type = "Doctor"
                 PreferencesHelper.userData = DataUtil.stringify(userData)
-
+                authenticationViewModel.getMedicalCenter(userData.doctor?.medicalCenterId!!)
                 val intent = Intent(this@LoginActivity, HomeDoctorActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -119,4 +124,22 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+    private val medicalCenterObserver = Observer<UIViewState<MedicalCenter>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val itemObserver = it.result
+                PreferencesHelper.medicalCenter = itemObserver.name
+            }
+            is UIViewState.Loading -> {
+                // TODO: Handle UI loading
+            }
+            is UIViewState.Error -> {
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+
+
 }

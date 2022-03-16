@@ -35,3 +35,8 @@ data class UserPriorityType(
     var identification: String? = "",
     var id: Int = 0
 )
+
+data class ReportStatus(
+    var status: String? = "",
+    var total: Int? = 0,
+)

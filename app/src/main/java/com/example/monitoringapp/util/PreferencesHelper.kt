@@ -13,6 +13,7 @@ object PreferencesHelper {
     private val USER_TOKEN = Pair("token", "")
     private val USER_DATA = Pair("user_data", "")
     private val TYPE_USER = Pair("type_user", "")
+    private val MEDICAL_CENTER = Pair("medical_center", "")
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(NAME, MODE)
@@ -22,6 +23,7 @@ object PreferencesHelper {
         token = ""
         userData = ""
         type = ""
+        medicalCenter = ""
     }
 
     private inline fun SharedPreferences.edit(
@@ -52,6 +54,12 @@ object PreferencesHelper {
         get() = preferences.getString(TYPE_USER.first, TYPE_USER.second)
         set(value) = preferences.edit {
             it.putString(TYPE_USER.first, value)
+        }
+
+    var medicalCenter: String?
+        get() = preferences.getString(MEDICAL_CENTER.first, MEDICAL_CENTER.second)
+        set(value) = preferences.edit {
+            it.putString(MEDICAL_CENTER.first, value)
         }
 
 }

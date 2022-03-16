@@ -1,5 +1,6 @@
 package com.example.monitoringapp.data.network.repository
 
+import com.example.monitoringapp.data.model.Priority
 import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.data.network.response.ObjectResponse
@@ -15,7 +16,7 @@ class PriorityTypeRepository @Inject constructor(
         return priorityTypeService.getPriority(id)
     }
 
-    suspend fun getAllPriority(): OperationResult<CollectionResponse<PriorityType>> {
+    suspend fun getAllPriority(): OperationResult<CollectionResponse<Priority>> {
         return priorityTypeService.getAllPriority()
     }
 

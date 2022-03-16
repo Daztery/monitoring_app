@@ -1,9 +1,6 @@
 package com.example.monitoringapp.data.network.service
 
-import com.example.monitoringapp.data.model.EmergencyType
-import com.example.monitoringapp.data.model.PriorityType
-import com.example.monitoringapp.data.model.Report
-import com.example.monitoringapp.data.model.Status
+import com.example.monitoringapp.data.model.*
 import com.example.monitoringapp.data.network.api.ReportApiClient
 import com.example.monitoringapp.data.network.response.CollectionResponse
 import com.example.monitoringapp.data.network.response.GenericErrorResponse
@@ -131,7 +128,7 @@ class ReportService @Inject constructor(private val apiClient: ReportApiClient) 
     suspend fun getPatientStatusResume(
         active: Boolean,
         from: String
-    ): OperationResult<CollectionResponse<Report>> {
+    ): OperationResult<CollectionResponse<ReportStatus>> {
         try {
             val response = apiClient.getPatientStatusResume(active, from)
             response.let {
