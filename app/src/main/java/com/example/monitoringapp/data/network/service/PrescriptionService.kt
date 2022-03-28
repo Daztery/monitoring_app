@@ -36,7 +36,7 @@ class PrescriptionService @Inject constructor(private val apiClient: Prescriptio
     suspend fun createPlanPrescription(
         planId: Int,
         planPrescriptionRequest: PlanPrescriptionRequest
-    ): OperationResult<CollectionResponse<Prescription>> {
+    ): OperationResult<ObjectResponse<Prescription>> {
         try {
             val response = apiClient.createPlanPrescription(planId, planPrescriptionRequest)
             response.let {

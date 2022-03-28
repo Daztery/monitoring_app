@@ -119,7 +119,7 @@ class RegisterMonitoringPlanViewModel @Inject constructor(
             }
             when (result) {
                 is OperationResult.Success -> {
-                    val data = result.data?.data?.get(0)
+                    val data = result.data?.data
                     if (data != null) {
                         emitUICreatePlanPrescriptionState(UIViewState.Success(data))
                     } else {

@@ -32,6 +32,8 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
     private var startDate = 1646978400000
     private var endDate = 1672506000000
     var positionSpinner = 1
+    private lateinit var user: User
+    val code = (100..10000).random()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +44,9 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
 
         setupObservers()
 
-        val user = intent.getSerializableExtra(Constants.KEY_USER) as User
+        user = intent.getSerializableExtra(Constants.KEY_USER) as User
 
         registerMonitoringPlanViewModel.getEmergency()
-
         binding.run {
             editFullname.setText(user.patient?.getFullName())
 
@@ -72,7 +73,7 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
                         position: Int,
                         id: Long
                     ) {
-                        positionSpinner = position+1
+                        positionSpinner = position + 1
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -81,7 +82,7 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
             buttonRegister.setOnClickListener {
                 if (editFullname.text.isNotEmpty()) {
                     val planRequest = PlanRequest()
-                    planRequest.code = (100..10000).random()
+                    planRequest.code = code
                     planRequest.emergencyTypeId = positionSpinner
                     planRequest.priorityTypeId = 1
                     planRequest.patientId = user.id
@@ -142,12 +143,15 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
     private val createPlanObserver = Observer<UIViewState<Plan>> {
         when (it) {
             is UIViewState.Success -> {
-                val itemObserver = it.result
+                var itemObserver = it.result
 
                 binding.run {
                     //progressBar.gone()
-                    val intent = Intent(applicationContext, RegisterPrescriptionActivity::class.java)
+                    val intent =
+                        Intent(applicationContext, RegisterPrescriptionActivity::class.java)
+                    itemObserver.code = code
                     intent.putExtra(Constants.KEY_PLAN, itemObserver)
+                    intent.putExtra(Constants.KEY_USER, user)
                     startActivity(intent)
                     finish()
                 }

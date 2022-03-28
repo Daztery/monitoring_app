@@ -72,9 +72,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 val message = it.result
                 showAlertDialog(message)
             }
-            is UIViewState.Loading -> {
-                // TODO: Handle UI loading
-            }
             is UIViewState.Error -> {
                 toast(Constants.DEFAULT_ERROR)
             }
@@ -88,7 +85,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         builder.setNeutralButton("Ok") { _, _ ->
             val intent = Intent(this@ForgotPasswordActivity, ChangePasswordActivity::class.java)
+            intent.putExtra("dni", binding.editDni.text.toString())
             startActivity(intent)
+            finish()
         }
 
         val alertDialog: AlertDialog = builder.create()

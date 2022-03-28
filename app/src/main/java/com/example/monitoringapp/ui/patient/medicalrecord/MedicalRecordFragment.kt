@@ -120,7 +120,7 @@ class MedicalRecordFragment : Fragment() {
                 }
             }
             is UIViewState.Error -> {
-                toast(Constants.DEFAULT_ERROR)
+                toast("No se encontró reporte diario")
             }
         }
     }

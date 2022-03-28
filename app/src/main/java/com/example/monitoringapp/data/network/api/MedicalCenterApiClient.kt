@@ -8,10 +8,10 @@ import retrofit2.http.*
 
 interface MedicalCenterApiClient {
 
-    @GET("medicalCenter/{id}")
+    @GET("center/{id}")
     suspend fun getMedicalCenter(@Path("id") id: Int): Response<ObjectResponse<MedicalCenter>>
 
-    @GET("medicalCenter")
+    @GET("center")
     suspend fun getAllMedicalCenter(): Response<CollectionResponse<MedicalCenter>>
 
     /*@POST("emergency")

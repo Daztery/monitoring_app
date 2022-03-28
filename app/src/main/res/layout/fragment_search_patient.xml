@@ -7,13 +7,12 @@
     android:background="@drawable/fondo_gradiente"
     tools:context=".ui.doctor.searchpatient.SearchPatientFragment">
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="30dp"
         android:text="Tipo de Documento (*)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

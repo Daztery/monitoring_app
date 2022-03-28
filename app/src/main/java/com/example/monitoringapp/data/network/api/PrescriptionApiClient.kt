@@ -16,7 +16,7 @@ interface PrescriptionApiClient {
     suspend fun createPlanPrescription(
         @Path("planId") planId: Int,
         @Body planPrescriptionRequest: PlanPrescriptionRequest
-    ): Response<CollectionResponse<Prescription>>
+    ): Response<ObjectResponse<Prescription>>
 
     @GET("prescription/self")
     suspend fun getSelfPrescription(

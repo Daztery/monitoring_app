@@ -18,6 +18,7 @@ data class RecoverPasswordRequest(
 )
 
 data class UpdatePasswordRequest(
+    var identification: String = "",
     var oldPassword: String = "",
     var newPassword: String = ""
 )

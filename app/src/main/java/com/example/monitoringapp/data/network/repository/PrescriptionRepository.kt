@@ -1,5 +1,6 @@
 package com.example.monitoringapp.data.network.repository
 
+import android.util.Log
 import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.data.network.request.PlanPrescriptionRequest
 import com.example.monitoringapp.data.network.response.CollectionResponse
@@ -21,7 +22,7 @@ class PrescriptionRepository @Inject constructor(
     suspend fun createPlanPrescription(
         planId: Int,
         planPrescriptionRequest: PlanPrescriptionRequest
-    ): OperationResult<CollectionResponse<Prescription>> {
+    ): OperationResult<ObjectResponse<Prescription>> {
         return prescriptionService.createPlanPrescription(planId, planPrescriptionRequest)
     }
 

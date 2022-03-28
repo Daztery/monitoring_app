@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.request.UpdatePasswordRequest
 import com.example.monitoringapp.databinding.ActivityChangePasswordBinding
 import com.example.monitoringapp.util.Constants
@@ -22,7 +23,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChangePasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val dni = intent.getStringExtra("dni")
         setupObservers()
 
         binding.run {
@@ -33,6 +34,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                 ) {
                     if (editNewPassword.text.toString() == editNewRepassword.text.toString()) {
                         val updatePasswordRequest = UpdatePasswordRequest()
+                        updatePasswordRequest.identification = dni!!
                         updatePasswordRequest.oldPassword = editCurrentPassword.text.toString()
                         updatePasswordRequest.newPassword = editNewPassword.text.toString()
                         authenticationViewModel.updatePassword(updatePasswordRequest)
@@ -48,7 +50,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        authenticationViewModel.uiViewRecoverPasswordStateObservable.observe(
+        authenticationViewModel.uiViewUpdatePasswordStateObservable.observe(
             this@ChangePasswordActivity,
             updatePasswordObserver
         )
@@ -60,9 +62,6 @@ class ChangePasswordActivity : AppCompatActivity() {
             is UIViewState.Success -> {
                 showAlertDialog()
             }
-            is UIViewState.Loading -> {
-                // TODO: Handle UI loading
-            }
             is UIViewState.Error -> {
                 toast(Constants.DEFAULT_ERROR)
             }
@@ -72,9 +71,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     private fun showAlertDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Se cambio la contraseña")
-
-        builder.setNeutralButton("Ok") { _, _ -> }
-
+        builder.setNeutralButton("Ok") { _, _ ->  finish()}
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()

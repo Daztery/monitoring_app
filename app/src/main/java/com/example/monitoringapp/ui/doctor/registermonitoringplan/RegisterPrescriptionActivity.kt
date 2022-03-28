@@ -32,20 +32,19 @@ class RegisterPrescriptionActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         this.title = "Registrar Receta Médica"
-
+        val user = intent.getSerializableExtra(Constants.KEY_USER) as User
         val plan = intent.getSerializableExtra(Constants.KEY_PLAN) as Plan
 
         setupObservers()
         binding.run {
 
-            editFullname.setText(plan.patient?.getFullName())
+            editFullname.setText(user.patient?.getFullName())
             editCodeMonitoring.setText(plan.code.toString())
             editCodePrescription.setText((100..999).random().toString())
 
             buttonRegister.setOnClickListener {
                 if (editCodeMonitoring.text.toString().isNotEmpty() &&
                     editCodePrescription.text.toString().isNotEmpty() &&
-                    editFullname.text.toString().isNotEmpty() &&
                     editIndications.text.toString().isNotEmpty() &&
                     editMedicament1.text.toString().isNotEmpty()
                 ) {
@@ -88,10 +87,6 @@ class RegisterPrescriptionActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        registerMonitoringPlanViewModel.uiViewGetPatientStateObservable.observe(
-            this,
-            getPatientObserver
-        )
         registerMonitoringPlanViewModel.uiViewCreatePlanPrescriptionStateObservable.observe(
             this,
             createPlanPrescriptionObserver
@@ -99,36 +94,12 @@ class RegisterPrescriptionActivity : AppCompatActivity() {
     }
 
     //Observers
-    private val getPatientObserver = Observer<UIViewState<User>> {
-        when (it) {
-            is UIViewState.Success -> {
-                val userObserver = it.result
-                binding.run {
-                    //progressBar.gone()
-                    //toast("Receta médica registrada")
-                    //finish()
-                }
-            }
-            is UIViewState.Loading -> {
-                hideKeyboard()
-                //binding.progressBar.visible()
-            }
-            is UIViewState.Error -> {
-                //binding.progressBar.visible()
-                toast(Constants.DEFAULT_ERROR)
-            }
-        }
-    }
 
     private val createPlanPrescriptionObserver = Observer<UIViewState<Prescription>> {
         when (it) {
             is UIViewState.Success -> {
-                val userObserver = it.result
-                binding.run {
-                    //progressBar.gone()
-                    toast("Receta médica registrada")
-                    finish()
-                }
+                toast("Receta médica registrada")
+                finish()
             }
             is UIViewState.Loading -> {
                 hideKeyboard()

@@ -8,10 +8,7 @@ import androidx.lifecycle.Observer
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivitySearchPatientBinding
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
-import com.example.monitoringapp.util.Constants
-import com.example.monitoringapp.util.UIViewState
-import com.example.monitoringapp.util.hideKeyboard
-import com.example.monitoringapp.util.toast
+import com.example.monitoringapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,6 +45,7 @@ class SearchPatientActivity : AppCompatActivity() {
 
     private fun loadData(user: User) {
         binding.run {
+            textMedicalCenter.text = PreferencesHelper.medicalCenter
             editNameLastname.setText(user.patient?.getFullName())
             editDni.setText(user.identification)
             editAge.setText(user.patient?.getAge().toString())

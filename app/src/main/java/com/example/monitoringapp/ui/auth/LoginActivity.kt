@@ -3,6 +3,7 @@ package com.example.monitoringapp.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -84,20 +85,19 @@ class LoginActivity : AppCompatActivity() {
     private val loginDoctorObserver = Observer<UIViewState<User>> {
         when (it) {
             is UIViewState.Success -> {
+                binding.progressBar.gone()
                 val userData = it.result
 
                 PreferencesHelper.token = userData.token
                 PreferencesHelper.type = "Doctor"
                 PreferencesHelper.userData = DataUtil.stringify(userData)
                 authenticationViewModel.getMedicalCenter(userData.doctor?.medicalCenterId!!)
-                val intent = Intent(this@LoginActivity, HomeDoctorActivity::class.java)
-                startActivity(intent)
-                finish()
             }
             is UIViewState.Loading -> {
-                // TODO: Handle UI loading
+                binding.progressBar.visible()
             }
             is UIViewState.Error -> {
+                binding.progressBar.gone()
                 toast(Constants.DEFAULT_ERROR)
             }
         }
@@ -106,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
     private val loginPatientObserver = Observer<UIViewState<User>> {
         when (it) {
             is UIViewState.Success -> {
+                binding.progressBar.gone()
                 val userData = it.result
 
                 PreferencesHelper.token = userData.token
@@ -117,9 +118,10 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
             is UIViewState.Loading -> {
-                // TODO: Handle UI loading
+                binding.progressBar.visible()
             }
             is UIViewState.Error -> {
+                binding.progressBar.gone()
                 toast(Constants.DEFAULT_ERROR)
             }
         }
@@ -128,14 +130,19 @@ class LoginActivity : AppCompatActivity() {
     private val medicalCenterObserver = Observer<UIViewState<MedicalCenter>> {
         when (it) {
             is UIViewState.Success -> {
+                binding.progressBar.gone()
                 val itemObserver = it.result
                 PreferencesHelper.medicalCenter = itemObserver.name
+                Log.i("MedicalCenter",PreferencesHelper.medicalCenter.toString())
+
+                val intent = Intent(this@LoginActivity, HomeDoctorActivity::class.java)
+                startActivity(intent)
+                finish()
             }
             is UIViewState.Loading -> {
-                // TODO: Handle UI loading
+                binding.progressBar.visible()
             }
             is UIViewState.Error -> {
-                toast(Constants.DEFAULT_ERROR)
             }
         }
     }

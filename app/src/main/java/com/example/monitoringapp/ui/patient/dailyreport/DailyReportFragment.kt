@@ -90,7 +90,12 @@ class DailyReportFragment : Fragment() {
                     editFrequency.text.isNotEmpty() &&
                     editOxygenSaturation.text.isNotEmpty()
                 ) {
-                    dailyReportViewModel.getSelfPlans()
+                    val dailyReportRequest = DailyReportRequest()
+                    dailyReportRequest.heartRate = editFrequency.text.toString().toInt()
+                    dailyReportRequest.temperature = editTemperature.text.toString().toInt()
+                    dailyReportRequest.saturation = editOxygenSaturation.text.toString().toInt()
+                    dailyReportRequest.currentDate = Formatter.formatLocalYearFirstDate(Date())
+                    dailyReportViewModel.createReport(5, dailyReportRequest)
                 } else {
                     toast(Constants.DEFAULT_ERROR)
                 }

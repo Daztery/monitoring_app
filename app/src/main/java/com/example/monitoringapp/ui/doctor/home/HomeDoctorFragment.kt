@@ -1,11 +1,12 @@
 package com.example.monitoringapp.ui.doctor.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.monitoringapp.data.model.User
@@ -42,13 +43,6 @@ class HomeDoctorFragment : Fragment() {
 
         homeDoctorViewModel.getSelf()
 
-        binding.run {
-            imageEdit.setOnClickListener {
-                val intent = Intent(context, InformationActivity::class.java)
-                intent.putExtra(Constants.KEY_USER, user)
-                startActivity(intent)
-            }
-        }
     }
 
     private fun setupObservers() {
@@ -71,6 +65,20 @@ class HomeDoctorFragment : Fragment() {
                     textDni.text = userObserver.identification
                     textCellphone.text = userObserver.doctor?.phone
                     textEmail.text = userObserver.email
+                    imageCall.setOnClickListener {
+                        val dialIntent = Intent(Intent.ACTION_DIAL)
+                        dialIntent.data = Uri.parse("tel:" + textCellphone.text.toString())
+                        startActivity(dialIntent)
+                    }
+                    imageEdit.setOnClickListener {
+                        val intent = Intent(context, InformationActivity::class.java)
+                        intent.putExtra(Constants.KEY_USER, user)
+                        startActivity(intent)
+                    }
+                    imageEmail.setOnClickListener {
+                        toast("Número copiado")
+                        context?.copyToClipboard(textEmail.text.toString())
+                    }
                 }
             }
             is UIViewState.Loading -> {

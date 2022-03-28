@@ -86,7 +86,7 @@ class MedicalMonitoringActivity : AppCompatActivity() {
                 }
             }
             is UIViewState.Error -> {
-                toast(Constants.DEFAULT_ERROR)
+                //toast(Constants.DEFAULT_ERROR)
             }
         }
     }

@@ -1,10 +1,13 @@
 package com.example.monitoringapp.util
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -83,4 +86,9 @@ fun JSONArray.toList(): List<Any> {
         list.add(value)
     }
     return list
+}
+
+fun Context.copyToClipboard(text: CharSequence){
+    val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
+    clipboard?.setPrimaryClip(ClipData.newPlainText("Número copiado",text))
 }

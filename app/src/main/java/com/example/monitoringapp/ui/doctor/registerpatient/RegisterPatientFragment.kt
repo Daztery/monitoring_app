@@ -108,11 +108,9 @@ class RegisterPatientFragment : Fragment() {
                     editName.setText("")
                     editMail.setText("")
                     editPhone.setText("")
+                    editPassword.setText("")
                 }
                 toast("Paciente registrado")
-            }
-            is UIViewState.Loading -> {
-                // TODO: Handle UI loading
             }
             is UIViewState.Error -> {
                 toast(Constants.DEFAULT_ERROR)

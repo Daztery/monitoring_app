@@ -40,6 +40,7 @@ class InformationActivity : AppCompatActivity() {
                 editCellphone.setText(user.doctor?.phone)
             } else {
                 this@InformationActivity.title = "Información del Paciente"
+                textMedicalCenter.gone()
                 editFullname.setText(user.patient?.getFullName())
                 editBirthday.setText(user.patient?.getBirthday())
                 editAge.setText(user.patient?.getAge().toString())

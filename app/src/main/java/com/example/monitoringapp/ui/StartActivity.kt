@@ -3,6 +3,7 @@ package com.example.monitoringapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.monitoringapp.databinding.ActivityStartBinding
 import com.example.monitoringapp.ui.auth.LoginActivity
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
@@ -21,6 +22,8 @@ class StartActivity : AppCompatActivity() {
 
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val intent = Intent(this@StartActivity, LoginActivity::class.java)
 
