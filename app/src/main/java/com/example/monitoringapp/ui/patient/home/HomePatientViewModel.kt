@@ -3,10 +3,12 @@ package com.example.monitoringapp.ui.patient.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.monitoringapp.data.model.MedicalCenter
 import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.data.model.TemperatureSaturation
 import com.example.monitoringapp.data.network.request.DailyReportDateRequest
+import com.example.monitoringapp.usecase.medicalcenter.GetMedicalCenterUseCase
 import com.example.monitoringapp.usecase.monitoring.GetSelfPlansUseCase
 import com.example.monitoringapp.usecase.monitoring.dailyreport.GetDateUseCase
 import com.example.monitoringapp.usecase.prescription.GetSelfPrescriptionUseCase
@@ -19,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomePatientViewModel @Inject constructor(
     private val getSelfPlansUseCase: GetSelfPlansUseCase,
-    private val getDateUseCase: GetDateUseCase,
+    private val getMedicalCenterUseCase: GetMedicalCenterUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
 
@@ -28,31 +30,28 @@ class HomePatientViewModel @Inject constructor(
     val uiViewGetSelfPlansStateObservable =
         _mutableGetSelfPlansUIViewState.asLiveData()
 
-    private val _mutableGetTemperatureAndSaturationUIViewState =
-        MutableLiveData<UIViewState<TemperatureSaturation>>()
-    val uiViewGetTemperatureAndSaturationStateObservable =
-        _mutableGetTemperatureAndSaturationUIViewState.asLiveData()
+    private val _mutableGetMedicalCenterUIViewState =
+        MutableLiveData<UIViewState<MedicalCenter>>()
+    val uiViewGetMedicalCenterStateObservable =
+        _mutableGetMedicalCenterUIViewState.asLiveData()
 
-    fun getTemperatureAndSaturation(
-        planId: Int,
-        dailyReportDateRequest: DailyReportDateRequest
-    ) {
-        emitUIGetTemperatureAndSaturationState(UIViewState.Loading)
+    fun getMedicalCenter(medicalCenterId: Int) {
+        emitUIGetMedicalCenterState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getDateUseCase(planId, dailyReportDateRequest)
+                getMedicalCenterUseCase(medicalCenterId)
             }
             when (result) {
                 is OperationResult.Success -> {
                     val data = result.data?.data
                     if (data != null) {
-                        emitUIGetTemperatureAndSaturationState(UIViewState.Success(data))
+                        emitUIGetMedicalCenterState(UIViewState.Success(data))
                     } else {
-                        emitUIGetTemperatureAndSaturationState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                        emitUIGetMedicalCenterState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
                 }
                 is OperationResult.Error -> {
-                    emitUIGetTemperatureAndSaturationState(UIViewState.Error(result.exception))
+                    emitUIGetMedicalCenterState(UIViewState.Error(result.exception))
                 }
             }
         }
@@ -73,7 +72,7 @@ class HomePatientViewModel @Inject constructor(
                         } else {
                             emitUIGetSelfPlansState(UIViewState.Error(Constants.DEFAULT_ERROR))
                         }
-                    }else{
+                    } else {
                         emitUIGetSelfPlansState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
                 }
@@ -84,8 +83,8 @@ class HomePatientViewModel @Inject constructor(
         }
     }
 
-    private fun emitUIGetTemperatureAndSaturationState(state: UIViewState<TemperatureSaturation>) {
-        _mutableGetTemperatureAndSaturationUIViewState.postValue(state)
+    private fun emitUIGetMedicalCenterState(state: UIViewState<MedicalCenter>) {
+        _mutableGetMedicalCenterUIViewState.postValue(state)
     }
 
     private fun emitUIGetSelfPlansState(state: UIViewState<Plan>) {

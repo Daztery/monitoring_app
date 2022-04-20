@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.monitoringapp.R
 import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.databinding.ItemMedicalConsultationBinding
+import com.example.monitoringapp.util.Formatter
+import java.util.*
 
 class PatientHistoryAdapter(
     private var items: List<Plan>,
@@ -23,10 +25,12 @@ class PatientHistoryAdapter(
 
         fun bindTo(item: Plan) {
             binding.run {
-                textNumberAttention.text = item.code.toString()
-                textEmergencyType.text = item.emergencyType?.name
-                textStatus.text = item.patient?.status
-                textMonitoringTime.text = "1 semana"
+                textPatientName.text = item.patient?.getFullName()
+                textCode.text = item.code.toString()
+                val startDate = Formatter.getLocaleDate(item.startDate!!)
+                val endDate = Formatter.getLocaleDate(item.endDate!!)
+                textStartDate.text = Formatter.formatLocalDate(startDate ?: Date())
+                textEndDate.text = Formatter.formatLocalDate(endDate ?: Date())
                 card.setOnClickListener {
                     onClickCallback(item)
                 }

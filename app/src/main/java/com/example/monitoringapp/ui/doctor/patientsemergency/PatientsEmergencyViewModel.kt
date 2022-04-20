@@ -8,6 +8,7 @@ import com.example.monitoringapp.data.model.EmergencyType
 import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.usecase.emergencytype.GetAllEmergencyUseCase
+import com.example.monitoringapp.usecase.report.GetEmergencyReportUseCase
 import com.example.monitoringapp.usecase.report.GetPatientsByEmergencyUseCase
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PatientsEmergencyViewModel @Inject constructor(
     private val getPatientsByEmergencyUseCase: GetPatientsByEmergencyUseCase,
-    private val getEmergencyReportUseCase: GetAllEmergencyUseCase,
+    private val getEmergencyReportUseCase: GetEmergencyReportUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
 
@@ -28,7 +29,7 @@ class PatientsEmergencyViewModel @Inject constructor(
         _mutableGetPatientsByEmergencyUIViewState.asLiveData()
 
     private val _mutableGetEmergencyReportUIViewState =
-        MutableLiveData<UIViewState<List<Emergency>>>()
+        MutableLiveData<UIViewState<List<Report>>>()
     val uiViewGetEmergencyReportStateObservable =
         _mutableGetEmergencyReportUIViewState.asLiveData()
 
@@ -39,7 +40,7 @@ class PatientsEmergencyViewModel @Inject constructor(
         emitUIGetPatientsByEmergencyState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getPatientsByEmergencyUseCase(emergencyId, false, from)
+                getPatientsByEmergencyUseCase(emergencyId, true, from)
             }
             when (result) {
                 is OperationResult.Success -> {
@@ -62,7 +63,7 @@ class PatientsEmergencyViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getEmergencyReportUseCase()
+                getEmergencyReportUseCase(from)
             }
             emitUIGetEmergencyReportState(UIViewState.Loading)
             when (result) {
@@ -85,7 +86,7 @@ class PatientsEmergencyViewModel @Inject constructor(
         _mutableGetPatientsByEmergencyUIViewState.postValue(state)
     }
 
-    private fun emitUIGetEmergencyReportState(state: UIViewState<List<Emergency>>) {
+    private fun emitUIGetEmergencyReportState(state: UIViewState<List<Report>>) {
         _mutableGetEmergencyReportUIViewState.postValue(state)
     }
 

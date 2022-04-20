@@ -26,7 +26,7 @@ class EditPatientViewModel @Inject constructor(
     private val _mutableGetPatientUIViewState = MutableLiveData<UIViewState<User>>()
     val uiViewGetPatientStateObservable = _mutableGetPatientUIViewState.asLiveData()
 
-    fun getPatient(identification: Int) {
+    fun getPatient(identification: String) {
         emitUIGetPatientState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {

@@ -1,7 +1,6 @@
 package com.example.monitoringapp.ui.patient.alerts
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Alert
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentAlertsBinding
-import com.example.monitoringapp.ui.adapter.AlertsAdapter
+import com.example.monitoringapp.ui.adapter.AlertsPatientAdapter
 import com.example.monitoringapp.ui.patient.HomePatientActivity
-import com.example.monitoringapp.ui.patient.medicalrecord.MedicalRecordViewModel
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +23,7 @@ class AlertsFragment : Fragment() {
     private var _binding: FragmentAlertsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var alertsAdapter: AlertsAdapter
+    private lateinit var alertsPatientAdapter: AlertsPatientAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +38,11 @@ class AlertsFragment : Fragment() {
         (activity as HomePatientActivity).title = "Alertas"
         setupObservers()
         alertsViewModel.getSelf()
+        alertsViewModel.getSelfAlerts()
         binding.run {
             recycler.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            mockAlert()
+
         }
     }
 
@@ -51,6 +50,10 @@ class AlertsFragment : Fragment() {
         alertsViewModel.uiViewGetSelfStateObservable.observe(
             viewLifecycleOwner,
             getSelfObserver
+        )
+        alertsViewModel.uiViewGetSelfAlertStateObservable.observe(
+            viewLifecycleOwner,
+            getSelfAlertsObserver
         )
     }
 
@@ -76,17 +79,22 @@ class AlertsFragment : Fragment() {
         }
     }
 
-    private fun mockAlert() {
-        val alert1 = Alert("Alerta de Temperatura", "Andres Lopez", "Temperatura 39°")
-        val alert2 = Alert("Alerta de Saturación", "Andres Lopez", "Saturación 85%")
-        val alert3 = Alert(
-            "Alerta de Ausencia de Reporte",
-            "Andres Lopez",
-            "El paciente no ha realizado su reporte diario"
-        )
-        val alerts = listOf(alert1, alert2, alert3)
-        alertsAdapter = AlertsAdapter(alerts)
-        binding.recycler.adapter = alertsAdapter
+    private val getSelfAlertsObserver = Observer<UIViewState<List<Alert>>> {
+        when (it) {
+            is UIViewState.Success -> {
+                binding.progressBar.gone()
+                val itemObserver = it.result
+                alertsPatientAdapter = AlertsPatientAdapter(itemObserver)
+                binding.recycler.adapter = alertsPatientAdapter
+            }
+            is UIViewState.Loading -> {
+                binding.progressBar.visible()
+            }
+            is UIViewState.Error -> {
+                binding.progressBar.gone()
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
     }
 
     override fun onDestroyView() {

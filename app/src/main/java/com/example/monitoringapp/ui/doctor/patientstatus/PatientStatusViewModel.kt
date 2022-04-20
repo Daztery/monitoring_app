@@ -38,7 +38,7 @@ class PatientStatusViewModel @Inject constructor(
         emitUIGetPatientStatusState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getPatientStatusUseCase(false, from, to)
+                getPatientStatusUseCase(true, from, to)
             }
             when (result) {
                 is OperationResult.Success -> {
@@ -61,7 +61,7 @@ class PatientStatusViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getPatientStatusResumeUseCase( false, from)
+                getPatientStatusResumeUseCase( true, from)
             }
             emitUIGetPatientStatusResumeState(UIViewState.Loading)
             when (result) {

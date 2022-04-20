@@ -49,7 +49,7 @@ class ElectronicMedicalRecordFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             buttonSearch.setOnClickListener {
                 if (editIdentification.text.toString().isNotEmpty()) {
-                    electronicMedicalRecordViewModel.getPatient(editIdentification.text.toString().toInt())
+                    electronicMedicalRecordViewModel.getPatient(editIdentification.text.toString())
                 } else {
                     toast("Completar todos los campos")
                 }

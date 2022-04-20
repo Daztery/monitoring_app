@@ -27,6 +27,9 @@ class DailyReportFragment : Fragment() {
     private var _binding: FragmentDailyReportBinding? = null
 
     private val binding get() = _binding!!
+
+    private var planId = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +44,7 @@ class DailyReportFragment : Fragment() {
         (activity as HomePatientActivity).title = "Reporte diario"
 
         setupObservers()
+        dailyReportViewModel.getSelfPlans()
 
         binding.run {
             var flagFrequency = true
@@ -91,11 +95,11 @@ class DailyReportFragment : Fragment() {
                     editOxygenSaturation.text.isNotEmpty()
                 ) {
                     val dailyReportRequest = DailyReportRequest()
-                    dailyReportRequest.heartRate = editFrequency.text.toString().toInt()
-                    dailyReportRequest.temperature = editTemperature.text.toString().toInt()
-                    dailyReportRequest.saturation = editOxygenSaturation.text.toString().toInt()
+                    dailyReportRequest.heartRate = editFrequency.text.toString().toDouble()
+                    dailyReportRequest.temperature = editTemperature.text.toString().toDouble()
+                    dailyReportRequest.saturation = editOxygenSaturation.text.toString().toDouble()
                     dailyReportRequest.currentDate = Formatter.formatLocalYearFirstDate(Date())
-                    dailyReportViewModel.createReport(5, dailyReportRequest)
+                    dailyReportViewModel.createReport(planId, dailyReportRequest)
                 } else {
                     toast(Constants.DEFAULT_ERROR)
                 }
@@ -140,15 +144,7 @@ class DailyReportFragment : Fragment() {
         when (it) {
             is UIViewState.Success -> {
                 val planObserver = it.result
-                val dailyReportRequest = DailyReportRequest()
-                val currentDate = Formatter.formatLocalYearFirstDate(Date())
-                binding.run {
-                    dailyReportRequest.heartRate = editFrequency.text.toString().toInt()
-                    dailyReportRequest.saturation = editOxygenSaturation.text.toString().toInt()
-                    dailyReportRequest.temperature = editTemperature.text.toString().toInt()
-                    dailyReportRequest.currentDate = currentDate
-                    dailyReportViewModel.createReport(planObserver.id ?: 0, dailyReportRequest)
-                }
+                planId = planObserver.id!!
             }
             is UIViewState.Error -> {
                 toast(Constants.DEFAULT_ERROR)

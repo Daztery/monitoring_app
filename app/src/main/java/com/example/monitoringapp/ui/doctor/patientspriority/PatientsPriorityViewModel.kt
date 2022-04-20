@@ -8,6 +8,7 @@ import com.example.monitoringapp.data.model.PriorityType
 import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.usecase.prioritytype.GetAllPriorityUseCase
 import com.example.monitoringapp.usecase.report.GetPatientsByPriorityUseCase
+import com.example.monitoringapp.usecase.report.GetPriorityReportUseCase
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PatientsPriorityViewModel @Inject constructor(
     private val getPatientsByPriorityUseCase: GetPatientsByPriorityUseCase,
-    private val getPriorityReportUseCase: GetAllPriorityUseCase,
+    private val getPriorityReportUseCase: GetPriorityReportUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
 
@@ -27,7 +28,7 @@ class PatientsPriorityViewModel @Inject constructor(
         _mutableGetPatientsByPriorityUIViewState.asLiveData()
 
     private val _mutableGetPriorityReportUIViewState =
-        MutableLiveData<UIViewState<List<Priority>>>()
+        MutableLiveData<UIViewState<List<Report>>>()
     val uiViewGetPriorityReportStateObservable =
         _mutableGetPriorityReportUIViewState.asLiveData()
 
@@ -38,7 +39,7 @@ class PatientsPriorityViewModel @Inject constructor(
         emitUIGetPatientsByPriorityState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getPatientsByPriorityUseCase(PriorityId, false, from)
+                getPatientsByPriorityUseCase(PriorityId, true, from)
             }
             when (result) {
                 is OperationResult.Success -> {
@@ -61,7 +62,7 @@ class PatientsPriorityViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getPriorityReportUseCase()
+                getPriorityReportUseCase(from)
             }
             emitUIGetPriorityReportState(UIViewState.Loading)
             when (result) {
@@ -84,7 +85,7 @@ class PatientsPriorityViewModel @Inject constructor(
         _mutableGetPatientsByPriorityUIViewState.postValue(state)
     }
 
-    private fun emitUIGetPriorityReportState(state: UIViewState<List<Priority>>) {
+    private fun emitUIGetPriorityReportState(state: UIViewState<List<Report>>) {
         _mutableGetPriorityReportUIViewState.postValue(state)
     }
 

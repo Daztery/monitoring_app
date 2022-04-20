@@ -8,9 +8,8 @@ import javax.inject.Inject
 
 class GetEmergencyReportUseCase @Inject constructor(private val reportRepository: ReportRepository) {
     suspend operator fun invoke(
-        active: Boolean,
         from: String
     ): OperationResult<CollectionResponse<Report>> {
-        return reportRepository.getEmergencyReport(active, from)
+        return reportRepository.getEmergencyReport(true, from)
     }
 }

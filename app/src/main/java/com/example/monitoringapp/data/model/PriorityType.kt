@@ -4,7 +4,8 @@ import java.io.Serializable
 
 data class Priority(
     var id: Int? = 0,
-    var name: String? = ""
+    var name: String? = "",
+    var count: Int? = 0
 ): Serializable
 
 data class Report(

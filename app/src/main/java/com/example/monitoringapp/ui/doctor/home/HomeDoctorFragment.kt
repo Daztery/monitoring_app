@@ -76,7 +76,7 @@ class HomeDoctorFragment : Fragment() {
                         startActivity(intent)
                     }
                     imageEmail.setOnClickListener {
-                        toast("Número copiado")
+                        toast("Correo electrónico copiado")
                         context?.copyToClipboard(textEmail.text.toString())
                     }
                 }

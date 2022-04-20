@@ -11,8 +11,6 @@ import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivityMedicalConsultationBinding
 import com.example.monitoringapp.ui.adapter.PatientHistoryAdapter
-import com.example.monitoringapp.ui.doctor.historyclinic.ElectronicMedicalRecordDetailActivity
-import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +29,7 @@ class MedicalConsultationActivity : AppCompatActivity() {
     private var datePickerDialog: DatePickerDialog? = null
     private var startDate = 1646978400000
     private var endDate = 1672506000000
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +38,8 @@ class MedicalConsultationActivity : AppCompatActivity() {
 
         this.title = "Consultas Médicas"
 
-        val user = intent.getSerializableExtra(Constants.KEY_USER) as User
+        user = intent.getSerializableExtra(Constants.KEY_USER) as User
+
         setupObservers()
         binding.run {
 
@@ -55,7 +55,7 @@ class MedicalConsultationActivity : AppCompatActivity() {
             }
 
             buttonSearch.setOnClickListener {
-                medicalConsultationViewModel.getPatientHistory(user.patient?.id!!)
+                medicalConsultationViewModel.getPatientHistory(user.id!!)
             }
         }
 
@@ -104,7 +104,7 @@ class MedicalConsultationActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -132,7 +132,7 @@ class MedicalConsultationActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -147,8 +147,9 @@ class MedicalConsultationActivity : AppCompatActivity() {
 
     // Callbacks
     private fun onClickCallback(plan: Plan) {
-        val intent = Intent(this, ElectronicMedicalRecordDetailActivity::class.java)
+        val intent = Intent(this, MedicalConsultationDetailActivity::class.java)
         intent.putExtra(Constants.KEY_PLAN, plan)
+        intent.putExtra(Constants.KEY_USER, user)
         startActivity(intent)
     }
 

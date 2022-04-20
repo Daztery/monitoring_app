@@ -3,15 +3,13 @@ package com.example.monitoringapp.ui.doctor.registermonitoringplan
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.monitoringapp.data.model.Emergency
-import com.example.monitoringapp.data.model.Plan
-import com.example.monitoringapp.data.model.Prescription
-import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.data.model.*
 import com.example.monitoringapp.data.network.request.PlanPrescriptionRequest
 import com.example.monitoringapp.data.network.request.PlanRequest
 import com.example.monitoringapp.usecase.emergencytype.GetAllEmergencyUseCase
 import com.example.monitoringapp.usecase.monitoring.CreatePlanUseCase
 import com.example.monitoringapp.usecase.prescription.CreatePlanPrescriptionUseCase
+import com.example.monitoringapp.usecase.prioritytype.GetAllPriorityUseCase
 import com.example.monitoringapp.usecase.user.GetPatientUseCase
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +22,7 @@ class RegisterMonitoringPlanViewModel @Inject constructor(
     private val createPlanPrescriptionUseCase: CreatePlanPrescriptionUseCase,
     private val createPlanUseCase: CreatePlanUseCase,
     private val getAllEmergencyUseCase: GetAllEmergencyUseCase,
+    private val getAllPriorityUseCase: GetAllPriorityUseCase,
     private val getPatientUseCase: GetPatientUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
@@ -31,8 +30,11 @@ class RegisterMonitoringPlanViewModel @Inject constructor(
     private val _mutableGetPatientUIViewState = MutableLiveData<UIViewState<User>>()
     val uiViewGetPatientStateObservable = _mutableGetPatientUIViewState.asLiveData()
 
-    private val _mutableGetEmergencyUIViewState = MutableLiveData<UIViewState<List<Emergency>>>()
-    val uiViewGetEmergencyStateObservable = _mutableGetEmergencyUIViewState.asLiveData()
+    private val _mutableGetAllEmergenciesUIViewState = MutableLiveData<UIViewState<List<Emergency>>>()
+    val uiViewGetAllEmergenciesStateObservable = _mutableGetAllEmergenciesUIViewState.asLiveData()
+
+    private val _mutableGetAllPrioritiesUIViewState = MutableLiveData<UIViewState<List<Priority>>>()
+    val uiViewGetAllPrioritiesStateObservable = _mutableGetAllPrioritiesUIViewState.asLiveData()
 
     private val _mutableCreatePlanUIViewState = MutableLiveData<UIViewState<Plan>>()
     val uiViewCreatePlanStateObservable = _mutableCreatePlanUIViewState.asLiveData()
@@ -42,7 +44,7 @@ class RegisterMonitoringPlanViewModel @Inject constructor(
     val uiViewCreatePlanPrescriptionStateObservable =
         _mutableCreatePlanPrescriptionUIViewState.asLiveData()
 
-    fun getPatient(identification: Int) {
+    fun getPatient(identification: String) {
         emitUIGetPatientState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
@@ -64,8 +66,8 @@ class RegisterMonitoringPlanViewModel @Inject constructor(
         }
     }
 
-    fun getEmergency() {
-        emitUIGetEmergencyState(UIViewState.Loading)
+    fun getAllEmergencies() {
+        emitUIGetAllEmergenciesState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
                 getAllEmergencyUseCase()
@@ -74,13 +76,35 @@ class RegisterMonitoringPlanViewModel @Inject constructor(
                 is OperationResult.Success -> {
                     val data = result.data?.data
                     if (data != null) {
-                        emitUIGetEmergencyState(UIViewState.Success(data))
+                        emitUIGetAllEmergenciesState(UIViewState.Success(data))
                     } else {
-                        emitUIGetEmergencyState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                        emitUIGetAllEmergenciesState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
                 }
                 is OperationResult.Error -> {
-                    emitUIGetEmergencyState(UIViewState.Error(result.exception))
+                    emitUIGetAllEmergenciesState(UIViewState.Error(result.exception))
+                }
+            }
+        }
+    }
+
+    fun getAllPriorities() {
+        emitUIGetAllPrioritiesState(UIViewState.Loading)
+        viewModelScope.launch {
+            val result = withContext(dispatchers.io) {
+                getAllPriorityUseCase()
+            }
+            when (result) {
+                is OperationResult.Success -> {
+                    val data = result.data?.data
+                    if (data != null) {
+                        emitUIGetAllPrioritiesState(UIViewState.Success(data))
+                    } else {
+                        emitUIGetAllPrioritiesState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                    }
+                }
+                is OperationResult.Error -> {
+                    emitUIGetAllPrioritiesState(UIViewState.Error(result.exception))
                 }
             }
         }
@@ -137,8 +161,12 @@ class RegisterMonitoringPlanViewModel @Inject constructor(
         _mutableGetPatientUIViewState.postValue(state)
     }
 
-    private fun emitUIGetEmergencyState(state: UIViewState<List<Emergency>>) {
-        _mutableGetEmergencyUIViewState.postValue(state)
+    private fun emitUIGetAllEmergenciesState(state: UIViewState<List<Emergency>>) {
+        _mutableGetAllEmergenciesUIViewState.postValue(state)
+    }
+
+    private fun emitUIGetAllPrioritiesState(state: UIViewState<List<Priority>>) {
+        _mutableGetAllPrioritiesUIViewState.postValue(state)
     }
 
     private fun emitUICreatePlanState(state: UIViewState<Plan>) {

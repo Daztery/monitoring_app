@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="44dp"
-        android:text="@string/text_date_end"
+        android:text="@string/text_date_start"
         android:textColor="@color/black"
         android:textSize="17sp"
         android:textStyle="bold"
@@ -109,12 +109,25 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_priority"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:maxHeight="100dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <Spinner
+        android:id="@+id/spinner_priority"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/margin_horizontal"
+        android:layout_marginTop="@dimen/edit_top"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:entries="@array/spinner_priority_selection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_priority" />
 
     <TextView
         android:id="@+id/textView13"
@@ -125,7 +138,7 @@
         android:text="Paciente"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_priority" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_priority" />
 
     <TextView
         android:id="@+id/textView14"
@@ -136,7 +149,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textView15"
         app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_priority" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_priority" />
 
     <TextView
         android:id="@+id/textView15"
@@ -147,7 +160,7 @@
         android:text="Fecha"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_priority" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_priority" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"

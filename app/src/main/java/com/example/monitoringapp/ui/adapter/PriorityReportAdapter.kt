@@ -24,6 +24,7 @@ class PriorityReportAdapter(
         fun bindTo(item: Priority) {
             binding.run {
                 textName.text = item.name
+                textCounter.text = item.count?.toString()
             }
         }
 

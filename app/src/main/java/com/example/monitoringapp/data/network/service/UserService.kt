@@ -35,7 +35,7 @@ class UserService @Inject constructor(private val apiClient: UserApiClient) {
         }
     }
 
-    suspend fun getPatient(identification: Int): OperationResult<ObjectResponse<User>> {
+    suspend fun getPatient(identification: String): OperationResult<ObjectResponse<User>> {
         try {
             val response = apiClient.getPatient(identification)
             response.let {

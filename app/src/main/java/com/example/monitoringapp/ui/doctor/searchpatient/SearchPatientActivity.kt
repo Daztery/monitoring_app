@@ -54,6 +54,7 @@ class SearchPatientActivity : AppCompatActivity() {
             editPhone.setText(user.patient?.phone)
             textHeight.text = user.patient?.height.toString()
             textWeight.text = user.patient?.weight.toString()
+            textTypeBlood.text = user.patient?.bloodType.toString()
         }
     }
 
@@ -87,7 +88,7 @@ class SearchPatientActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        searchPatientViewModel.getPatient(userModel.identification?.toInt() ?: 0)
+        searchPatientViewModel.getPatient(userModel.identification ?: "")
     }
 
 

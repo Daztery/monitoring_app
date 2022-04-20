@@ -27,7 +27,7 @@ class PatientsByPriorityAdapter(
         fun bindTo(item: PriorityType) {
             binding.run {
                 textName.text = item.patient?.getFullName()
-                val date= Formatter.getLocaleDate(item.startDate ?: "")
+                val date= Formatter.getLocaleDate(item.endDate ?: "")
                 textDate.text = Formatter.formatLocalDate(date ?: Date())
                 textPriority.text = item.priority?.name
             }

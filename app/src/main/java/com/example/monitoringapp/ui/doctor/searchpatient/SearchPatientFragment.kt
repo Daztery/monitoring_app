@@ -8,14 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.FragmentSearchPatientBinding
-import com.example.monitoringapp.ui.adapter.EmergencyReportAdapter
-import com.example.monitoringapp.ui.adapter.SearchPatientAdapter
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
-import com.example.monitoringapp.ui.doctor.reports.ReportsViewModel
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,7 +37,7 @@ class SearchPatientFragment : Fragment() {
         binding.run {
             buttonSearch.setOnClickListener {
                 if (editIdentification.text.toString().isNotEmpty()) {
-                    searchPatientViewModel.getPatient(editIdentification.text.toString().toInt())
+                    searchPatientViewModel.getPatient(editIdentification.text.toString())
                 } else {
                     toast("Completar todos los campos")
                 }

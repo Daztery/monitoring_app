@@ -3,17 +3,14 @@ package com.example.monitoringapp.ui.doctor.prescription
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Prescription
-import com.example.monitoringapp.databinding.ActivityMedicalConsultationBinding
+import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivityPatientPrescriptionBinding
-import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
-import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
-import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.ui.patient.prescription.PrescriptionViewModel
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
@@ -34,14 +31,18 @@ class PatientPrescriptionActivity : AppCompatActivity() {
     private var datePickerDialog2: DatePickerDialog? = null
     private var startDate = 1646978400000
     private var endDate = 1672506000000
+    private lateinit var user :User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityPatientPrescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         this.title = "Receta Médica"
 
+        user = intent.getSerializableExtra(Constants.KEY_USER) as User
+        Log.i("UserPatient",user.toString())
 
         setupObservers()
         prescriptionViewModel.getSelfPrescriptions(startDate.toString(), currentDate.toString())
@@ -87,19 +88,14 @@ class PatientPrescriptionActivity : AppCompatActivity() {
     private val getSelfPrescriptionObserver = Observer<UIViewState<List<Prescription>>> {
         when (it) {
             is UIViewState.Success -> {
-                //binding.progressBar.gone()
                 val prescriptionObserver = it.result
                 binding.run {
-                    prescriptionAdapter = PrescriptionAdapter(prescriptionObserver)
+                    prescriptionAdapter = PrescriptionAdapter(prescriptionObserver,user)
                     recycler.adapter = prescriptionAdapter
                 }
             }
-            is UIViewState.Loading -> {
-                //binding.progressBar.visible()
-            }
             is UIViewState.Error -> {
-                //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -117,7 +113,7 @@ class PatientPrescriptionActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -145,7 +141,7 @@ class PatientPrescriptionActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)

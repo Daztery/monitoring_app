@@ -14,6 +14,7 @@ object PreferencesHelper {
     private val USER_DATA = Pair("user_data", "")
     private val TYPE_USER = Pair("type_user", "")
     private val MEDICAL_CENTER = Pair("medical_center", "")
+    private val PRIORITY_TYPE = Pair("priority_type", "")
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(NAME, MODE)
@@ -24,6 +25,7 @@ object PreferencesHelper {
         userData = ""
         type = ""
         medicalCenter = ""
+        priorityType = ""
     }
 
     private inline fun SharedPreferences.edit(
@@ -60,6 +62,12 @@ object PreferencesHelper {
         get() = preferences.getString(MEDICAL_CENTER.first, MEDICAL_CENTER.second)
         set(value) = preferences.edit {
             it.putString(MEDICAL_CENTER.first, value)
+        }
+
+    var priorityType: String?
+        get() = preferences.getString(PRIORITY_TYPE.first, PRIORITY_TYPE.second)
+        set(value) = preferences.edit {
+            it.putString(PRIORITY_TYPE.first, value)
         }
 
 }

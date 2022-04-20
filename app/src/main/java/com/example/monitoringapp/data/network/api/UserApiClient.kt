@@ -13,8 +13,9 @@ interface UserApiClient {
     @GET("user/self")
     suspend fun getSelf(): Response<ObjectResponse<User>>
 
+
     @GET("user/patient/{identification}")
-    suspend fun getPatient(@Path("identification") identification: Int): Response<ObjectResponse<User>>
+    suspend fun getPatient(@Path("identification") identification: String): Response<ObjectResponse<User>>
 
     @PUT("user/{id}")
     suspend fun updatePatient(

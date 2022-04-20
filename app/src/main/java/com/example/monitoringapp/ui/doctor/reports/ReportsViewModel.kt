@@ -93,7 +93,7 @@ class ReportsViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getPatientStatusResumeUseCase( false, from)
+                getPatientStatusResumeUseCase( true, from)
             }
             emitUIGetPatientStatusResumeState(UIViewState.Loading)
             when (result) {

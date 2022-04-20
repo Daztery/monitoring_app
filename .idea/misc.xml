@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/drawable/icon_blood.xml" value="0.2695" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/drawable/radio_button_checked.xml" value="0.2695" />
+        <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_alert_detail.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_alerts.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_change_password.xml" value="0.36666666666666664" />
         <entry key="..\:/Repository/monitoring_app/app/src/main/res/layout/activity_daily_report.xml" value="0.36666666666666664" />

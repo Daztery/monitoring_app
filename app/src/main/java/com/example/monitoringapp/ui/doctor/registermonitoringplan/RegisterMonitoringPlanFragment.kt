@@ -51,7 +51,7 @@ class RegisterMonitoringPlanFragment : Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             buttonSearch.setOnClickListener {
                 if (editIdentifier.text.toString().isNotEmpty()) {
-                    registerMonitoringPlanViewModel.getPatient(editIdentifier.text.toString().toInt())
+                    registerMonitoringPlanViewModel.getPatient(editIdentifier.text.toString())
                 } else {
                     toast("Completar todos los campos")
                 }

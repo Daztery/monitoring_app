@@ -27,7 +27,7 @@ class MedicReportAdapter(
 
         fun bindTo(item: Plan) {
             binding.run {
-                textPatient.text = item.code.toString()
+                textPatient.text = item.patient?.getFullName()
                 textEmergencyType.text = item.emergencyType?.name
 
                 val endDate = Formatter.getLocaleDate(item.endDate ?: "")

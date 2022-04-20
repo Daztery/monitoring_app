@@ -40,10 +40,9 @@ class EditPatientActivity : AppCompatActivity() {
 
         val user = intent.getSerializableExtra("update") as User
 
-
         if (user.identification != "") {
 
-            editPatientViewModel.getPatient(user.identification?.toInt() ?: 0)
+            editPatientViewModel.getPatient(user.identification ?: "")
 
             patient = user.patient!!
 
@@ -66,6 +65,7 @@ class EditPatientActivity : AppCompatActivity() {
                     patient.phone = editPhone.text.toString()
                     patient.height = editHeight.text.toString().toInt()
                     patient.weight = editWeight.text.toString().toInt()
+                    patient.bloodType = editBlood.text.toString()
                     val updatePatientRequest = UpdatePatientRequest()
                     updatePatientRequest.email = user.email
                     updatePatientRequest.patient = patient
@@ -120,6 +120,7 @@ class EditPatientActivity : AppCompatActivity() {
                     editPhone.setText(userObserver.patient?.phone)
                     editHeight.setText(userObserver.patient?.height.toString())
                     editWeight.setText(userObserver.patient?.weight.toString())
+                    editBlood.setText(userObserver.patient?.bloodType.toString())
                 }
             }
             is UIViewState.Loading -> {
@@ -146,7 +147,7 @@ class EditPatientActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
 
                 val date = Date(c.timeInMillis)

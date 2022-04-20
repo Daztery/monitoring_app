@@ -1,19 +1,24 @@
 package com.example.monitoringapp.ui.doctor.patientspriority
 
+import android.R
 import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Priority
 import com.example.monitoringapp.data.model.PriorityType
+import com.example.monitoringapp.data.model.Report
 import com.example.monitoringapp.databinding.FragmentPatientsPriorityBinding
 import com.example.monitoringapp.ui.adapter.PatientsByPriorityAdapter
 import com.example.monitoringapp.ui.adapter.PriorityReportAdapter
+import com.example.monitoringapp.ui.adapter.ReportAdapter
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
@@ -29,7 +34,7 @@ class PatientsPriorityFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var patientsByPriorityAdapter: PatientsByPriorityAdapter
-    private lateinit var priorityReportAdapter: PriorityReportAdapter
+    private lateinit var priorityReportAdapter: ReportAdapter
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
@@ -56,7 +61,7 @@ class PatientsPriorityFragment : Fragment() {
             recyclerPriority.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-            patientsPriorityViewModel.getPriorityReport(Date().time.toString())
+            patientsPriorityViewModel.getPriorityReport(startDate.toString())
 
             textStartDate.setOnClickListener {
                 showDatePickerDialogStartDate()
@@ -75,8 +80,23 @@ class PatientsPriorityFragment : Fragment() {
             }
 
             buttonSearch.setOnClickListener {
-                patientsPriorityViewModel.getPatientsByPriority(1, startDate.toString())
+                patientsPriorityViewModel.getPriorityReport(startDate.toString())
             }
+
+            spinnerPriority.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        if (position == 0) return
+                        patientsPriorityViewModel.getPatientsByPriority(position, startDate.toString())
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
         }
     }
     
@@ -95,39 +115,42 @@ class PatientsPriorityFragment : Fragment() {
     private val getPatientsPriorityObserver = Observer<UIViewState<List<PriorityType>>> {
         when (it) {
             is UIViewState.Success -> {
-                //binding.progressBar.gone()
                 val prioritiesObserver = it.result
                 binding.run {
                     patientsByPriorityAdapter = PatientsByPriorityAdapter(prioritiesObserver)
                     recycler.adapter = patientsByPriorityAdapter
                 }
             }
-            is UIViewState.Loading -> {
-                //binding.progressBar.visible()
-            }
             is UIViewState.Error -> {
-                //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
 
-    private val getPriorityReportObserver = Observer<UIViewState<List<Priority>>> {
+    private val getPriorityReportObserver = Observer<UIViewState<List<Report>>> {
         when (it) {
             is UIViewState.Success -> {
-                //binding.progressBar.gone()
                 val itemObserver = it.result
+
+                val list = mutableListOf<String>()
+                list.add("Seleccionar tipo de prioridad")
+
+                for (item in itemObserver) {
+                    list.add(item.name!!)
+                }
+
+                val arrayAdapter =
+                    ArrayAdapter(requireContext(), R.layout.simple_spinner_item, list)
+                arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+
                 binding.run {
-                    priorityReportAdapter = PriorityReportAdapter(itemObserver)
+                    priorityReportAdapter = ReportAdapter(itemObserver)
                     recyclerPriority.adapter = priorityReportAdapter
+                    spinnerPriority.adapter = arrayAdapter
                 }
             }
-            is UIViewState.Loading -> {
-                //binding.progressBar.visible()
-            }
             is UIViewState.Error -> {
-                //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -145,7 +168,7 @@ class PatientsPriorityFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -173,7 +196,7 @@ class PatientsPriorityFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)

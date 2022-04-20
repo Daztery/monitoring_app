@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.monitoringapp.R
+import com.example.monitoringapp.data.model.MedicalCenter
 import com.example.monitoringapp.data.model.Plan
 import com.example.monitoringapp.data.model.TemperatureSaturation
 import com.example.monitoringapp.data.network.request.DailyReportDateRequest
@@ -61,9 +62,9 @@ class HomePatientFragment : Fragment() {
             getSelfPlansObserver
         )
 
-        homePatientViewModel.uiViewGetTemperatureAndSaturationStateObservable.observe(
+        homePatientViewModel.uiViewGetMedicalCenterStateObservable.observe(
             viewLifecycleOwner,
-            getTemperatureAndSaturationObserver
+            getMedicalCenterObserver
         )
     }
 
@@ -73,12 +74,21 @@ class HomePatientFragment : Fragment() {
             is UIViewState.Success -> {
                 binding.progressBar.gone()
                 val planObserver = it.result
-                val currentDate = Formatter.formatLocalYearFirstDate(Date())
-                val dailyReportDateRequest = DailyReportDateRequest(currentDate)
-                homePatientViewModel.getTemperatureAndSaturation(
-                    planObserver.id ?: 0,
-                    dailyReportDateRequest
-                )
+                binding.run {
+                    textDoctor.text = planObserver.doctor?.getFullName()
+                    textEmergencyType.text = planObserver.emergencyType?.name
+                    textPriority.text = planObserver.priority?.name
+                    val startDate = Formatter.getLocaleDate(planObserver.startDate!!)
+                    val endDate = Formatter.getLocaleDate(planObserver.endDate!!)
+                    textStartDate.text = Formatter.formatLocalDate(startDate ?: Date())
+                    textEndDate.text = Formatter.formatLocalDate(endDate ?: Date())
+                }
+                planObserver.doctor?.medicalCenterId?.let { it1 ->
+                    homePatientViewModel.getMedicalCenter(
+                        it1
+                    )
+                }
+
 
                 (activity as HomePatientActivity).title = planObserver.patient?.getFullName()
             }
@@ -87,25 +97,21 @@ class HomePatientFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
 
-    private val getTemperatureAndSaturationObserver = Observer<UIViewState<TemperatureSaturation>> {
+    private val getMedicalCenterObserver = Observer<UIViewState<MedicalCenter>> {
         when (it) {
             is UIViewState.Success -> {
                 val itemObserver = it.result
                 binding.run {
-                    textTemperature.text = itemObserver.temperature
-                    textSaturationOxygen.text = itemObserver.saturation
-
-                    progressTemperature.setProgress(itemObserver.temperature!!.toFloat(), false, 3)
-                    progressSaturationOxygen.setProgress(itemObserver.saturation!!.toFloat(), false, 3)
+                    textMedicalCenter.text = itemObserver.name
                 }
             }
             is UIViewState.Error -> {
-                toast("No se encontró reporte diario")
+                //toast("No se encontró reporte diario")
             }
         }
     }

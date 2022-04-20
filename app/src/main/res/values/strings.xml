@@ -17,7 +17,8 @@
     <string name="text_login">Iniciar Sesión</string>
     <string name="text_dni">DNI</string>
     <string name="text_description_login">Ingresa tu cuenta para continuar</string>
-    <string name="text_missing_email_or_password">Por favor completar correo y contraseña.</string>
+    <string name="text_missing_email_or_password">Completar todos los campos</string>
+    <string name="text_login_error">Usuario o clave incorrecto</string>
 
     <!--Forgot Password-->
     <string name="text_forgot_password">¿Olvidaste tu contraseña?</string>
@@ -78,6 +79,15 @@
     <string-array name="spinner_identification">
         <item>DNI</item>
     </string-array>
+
+    <string-array name="spinner_emergency_selection">
+        <item>Seleccionar tipo de emergencia</item>
+    </string-array>
+
+    <string-array name="spinner_priority_selection">
+        <item>Seleccionar tipo de prioridad</item>
+    </string-array>
+
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -89,6 +99,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="zero">0</string>
 
 
 </resources>

@@ -48,6 +48,10 @@ class InformationActivity : AppCompatActivity() {
             }
 
             buttonSave.setOnClickListener {
+                if (editCellphone.text.toString().isEmpty() || editMail.text.toString().isEmpty()) {
+                    toast("Completar los campos vacios")
+                    return@setOnClickListener
+                }
                 if (PreferencesHelper.type == Constants.DOCTOR) {
                     val updateUser = UpdateDoctorRequest()
                     updateUser.email = editMail.text.toString()

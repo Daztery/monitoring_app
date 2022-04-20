@@ -31,7 +31,7 @@ class PrescriptionViewModel @Inject constructor(
         emitUIGetSelfPrescriptionState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getSelfPrescriptionUseCase(true, from, to)
+                getSelfPrescriptionUseCase(false, from, to)
             }
             when (result) {
                 is OperationResult.Success -> {

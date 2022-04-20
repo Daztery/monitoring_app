@@ -11,44 +11,12 @@
         android:id="@+id/imageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/icon_person_bad"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RadioButton
-            android:id="@+id/button_all_patients"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/radio_button_checked"
-            android:button="@android:color/transparent"
-            android:checked="true"
-            android:gravity="center"
-            android:text="Todos los pacientes"
-            android:textColor="@color/white" />
-
-        <RadioButton
-            android:id="@+id/button_my_patients"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/radio_button_unchecked"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="Mis pacientes"
-            android:textColor="@color/white" />
-
-    </RadioGroup>
 
     <TextView
         android:id="@+id/textView"

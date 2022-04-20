@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.monitoringapp.data.model.Emergency
 import com.example.monitoringapp.data.model.Plan
+import com.example.monitoringapp.data.model.Priority
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.data.network.request.PlanRequest
 import com.example.monitoringapp.databinding.ActivityRegisterMonitoringPlanDetailBinding
@@ -31,7 +32,8 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
     private var datePickerDialog: DatePickerDialog? = null
     private var startDate = 1646978400000
     private var endDate = 1672506000000
-    var positionSpinner = 1
+    var positionEmergencySpinner = 1
+    var positionPrioritySpinner = 1
     private lateinit var user: User
     val code = (100..10000).random()
 
@@ -46,7 +48,9 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
 
         user = intent.getSerializableExtra(Constants.KEY_USER) as User
 
-        registerMonitoringPlanViewModel.getEmergency()
+        registerMonitoringPlanViewModel.getAllEmergencies()
+        registerMonitoringPlanViewModel.getAllPriorities()
+
         binding.run {
             editFullname.setText(user.patient?.getFullName())
 
@@ -65,6 +69,7 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
             imageEndDate.setOnClickListener {
                 showDatePickerDialogEndDate()
             }
+
             spinnerKindEmergency.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -73,18 +78,33 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
                         position: Int,
                         id: Long
                     ) {
-                        positionSpinner = position + 1
+                        positionEmergencySpinner = position + 1
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
 
+            spinnerPriority.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        positionPrioritySpinner = position + 1
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
+
+
             buttonRegister.setOnClickListener {
                 if (editFullname.text.isNotEmpty()) {
                     val planRequest = PlanRequest()
                     planRequest.code = code
-                    planRequest.emergencyTypeId = positionSpinner
-                    planRequest.priorityTypeId = 1
+                    planRequest.emergencyTypeId = positionEmergencySpinner
+                    planRequest.priorityTypeId = positionPrioritySpinner
                     planRequest.patientId = user.id
                     planRequest.startDate = startDate
                     planRequest.endDate = endDate
@@ -98,9 +118,13 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        registerMonitoringPlanViewModel.uiViewGetEmergencyStateObservable.observe(
+        registerMonitoringPlanViewModel.uiViewGetAllEmergenciesStateObservable.observe(
             this,
-            getAllEmergencyObserver
+            getAllEmergenciesObserver
+        )
+        registerMonitoringPlanViewModel.uiViewGetAllPrioritiesStateObservable.observe(
+            this,
+            getAllPrioritiesObserver
         )
 
         registerMonitoringPlanViewModel.uiViewCreatePlanStateObservable.observe(
@@ -110,7 +134,7 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
     }
 
     //Observers
-    private val getAllEmergencyObserver = Observer<UIViewState<List<Emergency>>> {
+    private val getAllEmergenciesObserver = Observer<UIViewState<List<Emergency>>> {
         when (it) {
             is UIViewState.Success -> {
                 val itemsObserver = it.result
@@ -127,6 +151,36 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
                 binding.run {
                     //progressBar.gone()
                     spinnerKindEmergency.adapter = arrayAdapter
+                }
+            }
+            is UIViewState.Loading -> {
+                hideKeyboard()
+                //binding.progressBar.visible()
+            }
+            is UIViewState.Error -> {
+                //binding.progressBar.visible()
+                toast(Constants.DEFAULT_ERROR)
+            }
+        }
+    }
+
+    private val getAllPrioritiesObserver = Observer<UIViewState<List<Priority>>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val itemsObserver = it.result
+
+                val list = mutableListOf<String>()
+
+                for (item in itemsObserver) {
+                    list.add(item.name!!)
+                }
+
+                val arrayAdapter = ArrayAdapter(this, R.layout.simple_spinner_item, list)
+                arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+
+                binding.run {
+                    //progressBar.gone()
+                    spinnerPriority.adapter = arrayAdapter
                 }
             }
             is UIViewState.Loading -> {
@@ -180,7 +234,7 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -208,7 +262,7 @@ class RegisterMonitoringPlanDetailActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)

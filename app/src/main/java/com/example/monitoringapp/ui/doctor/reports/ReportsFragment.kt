@@ -11,10 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.*
 import com.example.monitoringapp.databinding.FragmentReportsBinding
-import com.example.monitoringapp.ui.adapter.EmergencyReportAdapter
-import com.example.monitoringapp.ui.adapter.PatientStatusAdapter
-import com.example.monitoringapp.ui.adapter.PatientsByPriorityAdapter
-import com.example.monitoringapp.ui.adapter.PriorityReportAdapter
+import com.example.monitoringapp.ui.adapter.*
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
 import com.example.monitoringapp.ui.doctor.patientspriority.PatientsPriorityViewModel
 import com.example.monitoringapp.util.Constants
@@ -33,7 +30,7 @@ class ReportsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var priorityReportAdapter: PriorityReportAdapter
-    private lateinit var emergencyReportAdapter: EmergencyReportAdapter
+    private lateinit var emergencyReportAdapter: AllEmergencyAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,7 +84,7 @@ class ReportsFragment : Fragment() {
                 //binding.progressBar.gone()
                 val itemObserver = it.result
                 binding.run {
-                    emergencyReportAdapter = EmergencyReportAdapter(itemObserver)
+                    emergencyReportAdapter = AllEmergencyAdapter(itemObserver)
                     recyclerEmergency.adapter = emergencyReportAdapter
                 }
             }

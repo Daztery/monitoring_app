@@ -15,9 +15,9 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Número de Atención"
+            android:text="Nombre de paciente:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,76 +26,76 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Tipo de Emergencia"
+            android:text="Codigo de plan monitoreo:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_number_attention" />
+            app:layout_constraintTop_toBottomOf="@+id/text_patient_name" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Estado"
+            android:text="Fecha de Inicio:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_emergency_type" />
+            app:layout_constraintTop_toBottomOf="@+id/text_code" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:text="Tiempo de Monitoreo"
+            android:text="Fecha Fin:"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_status" />
+            app:layout_constraintTop_toBottomOf="@+id/text_start_date" />
 
         <TextView
-            android:id="@+id/text_number_attention"
+            android:id="@+id/text_patient_name"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="44dp"
             android:layout_marginTop="24dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_emergency_type"
+            android:id="@+id/text_code"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/text_number_attention" />
+            app:layout_constraintTop_toBottomOf="@+id/text_patient_name" />
 
         <TextView
-            android:id="@+id/text_status"
+            android:id="@+id/text_start_date"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="108dp"
+            android:layout_marginStart="78dp"
             android:layout_marginTop="24dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/text_emergency_type" />
+            app:layout_constraintTop_toBottomOf="@+id/text_code" />
 
         <TextView
-            android:id="@+id/text_monitoring_time"
+            android:id="@+id/text_end_date"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="112dp"
             android:layout_marginTop="24dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/text_status" />
+            app:layout_constraintTop_toBottomOf="@+id/text_start_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

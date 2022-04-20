@@ -17,7 +17,7 @@ class UserRepository @Inject constructor(
         return userService.getSelf()
     }
 
-    suspend fun getPatient(identification: Int): OperationResult<ObjectResponse<User>> {
+    suspend fun getPatient(identification: String): OperationResult<ObjectResponse<User>> {
         return userService.getPatient(identification)
     }
 

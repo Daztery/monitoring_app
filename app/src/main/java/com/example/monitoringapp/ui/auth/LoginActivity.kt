@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
             }
             is UIViewState.Error -> {
                 binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(resources.getText(R.string.text_login_error).toString())
             }
         }
     }

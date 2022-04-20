@@ -3,7 +3,8 @@ package com.example.monitoringapp.util
 object Constants {
 
     //Setup
-    const val API_URL_DEV = "https://ayni-app-monitoring.herokuapp.com"
+    //const val API_URL_DEV = "https://ayni-app-monitoring.herokuapp.com"
+    const val API_URL_DEV = "https://monitoring-backend-upc.herokuapp.com"
 
     //Key
     const val KEY_DOCTOR = "doctor"

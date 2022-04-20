@@ -1,21 +1,21 @@
 package com.example.monitoringapp.ui.doctor.patientsemergency
 
+import android.R
 import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.monitoringapp.R
 import com.example.monitoringapp.data.model.*
-import com.example.monitoringapp.databinding.FragmentPatientStatusBinding
 import com.example.monitoringapp.databinding.FragmentPatientsEmergencyBinding
 import com.example.monitoringapp.ui.adapter.*
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
-import com.example.monitoringapp.ui.doctor.home.HomeDoctorViewModel
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +30,7 @@ class PatientsEmergencyFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var patientsByEmergencyAdapter: PatientsByEmergencyAdapter
-    private lateinit var emergencyReportAdapter: EmergencyReportAdapter
+    private lateinit var reportAdapter: ReportAdapter
 
 
     var currentDate: Date = DataUtil.getCurrentDate()
@@ -54,7 +54,7 @@ class PatientsEmergencyFragment : Fragment() {
 
         setupObservers()
 
-        val user= PreferencesHelper.userData
+        val user = PreferencesHelper.userData
 
         binding.run {
 
@@ -64,7 +64,7 @@ class PatientsEmergencyFragment : Fragment() {
             recyclerEmergency.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-            patientsEmergencyViewModel.getEmergencyReport(Date().time.toString())
+            patientsEmergencyViewModel.getEmergencyReport(startDate.toString())
 
             textStartDate.setOnClickListener {
                 showDatePickerDialogStartDate()
@@ -83,8 +83,26 @@ class PatientsEmergencyFragment : Fragment() {
             }
 
             buttonSearch.setOnClickListener {
-                patientsEmergencyViewModel.getPatientsByEmergency(1, startDate.toString())
+                patientsEmergencyViewModel.getEmergencyReport(startDate.toString())
             }
+
+            spinnerKindEmergency.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        if (position == 0) return
+                        patientsEmergencyViewModel.getPatientsByEmergency(
+                            position,
+                            startDate.toString()
+                        )
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
         }
     }
 
@@ -120,14 +138,27 @@ class PatientsEmergencyFragment : Fragment() {
         }
     }
 
-    private val getEmergencyReportObserver = Observer<UIViewState<List<Emergency>>> {
+    private val getEmergencyReportObserver = Observer<UIViewState<List<Report>>> {
         when (it) {
             is UIViewState.Success -> {
                 //binding.progressBar.gone()
                 val itemObserver = it.result
+
+                val list = mutableListOf<String>()
+                list.add("Seleccionar tipo de emergencia")
+
+                for (item in itemObserver) {
+                    list.add(item.name!!)
+                }
+
+                val arrayAdapter =
+                    ArrayAdapter(requireContext(), R.layout.simple_spinner_item, list)
+                arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+
                 binding.run {
-                    emergencyReportAdapter = EmergencyReportAdapter(itemObserver)
-                    recyclerEmergency.adapter = emergencyReportAdapter
+                    reportAdapter = ReportAdapter(itemObserver)
+                    recyclerEmergency.adapter = reportAdapter
+                    spinnerKindEmergency.adapter = arrayAdapter
                 }
             }
             is UIViewState.Loading -> {
@@ -153,7 +184,7 @@ class PatientsEmergencyFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -181,7 +212,7 @@ class PatientsEmergencyFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 0, 0, 0)
+                c.set(mYear, mMonth, mDay, 5, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)

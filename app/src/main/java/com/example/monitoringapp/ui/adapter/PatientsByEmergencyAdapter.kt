@@ -27,7 +27,7 @@ class PatientsByEmergencyAdapter(
         fun bindTo(item: EmergencyType) {
             binding.run {
                 textName.text = item.patient?.getFullName()
-                val date= Formatter.getLocaleDate(item.startDate ?: "")
+                val date= Formatter.getLocaleDate(item.endDate ?: "")
                 textDate.text = Formatter.formatLocalDate(date ?: Date())
                 textEmergencyType.text = item.emergencyType?.name
             }
