@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class AlertsDoctorFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var alertsAdapter: AlertsDoctorAdapter
+    private lateinit var listPatients: List<Alert>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,24 @@ class AlertsDoctorFragment : Fragment() {
         binding.run {
             recycler.layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+            patientSearchText.addTextChangedListener { text ->
+                if (!text.isNullOrBlank()) {
+                    val aux = mutableListOf<Alert>()
+                    for (patient in listPatients) {
+                        if (patient.dailyReport?.monitoringPlan?.patient?.firstName?.contains(text.toString()) == true ||
+                            patient.dailyReport?.monitoringPlan?.patient?.lastName?.contains(text.toString()) == true
+                        ) {
+                            aux.add(patient)
+                        }
+                    }
+                    alertsAdapter = AlertsDoctorAdapter(aux)
+                    binding.recycler.adapter = alertsAdapter
+                } else {
+                    alertsDoctorViewModel.getAllAlerts()
+                }
+            }
+
         }
 
     }
@@ -53,8 +73,8 @@ class AlertsDoctorFragment : Fragment() {
         when (it) {
             is UIViewState.Success -> {
                 binding.progressBar.gone()
-                val itemObserver = it.result
-                alertsAdapter = AlertsDoctorAdapter(itemObserver)
+                listPatients = it.result
+                alertsAdapter = AlertsDoctorAdapter(listPatients)
                 binding.recycler.adapter = alertsAdapter
             }
             is UIViewState.Loading -> {

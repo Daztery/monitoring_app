@@ -1,6 +1,7 @@
 package com.example.monitoringapp.ui.doctor.searchpatient
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivitySearchPatientBinding
 import com.example.monitoringapp.ui.doctor.HomeDoctorActivity
+import com.example.monitoringapp.ui.information.InformationActivity
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +40,15 @@ class SearchPatientActivity : AppCompatActivity() {
                 val intent = Intent(this@SearchPatientActivity, EditPatientActivity::class.java)
                 intent.putExtra("update", userModel)
                 startActivity(intent)
+            }
+            imageCall.setOnClickListener {
+                val dialIntent = Intent(Intent.ACTION_DIAL)
+                dialIntent.data = Uri.parse("tel:" + editPhone.text.toString())
+                startActivity(dialIntent)
+            }
+            imageEmail.setOnClickListener {
+                toast("Correo electrónico copiado")
+                copyToClipboard(editMail.text.toString())
             }
         }
 

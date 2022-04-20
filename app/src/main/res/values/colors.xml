@@ -15,4 +15,24 @@
     <color name="gray_200">#979797</color>
     <color name="gray_300">#848488</color>
     <color name="gray_400">#5A5A5A</color>
+
+
+    //Secondary colors
+    <color name="green">#50D158</color>
+    <color name="green_background">#3350D158</color>
+    <color name="orange_500">#FF5631</color>
+    <color name="orange">#ffa500</color>
+    <color name="red_1">#FF3F4C</color>
+    <color name="red_2">#FF0120</color>
+    <color name="red_2_background">#33FF0120</color>
+    <color name="yellow_1">#ffd32a</color>
+    <color name="yellow_2">#E3C732</color>
+    <color name="yellow_2_background">#33E3C732</color>
+    <color name="gray_600">#2C2C2E</color>
+    <color name="gray_600_transparent">#882C2C2E</color>
+    <color name="dark_transparent">#66000000</color>
+    <color name="gray_700">#1C1C1E</color>
+    <color name="ripple_color">#80ffffff</color>
+    <color name="transparent">#00FFFFFF</color>
+
 </resources>
