@@ -92,7 +92,7 @@ class SearchPatientActivity : AppCompatActivity() {
             }
             is UIViewState.Error -> {
                 //binding.progressBar.visible()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }

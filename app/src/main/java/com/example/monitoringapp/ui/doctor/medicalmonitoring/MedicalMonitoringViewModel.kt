@@ -3,12 +3,12 @@ package com.example.monitoringapp.ui.doctor.medicalmonitoring
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.monitoringapp.data.model.Plan
-import com.example.monitoringapp.data.model.TemperatureSaturation
-import com.example.monitoringapp.data.model.User
+import com.example.monitoringapp.data.model.*
 import com.example.monitoringapp.data.network.request.DailyReportDateRequest
 import com.example.monitoringapp.usecase.monitoring.GetSelfPlansUseCase
 import com.example.monitoringapp.usecase.monitoring.dailyreport.GetDateUseCase
+import com.example.monitoringapp.usecase.monitoring.dailyreport.GetFromPatientUseCase
+import com.example.monitoringapp.usecase.report.GetPatientStatusUseCase
 import com.example.monitoringapp.usecase.user.GetSelfUseCase
 import com.example.monitoringapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,78 +18,78 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MedicalMonitoringViewModel @Inject constructor(
-    private val getSelfPlansUseCase: GetSelfPlansUseCase,
-    private val getDateUseCase: GetDateUseCase,
+    private val getFromPatientUseCase: GetFromPatientUseCase,
+    private val getPatientStatusUseCase: GetPatientStatusUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
 
-    private val _mutableGetSelfPlansUIViewState =
-        MutableLiveData<UIViewState<Plan>>()
-    val uiViewGetSelfPlansStateObservable =
-        _mutableGetSelfPlansUIViewState.asLiveData()
-
-    private val _mutableGetTemperatureAndSaturationUIViewState =
+    private val _mutableGetFromPatientUIViewState =
         MutableLiveData<UIViewState<TemperatureSaturation>>()
-    val uiViewGetTemperatureAndSaturationStateObservable =
-        _mutableGetTemperatureAndSaturationUIViewState.asLiveData()
+    val uiViewGetFromPatientStateObservable =
+        _mutableGetFromPatientUIViewState.asLiveData()
 
-    fun getSelfPlans() {
-        emitUIGetSelfPlansState(UIViewState.Loading)
-        viewModelScope.launch {
-            val result = withContext(dispatchers.io) {
-                getSelfPlansUseCase(true)
-            }
-            when (result) {
-                is OperationResult.Success -> {
-                    if (result.data?.data?.size != 0) {
-                        val data = result.data?.data?.get(result.data.data.size - 1)
-                        if (data != null) {
-                            emitUIGetSelfPlansState(UIViewState.Success(data))
-                        } else {
-                            emitUIGetSelfPlansState(UIViewState.Error(Constants.DEFAULT_ERROR))
-                        }
-                    } else {
-                        emitUIGetSelfPlansState(UIViewState.Error(Constants.DEFAULT_ERROR))
-                    }
-                }
-                is OperationResult.Error -> {
-                    emitUIGetSelfPlansState(UIViewState.Error(result.exception))
-                }
-            }
-        }
-    }
+    private val _mutableGetPatientStatusUIViewState =
+        MutableLiveData<UIViewState<List<Status>>>()
+    val uiViewGetPatientStatusStateObservable =
+        _mutableGetPatientStatusUIViewState.asLiveData()
 
-    fun getTemperatureAndSaturation(
+    fun getReportFromPatient(
         planId: Int,
+        patientId: Int,
         dailyReportDateRequest: DailyReportDateRequest
     ) {
-        emitUIGetTemperatureAndSaturationState(UIViewState.Loading)
+        emitUIGetReportFromPatientState(UIViewState.Loading)
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getDateUseCase(planId, dailyReportDateRequest)
+                getFromPatientUseCase(planId, patientId, dailyReportDateRequest)
             }
             when (result) {
                 is OperationResult.Success -> {
                     val data = result.data?.data
                     if (data != null) {
-                        emitUIGetTemperatureAndSaturationState(UIViewState.Success(data))
+                        emitUIGetReportFromPatientState(UIViewState.Success(data))
                     } else {
-                        emitUIGetTemperatureAndSaturationState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                        emitUIGetReportFromPatientState(UIViewState.Error(Constants.DEFAULT_ERROR))
                     }
                 }
                 is OperationResult.Error -> {
-                    emitUIGetTemperatureAndSaturationState(UIViewState.Error(result.exception))
+                    emitUIGetReportFromPatientState(UIViewState.Error(result.exception))
                 }
             }
         }
     }
 
-    private fun emitUIGetSelfPlansState(state: UIViewState<Plan>) {
-        _mutableGetSelfPlansUIViewState.postValue(state)
+    fun getPatientStatus(
+        from: String,
+        to: String
+    ) {
+        emitUIGetPatientStatusState(UIViewState.Loading)
+        viewModelScope.launch {
+            val result = withContext(dispatchers.io) {
+                getPatientStatusUseCase(true, from, to)
+            }
+            when (result) {
+                is OperationResult.Success -> {
+                    val data = result.data?.data
+                    if (data != null) {
+                        emitUIGetPatientStatusState(UIViewState.Success(data))
+                    } else {
+                        emitUIGetPatientStatusState(UIViewState.Error(Constants.DEFAULT_ERROR))
+                    }
+                }
+                is OperationResult.Error -> {
+                    emitUIGetPatientStatusState(UIViewState.Error(result.exception))
+                }
+            }
+        }
     }
 
-    private fun emitUIGetTemperatureAndSaturationState(state: UIViewState<TemperatureSaturation>) {
-        _mutableGetTemperatureAndSaturationUIViewState.postValue(state)
+    private fun emitUIGetReportFromPatientState(state: UIViewState<TemperatureSaturation>) {
+        _mutableGetFromPatientUIViewState.postValue(state)
+    }
+
+    private fun emitUIGetPatientStatusState(state: UIViewState<List<Status>>) {
+        _mutableGetPatientStatusUIViewState.postValue(state)
     }
 
 }

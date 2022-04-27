@@ -146,7 +146,7 @@ class MonitoringService @Inject constructor(private val apiClient: MonitoringApi
         planId: Int,
         patientId: Int,
         dailyReportDateRequest: DailyReportDateRequest
-    ): OperationResult<CollectionResponse<Plan>> {
+    ): OperationResult<ObjectResponse<TemperatureSaturation>> {
         try {
             val response = apiClient.getFromPatient(planId, patientId, dailyReportDateRequest)
             response.let {

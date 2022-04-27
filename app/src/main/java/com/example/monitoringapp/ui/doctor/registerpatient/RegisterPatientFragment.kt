@@ -113,7 +113,7 @@ class RegisterPatientFragment : Fragment() {
                 toast("Paciente registrado")
             }
             is UIViewState.Error -> {
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -131,7 +131,7 @@ class RegisterPatientFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)

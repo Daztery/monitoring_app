@@ -19,19 +19,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReportsViewModel @Inject constructor(
-    private val getEmergencyReportUseCase: GetAllEmergencyUseCase,
-    private val getPriorityReportUseCase: GetAllPriorityUseCase,
+    private val getEmergencyReportUseCase: GetEmergencyReportUseCase,
+    private val getPriorityReportUseCase: GetPriorityReportUseCase,
     private val getPatientStatusResumeUseCase: GetPatientStatusResumeUseCase,
     private val dispatchers: DispatchersUtil,
 ) : ViewModel() {
 
     private val _mutableGetEmergencyReportUIViewState =
-        MutableLiveData<UIViewState<List<Emergency>>>()
+        MutableLiveData<UIViewState<List<Report>>>()
     val uiViewGetEmergencyReportStateObservable =
         _mutableGetEmergencyReportUIViewState.asLiveData()
 
     private val _mutableGetPriorityReportUIViewState =
-        MutableLiveData<UIViewState<List<Priority>>>()
+        MutableLiveData<UIViewState<List<Report>>>()
     val uiViewGetPriorityReportStateObservable =
         _mutableGetPriorityReportUIViewState.asLiveData()
 
@@ -45,7 +45,7 @@ class ReportsViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getEmergencyReportUseCase()
+                getEmergencyReportUseCase(from)
             }
             emitUIGetEmergencyReportState(UIViewState.Loading)
             when (result) {
@@ -69,7 +69,7 @@ class ReportsViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val result = withContext(dispatchers.io) {
-                getPriorityReportUseCase()
+                getPriorityReportUseCase(from)
             }
             emitUIGetPriorityReportState(UIViewState.Loading)
             when (result) {
@@ -112,11 +112,11 @@ class ReportsViewModel @Inject constructor(
         }
     }
 
-    private fun emitUIGetEmergencyReportState(state: UIViewState<List<Emergency>>) {
+    private fun emitUIGetEmergencyReportState(state: UIViewState<List<Report>>) {
         _mutableGetEmergencyReportUIViewState.postValue(state)
     }
 
-    private fun emitUIGetPriorityReportState(state: UIViewState<List<Priority>>) {
+    private fun emitUIGetPriorityReportState(state: UIViewState<List<Report>>) {
         _mutableGetPriorityReportUIViewState.postValue(state)
     }
 

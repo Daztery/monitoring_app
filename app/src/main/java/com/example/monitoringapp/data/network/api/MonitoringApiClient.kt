@@ -54,6 +54,6 @@ interface MonitoringApiClient {
         @Path("planId") planId: Int,
         @Path("patientId") patientId: Int,
         @Body dailyReportDateRequest: DailyReportDateRequest
-    ): Response<CollectionResponse<Plan>>
+    ): Response<ObjectResponse<TemperatureSaturation>>
 
 }

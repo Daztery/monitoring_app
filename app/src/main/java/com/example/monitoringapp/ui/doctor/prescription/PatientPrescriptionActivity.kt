@@ -8,9 +8,11 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Prescription
+import com.example.monitoringapp.data.model.Status
 import com.example.monitoringapp.data.model.User
 import com.example.monitoringapp.databinding.ActivityPatientPrescriptionBinding
 import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
+import com.example.monitoringapp.ui.adapter.PrescriptionPatientAdapter
 import com.example.monitoringapp.ui.patient.prescription.PrescriptionViewModel
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
@@ -24,14 +26,15 @@ class PatientPrescriptionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPatientPrescriptionBinding
 
-    private lateinit var prescriptionAdapter: PrescriptionAdapter
+    private lateinit var prescriptionAdapter: PrescriptionPatientAdapter
 
     var currentDate: Date = DataUtil.getCurrentDate()
     private var datePickerDialog: DatePickerDialog? = null
     private var datePickerDialog2: DatePickerDialog? = null
     private var startDate = 1646978400000
     private var endDate = 1672506000000
-    private lateinit var user :User
+    private lateinit var user: User
+    private var monitoringPlanId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +45,11 @@ class PatientPrescriptionActivity : AppCompatActivity() {
         this.title = "Receta Médica"
 
         user = intent.getSerializableExtra(Constants.KEY_USER) as User
-        Log.i("UserPatient",user.toString())
+        Log.i("userdebug", user.toString())
 
         setupObservers()
-        prescriptionViewModel.getSelfPrescriptions(startDate.toString(), currentDate.toString())
+
+        prescriptionViewModel.getPatientStatus(startDate.toString(), endDate.toString())
 
         binding.run {
 
@@ -69,7 +73,7 @@ class PatientPrescriptionActivity : AppCompatActivity() {
             }
 
             buttonSearch.setOnClickListener {
-                prescriptionViewModel.getSelfPrescriptions(
+                prescriptionViewModel.getPatientStatus(
                     startDate.toString(),
                     endDate.toString()
                 )
@@ -78,21 +82,43 @@ class PatientPrescriptionActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        prescriptionViewModel.uiViewGetSelfPrescriptionStateObservable.observe(
+        prescriptionViewModel.uiViewGetPatientPrescriptionStateObservable.observe(
             this,
-            getSelfPrescriptionObserver
+            getPlanPrescriptionObserver
+        )
+        prescriptionViewModel.uiViewGetPatientStatusStateObservable.observe(
+            this,
+            getPatientStatusObserver
         )
     }
 
     //Observers
-    private val getSelfPrescriptionObserver = Observer<UIViewState<List<Prescription>>> {
+    private val getPlanPrescriptionObserver = Observer<UIViewState<Prescription>> {
         when (it) {
             is UIViewState.Success -> {
                 val prescriptionObserver = it.result
+                val list = mutableListOf<Prescription>()
+                list.add(prescriptionObserver)
                 binding.run {
-                    prescriptionAdapter = PrescriptionAdapter(prescriptionObserver,user)
+                    prescriptionAdapter = PrescriptionPatientAdapter(list)
                     recycler.adapter = prescriptionAdapter
                 }
+            }
+            is UIViewState.Error -> {
+                toast(it.message)
+            }
+        }
+    }
+
+    private val getPatientStatusObserver = Observer<UIViewState<List<Status>>> {
+        when (it) {
+            is UIViewState.Success -> {
+                val patientStatusObserver = it.result
+                for (item in patientStatusObserver) {
+                    if (user.id == item.userId) monitoringPlanId = item.monitoringPlanId!!
+                }
+
+                prescriptionViewModel.getPlanPrescription(monitoringPlanId)
             }
             is UIViewState.Error -> {
                 toast(it.message)
@@ -113,7 +139,7 @@ class PatientPrescriptionActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -141,7 +167,7 @@ class PatientPrescriptionActivity : AppCompatActivity() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)

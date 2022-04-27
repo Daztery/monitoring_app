@@ -3,6 +3,7 @@ package com.example.monitoringapp.ui.doctor.patientsemergency
 import android.R
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class PatientsEmergencyFragment : Fragment() {
     private var datePickerDialog2: DatePickerDialog? = null
     private var startDate = 1646978400000
     private var endDate = 1672506000000
+    val listIds = mutableListOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,7 +98,7 @@ class PatientsEmergencyFragment : Fragment() {
                     ) {
                         if (position == 0) return
                         patientsEmergencyViewModel.getPatientsByEmergency(
-                            position,
+                            listIds[position+1],
                             startDate.toString()
                         )
                     }
@@ -133,7 +135,7 @@ class PatientsEmergencyFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -143,16 +145,18 @@ class PatientsEmergencyFragment : Fragment() {
             is UIViewState.Success -> {
                 //binding.progressBar.gone()
                 val itemObserver = it.result
+                val listNames = mutableListOf<String>()
 
-                val list = mutableListOf<String>()
-                list.add("Seleccionar tipo de emergencia")
+                listNames.add("Seleccionar tipo de emergencia")
+                listIds.add(0)
 
                 for (item in itemObserver) {
-                    list.add(item.name!!)
+                    listNames.add(item.name!!)
+                    listIds.add(item.id!!)
                 }
 
                 val arrayAdapter =
-                    ArrayAdapter(requireContext(), R.layout.simple_spinner_item, list)
+                    ArrayAdapter(requireContext(), R.layout.simple_spinner_item, listNames)
                 arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
                 binding.run {
@@ -166,7 +170,7 @@ class PatientsEmergencyFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -184,7 +188,7 @@ class PatientsEmergencyFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -212,7 +216,7 @@ class PatientsEmergencyFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -224,7 +228,6 @@ class PatientsEmergencyFragment : Fragment() {
         )
         datePickerDialog2?.show()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

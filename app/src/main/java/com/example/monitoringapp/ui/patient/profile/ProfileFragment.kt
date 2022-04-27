@@ -100,7 +100,7 @@ class ProfileFragment : Fragment() {
                     progressBar.visible()
                     constraint.gone()
                 }
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }

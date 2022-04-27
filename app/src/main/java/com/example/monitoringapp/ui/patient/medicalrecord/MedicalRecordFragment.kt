@@ -83,7 +83,7 @@ class MedicalRecordFragment : Fragment() {
                     progressBar.visible()
                     constraint.gone()
                 }
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -105,7 +105,7 @@ class MedicalRecordFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }

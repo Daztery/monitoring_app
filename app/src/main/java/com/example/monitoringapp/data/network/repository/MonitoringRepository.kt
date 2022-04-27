@@ -60,7 +60,7 @@ class MonitoringRepository @Inject constructor(
         planId: Int,
         patientId: Int,
         dailyReportDateRequest: DailyReportDateRequest
-    ): OperationResult<CollectionResponse<Plan>> {
+    ): OperationResult<ObjectResponse<TemperatureSaturation>> {
         return monitoringService.getFromPatient(planId, patientId, dailyReportDateRequest)
     }
 

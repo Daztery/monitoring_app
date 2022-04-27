@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AppAYNA</string>
+    <string name="app_name">AppAYNI</string>
     <string name="text_description_app">Sistema de Monitoreo</string>
     <string name="text_title_app">AYNI</string>
 
@@ -51,7 +51,7 @@
     <string name="text_birthday">Fecha de Nacimiento</string>
     <string name="text_age">Edad</string>
     <string name="text_email">Correo electrónico</string>
-    <string name="fullname">Fulano Fulano</string>
+    <string name="fullname">Nombre Apellido</string>
     <string name="text_date_start">Fecha Inicio</string>
     <string name="text_date_end">Fecha Fin</string>
     <string name="button_search">Buscar</string>
@@ -72,7 +72,7 @@
     <string name="date_start_year">01/01/2022</string>
     <string name="title_activity_medical_consultation_detail">MedicalConsultationDetailActivity
     </string>
-    <string name="textview">Textview</string>
+    <string name="textview">-</string>
     <string name="text_password">Contraseña</string>
 
     <!--Spinner-->

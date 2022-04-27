@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.monitoringapp.R
 import com.example.monitoringapp.data.model.Alert
-import com.example.monitoringapp.databinding.ItemAlertBinding
+import com.example.monitoringapp.databinding.ItemAlertPatientBinding
 
 class AlertsPatientAdapter(
     private var items: List<Alert>
@@ -18,7 +18,7 @@ class AlertsPatientAdapter(
     ) :
         RecyclerView.ViewHolder(itemView) {
 
-        private val binding = ItemAlertBinding.bind(itemView)
+        private val binding = ItemAlertPatientBinding.bind(itemView)
 
 
         fun bindTo(item: Alert) {
@@ -39,7 +39,7 @@ class AlertsPatientAdapter(
         viewType: Int,
     ): CardViewHolder {
         val inflater =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_alert, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_alert_patient, parent, false)
         return CardViewHolder(inflater)
     }
 

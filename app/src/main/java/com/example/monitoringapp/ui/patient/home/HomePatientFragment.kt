@@ -82,6 +82,7 @@ class HomePatientFragment : Fragment() {
                     val endDate = Formatter.getLocaleDate(planObserver.endDate!!)
                     textStartDate.text = Formatter.formatLocalDate(startDate ?: Date())
                     textEndDate.text = Formatter.formatLocalDate(endDate ?: Date())
+                    if (DataUtil.getCurrentDate().time > endDate!!.time) textStatus.text = "Alta médica"
                 }
                 planObserver.doctor?.medicalCenterId?.let { it1 ->
                     homePatientViewModel.getMedicalCenter(
@@ -97,7 +98,8 @@ class HomePatientFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 binding.progressBar.gone()
-                toast(it.message)
+                binding.textStatus.text = "Alta médica"
+                toast("El usuario no tiene ningún plan asignado")
             }
         }
     }

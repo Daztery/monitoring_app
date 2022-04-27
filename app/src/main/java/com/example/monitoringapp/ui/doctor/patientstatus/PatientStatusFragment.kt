@@ -111,7 +111,7 @@ class PatientStatusFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -151,7 +151,7 @@ class PatientStatusFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -169,7 +169,7 @@ class PatientStatusFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -197,7 +197,7 @@ class PatientStatusFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)

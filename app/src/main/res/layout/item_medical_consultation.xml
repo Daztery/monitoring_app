@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
             android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/text_patient_name" />
 
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="78dp"
             android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/text_code" />
 
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="112dp"
             android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/text_start_date" />
 

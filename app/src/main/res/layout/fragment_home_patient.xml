@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="68dp"
             android:layout_marginEnd="32dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_register_report" />
 
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="32dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_medical_center" />
 
@@ -162,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="32dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_doctor" />
 
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="32dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_emergency_type" />
 
@@ -182,7 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="32dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_priority" />
 
@@ -193,7 +193,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="30dp"
-            android:text="TextView"
+            android:text="-"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_start_date" />

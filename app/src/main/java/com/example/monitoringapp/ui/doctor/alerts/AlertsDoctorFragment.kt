@@ -82,7 +82,7 @@ class AlertsDoctorFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }

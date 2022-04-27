@@ -20,7 +20,7 @@ object Formatter {
 
     fun getLocaleDate(date: String): Date? {
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
-        parser.timeZone = TimeZone.getTimeZone("UTC")
+        parser.timeZone = TimeZone.getTimeZone("GMT-5")
         val utcDate = parser.parse(date)
         parser.timeZone = TimeZone.getDefault()
 
@@ -35,7 +35,7 @@ object Formatter {
 
     fun formatUTCDate(date: Date): String{
         val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z", Locale.ENGLISH)
-        parser.timeZone = TimeZone.getTimeZone("UTC")
+        parser.timeZone = TimeZone.getTimeZone("GMT-5")
 
         return parser.format(date)
     }

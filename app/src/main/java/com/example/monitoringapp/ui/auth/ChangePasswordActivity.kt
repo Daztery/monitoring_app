@@ -63,7 +63,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                 showAlertDialog()
             }
             is UIViewState.Error -> {
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }

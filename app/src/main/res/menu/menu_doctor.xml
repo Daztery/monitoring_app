@@ -3,7 +3,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_reports_fragment"
-            android:title="Reportes" />
+            android:title="Reporte general" />
         <item
             android:id="@+id/nav_report"
             android:title="Reporte Médico" />

@@ -8,10 +8,9 @@ import javax.inject.Inject
 
 class GetSelfPrescriptionUseCase @Inject constructor(private val prescriptionRepository: PrescriptionRepository) {
     suspend operator fun invoke(
-        active: Boolean,
         from: String,
         to: String
     ): OperationResult<CollectionResponse<Prescription>> {
-        return prescriptionRepository.getSelfPrescription(active, from, to)
+        return prescriptionRepository.getSelfPrescription(true, from, to)
     }
 }

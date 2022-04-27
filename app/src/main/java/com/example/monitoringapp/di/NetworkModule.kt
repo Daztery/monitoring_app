@@ -110,8 +110,6 @@ class TokenHeader : Interceptor {
             newRequest = builder.build()
 
         }
-
-
         return chain.proceed(newRequest)
     }
 }

@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoringapp.data.model.Prescription
 import com.example.monitoringapp.databinding.FragmentPrescriptionBinding
-import com.example.monitoringapp.ui.adapter.PrescriptionAdapter
+import com.example.monitoringapp.ui.adapter.PrescriptionPatientAdapter
 import com.example.monitoringapp.ui.patient.HomePatientActivity
 import com.example.monitoringapp.util.*
 import com.example.monitoringapp.util.Formatter
@@ -29,7 +29,7 @@ class PrescriptionFragment : Fragment() {
     private var _binding: FragmentPrescriptionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var prescriptionAdapter: PrescriptionAdapter
+    private lateinit var prescriptionAdapter: PrescriptionPatientAdapter
 
     private var startDate = 1646978400000
     private var endDate = 1672506000000
@@ -95,8 +95,8 @@ class PrescriptionFragment : Fragment() {
                 binding.progressBar.gone()
                 val prescriptionObserver = it.result
                 binding.run {
-                    //prescriptionAdapter = PrescriptionAdapter(prescriptionObserver)
-                    //recyclerView.adapter = prescriptionAdapter
+                    prescriptionAdapter = PrescriptionPatientAdapter(prescriptionObserver)
+                    recyclerView.adapter = prescriptionAdapter
                 }
             }
             is UIViewState.Loading -> {
@@ -104,7 +104,7 @@ class PrescriptionFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -122,7 +122,7 @@ class PrescriptionFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)
@@ -150,7 +150,7 @@ class PrescriptionFragment : Fragment() {
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                c.set(mYear, mMonth, mDay, 5, 0, 0)
+                c.set(mYear, mMonth, mDay, 12, 0, 0)
                 c.set(Calendar.MILLISECOND, 0)
                 val date = Date(c.timeInMillis)
                 val textCalendar = Formatter.formatLocalDate(date)

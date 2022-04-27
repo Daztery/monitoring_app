@@ -29,8 +29,8 @@ class ReportsFragment : Fragment() {
     private var _binding: FragmentReportsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var priorityReportAdapter: PriorityReportAdapter
-    private lateinit var emergencyReportAdapter: AllEmergencyAdapter
+    private lateinit var priorityReportAdapter: ReportAdapter
+    private lateinit var emergencyReportAdapter: ReportAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +43,7 @@ class ReportsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as HomeDoctorActivity).title = "Reportes"
+        (activity as HomeDoctorActivity).title = "Reporte General"
         setupObservers()
 
         binding.run {
@@ -78,13 +78,13 @@ class ReportsFragment : Fragment() {
     }
 
     //Observers
-    private val getEmergencyReportObserver = Observer<UIViewState<List<Emergency>>> {
+    private val getEmergencyReportObserver = Observer<UIViewState<List<Report>>> {
         when (it) {
             is UIViewState.Success -> {
                 //binding.progressBar.gone()
                 val itemObserver = it.result
                 binding.run {
-                    emergencyReportAdapter = AllEmergencyAdapter(itemObserver)
+                    emergencyReportAdapter = ReportAdapter(itemObserver)
                     recyclerEmergency.adapter = emergencyReportAdapter
                 }
             }
@@ -93,18 +93,18 @@ class ReportsFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
 
-    private val getPriorityReportObserver = Observer<UIViewState<List<Priority>>> {
+    private val getPriorityReportObserver = Observer<UIViewState<List<Report>>> {
         when (it) {
             is UIViewState.Success -> {
                 //binding.progressBar.gone()
                 val itemObserver = it.result
                 binding.run {
-                    priorityReportAdapter = PriorityReportAdapter(itemObserver)
+                    priorityReportAdapter = ReportAdapter(itemObserver)
                     recyclerPriority.adapter = priorityReportAdapter
                 }
             }
@@ -113,7 +113,7 @@ class ReportsFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -150,7 +150,7 @@ class ReportsFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 //binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }

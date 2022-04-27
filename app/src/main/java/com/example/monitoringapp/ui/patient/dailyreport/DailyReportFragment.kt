@@ -90,19 +90,13 @@ class DailyReportFragment : Fragment() {
             }
 
             buttonRegister.setOnClickListener {
-                if (editTemperature.text.isNotEmpty() &&
-                    editFrequency.text.isNotEmpty() &&
-                    editOxygenSaturation.text.isNotEmpty()
-                ) {
-                    val dailyReportRequest = DailyReportRequest()
-                    dailyReportRequest.heartRate = editFrequency.text.toString().toDouble()
-                    dailyReportRequest.temperature = editTemperature.text.toString().toDouble()
-                    dailyReportRequest.saturation = editOxygenSaturation.text.toString().toDouble()
-                    dailyReportRequest.currentDate = Formatter.formatLocalYearFirstDate(Date())
-                    dailyReportViewModel.createReport(planId, dailyReportRequest)
-                } else {
-                    toast(Constants.DEFAULT_ERROR)
-                }
+                val dailyReportRequest = DailyReportRequest()
+                if(editFrequency.text.isNotEmpty()) dailyReportRequest.heartRate = editFrequency.text.toString().toDouble()
+                if(editTemperature.text.isNotEmpty()) dailyReportRequest.temperature = editTemperature.text.toString().toDouble()
+                if(editOxygenSaturation.text.isNotEmpty()) dailyReportRequest.saturation = editOxygenSaturation.text.toString().toDouble()
+                if(editGeneralDiscomfort.text.isNotEmpty()) dailyReportRequest.discomfort = editGeneralDiscomfort.text.toString()
+                dailyReportRequest.currentDate = Formatter.formatLocalYearFirstDate(Date())
+                dailyReportViewModel.createReport(planId, dailyReportRequest)
             }
         }
     }
@@ -135,7 +129,7 @@ class DailyReportFragment : Fragment() {
             }
             is UIViewState.Error -> {
                 binding.progressBar.gone()
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
@@ -147,7 +141,7 @@ class DailyReportFragment : Fragment() {
                 planId = planObserver.id!!
             }
             is UIViewState.Error -> {
-                toast(Constants.DEFAULT_ERROR)
+                toast(it.message)
             }
         }
     }
