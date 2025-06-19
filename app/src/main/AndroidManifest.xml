@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.monitoringapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MVVMApplication"
         android:allowBackup="true"
@@ -11,8 +13,64 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoringApp">
         <activity
-            android:name=".ui.MainActivity"
-            android:exported="true">
+            android:name=".ui.doctor.alerts.AlertDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.registermonitoringplan.RegisterPrescriptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.registermonitoringplan.RegisterMonitoringPlanDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.prescription.PatientPrescriptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.medicalconsultation.MedicalConsultationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.medicalmonitoring.MedicalMonitoringActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.historyclinic.ElectronicMedicalRecordDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.doctor.medicalconsultation.MedicalConsultationDetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_medical_consultation_detail"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
+        <activity
+            android:name=".ui.doctor.searchpatient.EditPatientActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.doctor.searchpatient.SearchPatientActivity"
+            android:exported="false"
+            android:label="@string/title_activity_search_patient"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
+        <activity
+            android:name=".ui.doctor.HomeDoctorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.information.InformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.patient.HomePatientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.ChangePasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
+        <activity
+            android:name=".ui.auth.ForgotPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar" />
+        <activity
+            android:name=".ui.StartActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MonitoringApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

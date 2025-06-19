@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ToolbarView">
+        <!-- Sets the toolbar title. -->
+        <attr name="toolbarTitleValue" format="string"/>
+        <!-- Defines whether the toolbar should include a back arrow button or not. Default value is true. -->
+        <attr name="hasHamburguerButton" format="boolean"/>
+    </declare-styleable>
+
+
+</resources>
